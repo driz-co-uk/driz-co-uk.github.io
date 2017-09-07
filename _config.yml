@@ -45,6 +45,8 @@ plugins:
 
 exclude:
   - Rakefile
+  - vendor
+  - config.ru
 
 assets:
   compress:
