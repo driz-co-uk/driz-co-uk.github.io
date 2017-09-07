@@ -1,8 +1,11 @@
-ruby '2.3.4'
-
 source "https://rubygems.org"
 
 gem "jekyll", "3.5.2"
+
+gem 'kramdown'
+gem 'rack-jekyll'
+gem 'rake'
+gem 'puma'
 
 gem "font-awesome-sass"
 
