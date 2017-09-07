@@ -58,8 +58,8 @@ assets:
   skip_prefix_with_cdn: false
   prefix: "/assets"
   digest: true
-  assets:
-    - "*"
+  # assets:
+  #   - "*"
   sources:
     - _assets/css
     - _assets/fonts
@@ -72,8 +72,3 @@ assets:
     automatic_img_size: true
     # This will add the digest path as an alt attribute for an img tag.
     automatic_img_alt : true
-    
-sass:
-  style: nested
-  line_numbers: true
-  sourcemap: file
