@@ -47,6 +47,7 @@ exclude:
   - Rakefile
   - vendor
   - config.ru
+  - Procfile
 
 assets:
   compress:
