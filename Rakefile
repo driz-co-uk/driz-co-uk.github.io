@@ -3,6 +3,13 @@ require "tmpdir"
 require "bundler/setup"
 require "jekyll"
 
+# for heroku
+namespace :assets do
+  task :precompile do
+    puts `bundle exec jekyll build`
+  end
+end
+
 GITHUB_REPONAME = "driz-co-uk/driz-co-uk.github.io"
 
 desc "Generate blog files"
