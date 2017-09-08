@@ -1,24 +1,148 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+@import "http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic";
+@import "http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,300italic,400italic,700,700italic,800,800italic";
+
 * {
     margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background: #111;
+    color: #ffffff;
+    font-family: 'Merriweather', serif;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+html, body {
+    height: 100%;
+}
+
+img {
+    vertical-align: middle;
+    max-width: 100%;
+}
+
+a {
+    color: #999999;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .header {
-    height: 20px;
-    .header__inner {
-        height: 10px;
+    padding: 40px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    .container {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-end;
     }
-    // this is a comment
+
+    .menu {
+        list-style: none;
+        margin: 0 40px 0 0;
+        order: 1;
+        display: flex;
+        flex-flow: row nowrap;
+        li {
+            display: inline-block;
+            margin-left: 20px;
+            &::first-child {
+                margin-left: 0;
+            }
+        }
+    }
+    .logo {
+        order: 2;
+        height: 44px;
+        img {
+            height: 100%;
+        }
+    }
 }
-.cameron {
-    display: block;
+
+.masthead {
+    height: 100%;
 }
-.hello {
-    display: inline-block;
+
+.masthead {
+    .container {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        min-height: 100%;
+    }
 }
-.hi {
-    display: block;
+
+h1 {
+    font-size: 64px;
+    line-height: 72px;
+    color: #ffffff;
 }
-/* this is another comment */
+h2 {
+    font-size: 48px;
+    line-height: 56px;
+    color: #cccccc;
+}
+h3 {
+    font-size: 32px;
+    line-height: 40px;
+    color: #aaaaaa;
+}
+
+.section {
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.columns {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0 -40px;
+    .column {
+        padding: 0 40px;
+        position: relative;
+        width: 100%;
+        &.column--half {
+            width: 50%;
+        }
+        &.column--two-third {
+            width: 66.6666666666%;
+        }
+        &.column--third {
+            width: 33.3333333333%;
+        }
+    }
+}
+
+.footer {
+    padding: 40px 0;
+    .copyright {
+        font-size: 12px;
+        line-height: 20px;
+    }
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}

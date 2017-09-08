@@ -72,6 +72,6 @@ assets:
     liquid: true
     integrity: true
     # This will add height and width attributes for an img tag.
-    automatic_img_size: true
+    automatic_img_size: false
     # This will add the digest path as an alt attribute for an img tag.
     automatic_img_alt : true
