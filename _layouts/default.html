@@ -1,10 +1,16 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
-        <title>Test</title>
+        <meta charset="utf-8">
+        <title>driz - Cameron Drysdale</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="description" content="Hello! I'm Cameron &mdash; a software engineer, graphic designer, amateur photographer, and mountain biker based in Kelham Island, Sheffield.">
         {% css main %}
     </head>
     <body>
-        {{ content }}
+        <div class="content">
+            <div class="logo">{% img 'logo2.svg' alt:'driz logo' %}</div>
+            {{ content }}
+        </div>
     </body>
 </html>

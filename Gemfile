@@ -7,7 +7,7 @@ gem 'rack-jekyll'
 gem 'rake'
 gem 'puma'
 
-gem "font-awesome-sass"
+gem "font-awesome-sass", '~> 5.5.0'
 
 group :jekyll_plugins do
    gem "jekyll-feed", "~> 0.6"
