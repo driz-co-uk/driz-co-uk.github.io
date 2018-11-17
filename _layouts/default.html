@@ -8,9 +8,17 @@
         {% css main %}
     </head>
     <body>
+
         <div class="content">
-            <div class="logo">{% img 'logo2.svg' alt:'driz logo' %}</div>
+            <div class="logo">{% img 'logo.svg' alt:'driz logo' %}</div>
             {{ content }}
         </div>
+
+        <div class="background">
+            <!--<video width="100%" height="100%" preload="auto" muted crossorigin="anonymous" autoplay loop>
+                <source src="% asset_path 'film.mp4' %" type="video/mp4">
+            </video>-->
+        </div>
+
     </body>
 </html>
