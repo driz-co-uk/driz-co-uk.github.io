@@ -92,7 +92,12 @@ p {
 }
 
 .logo {
-    margin-bottom: 80px;
+    @media (max-width: 767px) {
+        margin-bottom: 40px;
+    }
+    @media (min-width: 768px) {
+        margin-bottom: 80px;
+    }
     img  {
         @media (max-width: 767px) {
             height: 48px;
