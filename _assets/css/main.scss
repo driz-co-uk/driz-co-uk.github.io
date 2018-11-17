@@ -74,14 +74,26 @@ p {
 }
 
 .title {
-    font-size: 48px;
-    line-height: 64px;
+    @media (max-width: 767px) {
+        font-size: 32px;
+        line-height: 40px;
+    }
+    @media (min-width: 768px) {
+        font-size: 48px;
+        line-height: 64px;
+    }
     margin-bottom: 40px;
     font-weight: 900;
 }
 .intro {
-    font-size: 24px;
-    line-height: 40px;
+    @media (max-width: 767px) {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    @media (min-width: 768px) {
+        font-size: 24px;
+        line-height: 40px;
+    }
     margin-bottom: 40px;
 }
 
