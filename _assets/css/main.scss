@@ -15,10 +15,10 @@
 
 body {
     background-color: #ffffff;
-    background-image: asset_url('background.jpg');
-    background-position: bottom right;
-    background-repeat: no-repeat;
-    background-size: cover;
+    // background-image: asset_url('background.jpg');
+    // background-position: bottom right;
+    // background-repeat: no-repeat;
+    // background-size: cover;
     color: rgba(0,0,0,.75);
     font-family: 'Merriweather', serif;
     font-size: 16px;
@@ -103,10 +103,10 @@ p {
     }
     img  {
         @media (max-width: 767px) {
-            height: 48px;
+            height: 32px;
         }
         @media (min-width: 768px) {
-            height: 72px;
+            height: 64px;
         }
     }
 }
