@@ -37,7 +37,7 @@ img {
 }
 
 a {
-    color: #00aeff;
+    color: #00AEFF;
     text-decoration: none;
     transition: all .3s ease-in-out;
     &:hover {
@@ -51,7 +51,7 @@ p {
     a {
         font-weight: 600;
         color: #111111;
-        border-bottom: #00aeff 2px solid;
+        border-bottom: #00AEFF 2px solid;
         &:hover {
             color: #111111;
             border-bottom-color: #111111;
@@ -143,12 +143,17 @@ p {
             margin-right: 0;
         }
         .social__link {
-            color: #00aeff;
+            color: #00AEFF;
             &:hover {
                 color: #111111;
             }
             .social__icon {
-                font-size: 32px;
+                @media (max-width: 767px) {
+                    font-size: 24px;
+                }
+                @media (min-width: 768px) {
+                    font-size: 32px;
+                }
             }
         }
     }
