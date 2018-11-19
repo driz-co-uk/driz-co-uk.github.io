@@ -133,8 +133,12 @@ p {
     margin: 40px 0 0 0;
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
     .social__item {
         margin-right: 10px;
+        &--space {
+            margin-right: 40px;
+        }
         &:last-child {
             margin-right: 0;
         }
