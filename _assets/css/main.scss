@@ -64,7 +64,7 @@ p {
     flex-flow: column nowrap;
     justify-content: center;
     @media (max-width: 767px) {
-        padding: 20px 20px;
+        padding: 40px 20px;
     }
     @media (min-width: 768px) {
         padding: 80px 40px;
@@ -83,10 +83,10 @@ p {
     }
     img  {
         @media (max-width: 767px) {
-            height: 32px;
+            height: 48px;
         }
         @media (min-width: 768px) {
-            height: 64px;
+            height: 72px;
         }
     }
 }
