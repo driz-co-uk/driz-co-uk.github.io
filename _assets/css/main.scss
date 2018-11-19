@@ -15,12 +15,14 @@
 
 body {
     background-color: #ffffff;
-    // background-image: asset_url('background.jpg');
-    // background-position: bottom right;
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    color: rgba(0,0,0,.75);
-    font-family: 'Merriweather', serif;
+    @media (min-width: 1200px) {
+        background-image: asset_url('background.png');
+        background-position: center right;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    color: #111111;
+    font-family: 'Merriweather Sans', sans-serif;
     font-size: 16px;
     line-height: 24px;
 }
@@ -35,47 +37,25 @@ img {
 }
 
 a {
-    color: rgba(0,0,0,.75);
+    color: #00aeff;
     text-decoration: none;
     transition: all .3s ease-in-out;
     &:hover {
-        color: #000000;
+        color: #111111;
     }
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Merriweather Sans', sans-serif;
 }
 
 p {
     font-size: 16px;
     line-height: 24px;
     a {
-        border-bottom: rgba(0,0,0,.125) 2px solid;
+        font-weight: 600;
+        color: #111111;
+        border-bottom: #00aeff 2px solid;
         &:hover {
-            border-bottom-color: rgba(0,0,0,.25);
+            color: #111111;
+            border-bottom-color: #111111;
         }
-    }
-}
-
-
-.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    video {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
     }
 }
 
@@ -115,10 +95,16 @@ p {
     flex: 1;
 }
 
+@media (max-width: 767px) {
+    .break {
+        display: block;
+    }
+}
+
 .title {
     @media (max-width: 767px) {
-        font-size: 32px;
-        line-height: 40px;
+        font-size: 40px;
+        line-height: 56px;
     }
     @media (min-width: 768px) {
         font-size: 48px;
@@ -130,14 +116,15 @@ p {
 
 .description {
     @media (max-width: 767px) {
-        font-size: 16px;
-        line-height: 24px;
-    }
-    @media (min-width: 768px) {
         font-size: 24px;
         line-height: 40px;
     }
-    max-width: 900px;
+    @media (min-width: 768px) {
+        font-size: 32px;
+        line-height: 48px;
+    }
+    font-family: 'Merriweather', serif;
+    max-width: 750px;
     margin-bottom: 40px;
 }
 
@@ -152,9 +139,9 @@ p {
             margin-right: 0;
         }
         .social__link {
-            color: rgba(0,0,0,.75);
+            color: #00aeff;
             &:hover {
-                color: #000000;
+                color: #111111;
             }
             .social__icon {
                 font-size: 32px;
