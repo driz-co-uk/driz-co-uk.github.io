@@ -83,11 +83,12 @@ p {
         @media (min-width: 992px) {
             display: flex;
             flex-flow: column nowrap;
-            justify-content: flex-end;
+            justify-content: center;
             max-width: 450px;
+            padding-left: 80px;
             img {
-                max-width: initial;
-                width: 125%;
+                //max-width: initial;
+                //width: 125%;
             }
         }
     }
