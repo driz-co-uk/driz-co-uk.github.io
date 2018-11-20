@@ -100,10 +100,10 @@ p {
         margin-bottom: 80px;
     }
     img  {
-        @media (max-width: 767px) {
+        @media (max-width: 991px) {
             height: 48px;
         }
-        @media (min-width: 768px) {
+        @media (min-width: 992px) {
             height: 72px;
         }
     }
