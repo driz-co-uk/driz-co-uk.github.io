@@ -51,10 +51,10 @@ p {
     a {
         font-weight: 600;
         color: #111111;
-        border-bottom: #00AEFF 2px solid;
+        box-shadow: #00AEFF 0 -2px 0 inset;
         &:hover {
             color: #111111;
-            border-bottom-color: #111111;
+            box-shadow: #00AEFF 0 -24px 0 inset;
         }
     }
 }
