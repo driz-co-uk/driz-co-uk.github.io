@@ -120,11 +120,11 @@ p {
 }
 
 .title {
-    @media (max-width: 767px) {
+    @media (max-width: 1199px) {
         font-size: 40px;
         line-height: 56px;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 1200px) {
         font-size: 48px;
         line-height: 64px;
     }
@@ -133,11 +133,11 @@ p {
 }
 
 .description {
-    @media (max-width: 767px) {
+    @media (max-width: 1199px) {
         font-size: 24px;
         line-height: 40px;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 1200px) {
         font-size: 32px;
         line-height: 48px;
     }
