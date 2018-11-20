@@ -82,7 +82,7 @@ p {
         @media (min-width: 992px) {
             display: flex;
             flex-flow: column nowrap;
-            justify-content: center;
+            justify-content: flex-end;
             max-width: 450px;
             img {
                 max-width: initial;
