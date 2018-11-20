@@ -61,6 +61,7 @@ p {
     min-height: 100%;
     margin: auto;
     @media (max-width: 767px) {
+        text-align: center;
         padding: 40px 20px;
     }
     @media (min-width: 768px) {
@@ -148,15 +149,16 @@ p {
 
 .social {
     list-style: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
     @media (max-width: 767px) {
         margin-top: 40px;
+        justify-content: center;
     }
     @media (min-width: 768px) {
         margin-top: 80px;
     }
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
     .social__item {
         margin-right: 10px;
         &--space {
