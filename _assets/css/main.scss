@@ -113,7 +113,7 @@ p {
 }
 
 .intro {
-    flex: 1;
+    //flex: 1;
 }
 
 @media (max-width: 767px) {
@@ -170,17 +170,12 @@ p {
             margin-right: 0;
         }
         .social__link {
-            color: #00AEFF;
+            color: #999999;
             &:hover {
                 color: #111111;
             }
             .social__icon {
-                @media (max-width: 767px) {
-                    font-size: 24px;
-                }
-                @media (min-width: 768px) {
-                    font-size: 32px;
-                }
+                font-size: 24px;
             }
         }
     }
