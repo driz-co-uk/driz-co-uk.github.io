@@ -112,10 +112,6 @@ p {
     }
 }
 
-.intro {
-    //flex: 1;
-}
-
 @media (max-width: 767px) {
     .break {
         display: block;
@@ -123,27 +119,15 @@ p {
 }
 
 .title {
-    @media (max-width: 1199px) {
-        font-size: 40px;
-        line-height: 56px;
-    }
-    @media (min-width: 1200px) {
-        font-size: 48px;
-        line-height: 64px;
-    }
+    font-size: calc(32px + 1vw);
+    line-height: calc(48px + 1vw);
     margin-bottom: 40px;
     font-weight: 900;
 }
 
 .description {
-    @media (max-width: 1199px) {
-        font-size: 24px;
-        line-height: 40px;
-    }
-    @media (min-width: 1200px) {
-        font-size: 32px;
-        line-height: 48px;
-    }
+    font-size: calc(16px + 1vw);
+    line-height: calc(32px + 1vw);
     font-family: 'Merriweather', serif;
     max-width: 750px;
     margin-bottom: 40px;
