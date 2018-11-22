@@ -105,6 +105,7 @@ p {
         margin-bottom: 80px;
     }
     img  {
+        transition: all .3s ease-in-out;
         @media (max-width: 991px) {
             height: 48px;
         }
@@ -120,11 +121,53 @@ p {
     }
 }
 
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@mixin fluid-font-size($min-vw, $max-vw, $min-font-size, $max-font-size) {
+    $u1: unit($min-vw);
+    $u2: unit($max-vw);
+    $u3: unit($min-font-size);
+    $u4: unit($max-font-size);
+    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+        & {
+            font-size: $min-font-size;
+            @media screen and (min-width: $min-vw) {
+                font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+            }
+            @media screen and (min-width: $max-vw) {
+                font-size: $max-font-size;
+            }
+        }
+    }
+}
+
+@mixin fluid-line-height($min-vw, $max-vw, $min-font-size, $max-font-size) {
+    $u1: unit($min-vw);
+    $u2: unit($max-vw);
+    $u3: unit($min-font-size);
+    $u4: unit($max-font-size);
+    @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+        & {
+            line-height: $min-font-size;
+            @media screen and (min-width: $min-vw) {
+                line-height: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+            }
+            @media screen and (min-width: $max-vw) {
+                line-height: $max-font-size;
+            }
+        }
+    }
+}
+
 .title {
     //font-size: calc(32px + 1vw);
     //line-height: calc(48px + 1vw);
-    font-size: calc(36px + (44 - 36) * ((100vw - 320px) / (1200 - 320)));
-    line-height: calc(52px + (60 - 52) * ((100vw - 320px) / (1200 - 320)));
+    //font-size: calc(36px + (48 - 36) * ((100vw - 320px) / (1200 - 320)));
+    //line-height: calc(52px + (64 - 52) * ((100vw - 320px) / (1200 - 320)));
+    @include fluid-font-size(320px, 1200px, 36px, 48px);
+    @include fluid-line-height(320px, 1200px, 52px, 64px);
     margin-bottom: 40px;
     font-weight: 900;
 }
@@ -132,8 +175,10 @@ p {
 .description {
     //font-size: calc(16px + 1vw);
     //line-height: calc(32px + 1vw);
-    font-size: calc(20px + (28 - 20) * ((100vw - 320px) / (1200 - 320)));
-    line-height: calc(36px + (44 - 36) * ((100vw - 320px) / (1200 - 320)));
+    //font-size: calc(20px + (32 - 20) * ((100vw - 320px) / (1200 - 320)));
+    //line-height: calc(36px + (46 - 36) * ((100vw - 320px) / (1200 - 320)));
+    @include fluid-font-size(320px, 1200px, 20px, 32px);
+    @include fluid-line-height(320px, 1200px, 36px, 46px);
     font-family: 'Merriweather', serif;
     margin-bottom: 40px;
 }
