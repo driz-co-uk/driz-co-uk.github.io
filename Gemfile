@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "jekyll", "3.5.2"
+gem "jekyll", "3.8.5"
 
 gem 'kramdown'
 gem 'rack-jekyll'
@@ -10,7 +10,7 @@ gem 'puma'
 gem "font-awesome-sass", '~> 5.5.0'
 
 group :jekyll_plugins do
-   gem 'sprockets', '4.0.0.beta8', github: 'rails/sprockets'
+   gem 'sprockets', '~> 4.0.0.beta8'
    gem "jekyll-assets", "3.0.9"
    gem "jekyll-sitemap"
 end
