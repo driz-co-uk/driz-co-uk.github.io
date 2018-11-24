@@ -9,7 +9,7 @@ layout: compress
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="description" content="Hello. I'm Cameron &mdash; a software engineer, graphic designer, photographer, and mountain biker based in Kelham Island, Sheffield.">
         <link rel="shortcut icon" href="/favicon.ico">
-        {% css main %}
+        {% asset main.css %}
         <meta name="google-site-verification" content="6JZG3v_UCsWSTG86tLE4SYPT_kkFNI-wey7RCl5koOg">
 	</head>
 	<body class="default">
@@ -25,11 +25,11 @@ layout: compress
 
         <div class="content">
             <div class="content__left">
-                <div class="logo">{% img 'logo.svg' alt:'driz logo' %}</div>
+                <div class="logo">{% asset 'logo.svg' alt:'driz logo' %}</div>
                 {{ content }}
             </div>
             <div class="content__right">
-                {% img 'cameron.jpg' alt:'Photo of Cameron' %}
+                {% asset 'cameron.jpg' alt:'Photo of Cameron' %}
             </div>
         </div>
 
