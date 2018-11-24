@@ -10,7 +10,6 @@ gem 'puma'
 gem "font-awesome-sass", '~> 5.5.0'
 
 group :jekyll_plugins do
-   gem "jekyll-feed", "~> 0.6"
    gem 'sprockets', '4.0.0.beta8', github: 'rails/sprockets'
    gem "jekyll-assets", "3.0.9"
    gem "jekyll-sitemap"
