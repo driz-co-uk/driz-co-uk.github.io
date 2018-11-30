@@ -90,13 +90,13 @@ p {
             max-width: 450px;
             padding-left: 80px;
             .photo {
-                background-color: #00AAFF;
-                border-radius: 0 12.5% 0 12.5%;
+                // background-color: #00AAFF;
+                // border-radius: 0 12.5% 0 12.5%;
                 img {
                     border-radius: 0 12.5% 0 12.5%;
-                    &:hover {
-                        mix-blend-mode: multiply;
-                    }
+                    // &:hover {
+                    //     mix-blend-mode: multiply;
+                    // }
                 }
             }
         }
