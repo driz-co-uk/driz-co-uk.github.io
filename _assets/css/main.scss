@@ -94,7 +94,10 @@ p {
                 border-radius: 0 12.5% 0 12.5%;
                 img {
                     border-radius: 0 12.5% 0 12.5%;
-                    mix-blend-mode: multiply;
+                    transition: all .3s ease-in-out;
+                    &:hover {
+                        mix-blend-mode: multiply;
+                    }
                 }
             }
         }
