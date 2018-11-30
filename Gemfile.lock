@@ -109,7 +109,7 @@ DEPENDENCIES
   font-awesome-sass (~> 5.5.0)
   jekyll (= 3.8.5)
   jekyll-assets (= 3.0.9)
-  jekyll-sitemap
+  jekyll-sitemap (= 1.2.0)
   kramdown
   puma
   rack-jekyll
