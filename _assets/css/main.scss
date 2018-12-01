@@ -16,7 +16,7 @@
 
 body {
     background-color: #111111;
-    color: #cccccc;
+    color: #CCCCCC;
     font-family: 'Merriweather Sans', sans-serif;
     font-size: 16px;
     line-height: 24px;
@@ -33,7 +33,7 @@ img {
 }
 
 a {
-    color: #aaaaaa;
+    color: #CCCCCC;
     text-decoration: none;
     transition: all .3s ease-in-out;
     &:hover {
@@ -46,7 +46,7 @@ p {
     line-height: 24px;
     a {
         font-weight: 600;
-        color: #cccccc;
+        color: #CCCCCC;
         box-shadow: #00AAFF 0 -2px 0 inset;
         &:hover {
             color: #111111;
