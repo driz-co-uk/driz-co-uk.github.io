@@ -193,6 +193,18 @@ p {
     margin-bottom: 40px;
 }
 
+.footer {
+    display: flex;
+    @media (max-width: 767px) {
+        margin-top: 40px;
+        flex-flow: column nowrap;
+    }
+    @media (min-width: 768px) {
+        margin-top: 80px;
+        flex-flow: row nowrap;
+    }
+}
+
 .social {
     list-style: none;
     display: flex;
@@ -200,16 +212,18 @@ p {
     align-items: center;
     @media (max-width: 767px) {
         margin-top: 40px;
+        &:first-child {
+            margin-top: 0;
+        }
         justify-content: center;
     }
     @media (min-width: 768px) {
-        margin-top: 80px;
+        &:first-child {
+            margin-right: 40px;
+        }
     }
     .social__item {
         margin-right: 10px;
-        &--space {
-            margin-right: 40px;
-        }
         &:last-child {
             margin-right: 0;
         }
