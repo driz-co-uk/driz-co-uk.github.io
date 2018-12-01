@@ -47,10 +47,23 @@ p {
     a {
         font-weight: 600;
         color: #CCCCCC;
-        box-shadow: #00AAFF 0 -2px 0 inset;
+        position: relative;
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            height: 2px;
+            background-color: #00AAFF;
+            transition: all .3s ease-in-out;
+        }
         &:hover {
             color: #111111;
-            box-shadow: #00AAFF 0 -24px 0 inset;
+            &:after {
+                height: 24px;
+            }
         }
     }
 }
