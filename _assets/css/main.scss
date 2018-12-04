@@ -89,12 +89,13 @@ p {
     }
     @media (min-width: 992px) {
         display: grid;
-        grid-template-columns: 66.6666666666% 33.3333333333%;
+        grid-template-columns: 2fr 1fr;
         grid-template-rows: auto auto auto;
         grid-template-areas:
             "logo photo"
             "intro photo"
             "footer photo";
+        grid-column-gap: 40px;
         max-width: 1200px;
         align-items: center;
         .logo {
@@ -103,7 +104,6 @@ p {
         }
         .intro {
             grid-area: intro;
-            padding-right: 80px;
         }
         .photo {
             grid-area: photo;
