@@ -26,6 +26,8 @@ body {
     line-height: 24px;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
