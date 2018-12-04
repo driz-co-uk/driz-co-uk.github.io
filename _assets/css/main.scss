@@ -10,7 +10,6 @@
     border: 0;
     outline: 0;
     box-sizing: border-box;
-    -webkit-text-size-adjust: none;
 }
 
 ::selection {
@@ -27,7 +26,8 @@ body {
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 html, body {
