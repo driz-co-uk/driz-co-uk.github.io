@@ -108,7 +108,7 @@ assets:
   cdn:
     baseurl: false
     destination: false
-    url: null
+    url: 'https://duxd4cl9e05b5.cloudfront.net'
   # --
   # These are all default. No need to add them
   #   Only use this if you have more.

@@ -14,10 +14,11 @@ GITHUB_REPONAME = "driz-co-uk/driz-co-uk.github.io"
 
 desc "Generate blog files"
 task :generate do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => ".",
-    "destination" => "_site"
-  })).process
+  # Jekyll::Site.new(Jekyll.configuration({
+  #   "source"      => ".",
+  #   "destination" => "_site"
+  # })).process
+  system "bundle exec jekyll build JEKYLL_ENV=production"
 end
 
 desc "Generate and publish blog to gh-pages"
