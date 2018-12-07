@@ -53,8 +53,6 @@ GEM
       jekyll (~> 3.1)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
-    jekyll-sitemap (1.2.0)
-      jekyll (~> 3.3)
     jekyll-watch (2.1.2)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -109,11 +107,10 @@ DEPENDENCIES
   font-awesome-sass (~> 5.5.0)
   jekyll (= 3.8.5)
   jekyll-assets (= 3.0.12)
-  jekyll-sitemap (= 1.2.0)
-  kramdown
-  puma
-  rack-jekyll
-  rake
+  kramdown (= 1.17.0)
+  puma (= 3.12.0)
+  rack-jekyll (= 0.5.0)
+  rake (= 12.3.1)
   sprockets (~> 4.0.0.beta8)
   tzinfo-data
 

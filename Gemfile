@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 gem 'jekyll', '3.8.5'
+gem 'kramdown', '1.17.0'
 
-gem 'kramdown'
-gem 'rack-jekyll'
-gem 'rake'
-gem 'puma'
+# used when running on Heroku or AWS
+gem 'rack-jekyll', '0.5.0'
+gem 'rake', '12.3.1'
+gem 'puma', '3.12.0'
 
 gem 'font-awesome-sass', '~> 5.5.0'
 
