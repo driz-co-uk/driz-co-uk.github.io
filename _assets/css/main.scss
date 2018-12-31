@@ -94,12 +94,15 @@ p {
         grid-template-columns: 2fr 1fr;
         grid-template-rows: auto auto auto;
         grid-template-areas:
-            "logo photo"
+            "logo contact"
             "intro photo"
-            "footer photo";
-        grid-column-gap: 40px;
+            "footer footer";
+        grid-column-gap: 80px;
         max-width: 1200px;
         align-items: center;
+        .contact {
+            grid-area: contact;
+        }
         .logo {
             grid-area: logo;
             align-self: end;
@@ -125,10 +128,27 @@ p {
         }
     }
     @media (min-width: 992px) {
-        margin-bottom: 80px;
+        margin-bottom: 40px;
         img {
             height: 72px;
         }
+    }
+}
+
+.contact {
+    list-style: none;
+    margin: 0;
+    .contact__item {
+        margin-bottom: 4px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        @media (min-width: 992px) {
+            text-align: right;
+        }
+       .contact__link {
+           font-weight: 600;
+       }
     }
 }
 
@@ -169,7 +189,7 @@ p {
         flex-flow: column nowrap;
     }
     @media (min-width: 992px) {
-        margin-top: 80px;
+        margin-top: 40px;
         flex-flow: row nowrap;
     }
     .social {
