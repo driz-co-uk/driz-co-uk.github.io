@@ -85,6 +85,10 @@ p {
         padding-top: calc(env(safe-area-inset-top) + 40px);
         padding-bottom: calc(constant(safe-area-inset-bottom) + 40px);
         padding-bottom: calc(env(safe-area-inset-bottom) + 40px);
+        padding-left: calc(constant(safe-area-inset-left) + 20px);
+        padding-left: calc(env(safe-area-inset-left) + 20px);
+        padding-right: calc(constant(safe-area-inset-right) + 20px);
+        padding-right: calc(env(safe-area-inset-right) + 20px);
     }
     @media (min-width: 768px) {
         padding: 40px 40px;
