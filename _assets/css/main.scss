@@ -163,6 +163,11 @@ p {
         .contact__link {
             font-weight: 600;
         }
+        @media (max-width: 991px) {
+            .contact__icon {
+                display: none;
+            }
+        }
     }
 }
 
