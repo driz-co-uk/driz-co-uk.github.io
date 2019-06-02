@@ -3,3 +3,4 @@ _site
 .asset-cache
 .jekyll-metadata
 .jekyll-cache
+.git-metadata
