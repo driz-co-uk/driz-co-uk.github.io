@@ -9,6 +9,7 @@ gem 'rake', '12.3.1'
 gem 'puma', '3.12.0'
 
 gem 'font-awesome-sass', '~> 5.5.0'
+gem 'jekyll-git_metadata'
 
 group :jekyll_plugins do
    gem 'sprockets', '~> 4.0.0.beta8'

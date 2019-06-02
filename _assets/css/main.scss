@@ -199,6 +199,8 @@ p {
     @media (min-width: 992px) {
         margin-top: 40px;
         flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
     }
     .social {
         list-style: none;
@@ -224,9 +226,25 @@ p {
             }
             .social__link {
                 .social__icon {
-                    font-size: 24px;
+                    @media (max-width: 991px) {
+                        font-size: 24px;
+                    }
+                    @media (min-width: 992px) {
+                        font-size: 32px;
+                    }
                 }
             }
+        }
+    }
+    .copyright {
+        font-size: 10px;
+        line-height: 18px;
+        color: #666666;
+        @media (max-width: 991px) {
+            margin-top: 40px;
+        }
+        @media (min-width: 992px) {
+            text-align: right;
         }
     }
 }
