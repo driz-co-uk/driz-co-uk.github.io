@@ -80,6 +80,13 @@ p {
     }
 }
 
+
+.break {
+    @media (max-width: 991px) {
+        display: block;
+    }
+}
+
 .container {
     margin: auto;
     min-height: 100%;
@@ -177,11 +184,6 @@ p {
     margin-bottom: 40px;
     font-weight: 900;
     color: #ffffff;
-    @media (max-width: 991px) {
-        .break {
-            display: block;
-        }
-    }
 }
 
 .description {
