@@ -3,27 +3,34 @@ layout: compress
 ---
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>driz - Cameron Drysdale</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover">
-        <meta name="description" content="Hello. I'm Cameron. A software engineer, graphic designer, photographer, and mountain biker based in Kelham Island, Sheffield.">
-        <link rel="shortcut icon" href="/favicon.ico">
-        {% asset main.css %}
-        <meta name="google-site-verification" content="6JZG3v_UCsWSTG86tLE4SYPT_kkFNI-wey7RCl5koOg">
-	</head>
-	<body class="default">
-		
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			ga('create', 'UA-267239-3', 'auto');
-			ga('send', 'pageview');
-		</script>
 
-        {{ content }}
+<head>
+    <meta charset="utf-8">
+    <title>driz - Cameron Drysdale</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover">
+    <meta name="description"
+        content="Hello. I'm Cameron. A software engineer, graphic designer, photographer, and mountain biker based in Kelham Island, Sheffield.">
+    <link rel="shortcut icon" href="/favicon.ico">
+    {% asset main.css %}
+    <meta name="google-site-verification" content="6JZG3v_UCsWSTG86tLE4SYPT_kkFNI-wey7RCl5koOg">
+</head>
 
-    </body>
+<body class="default">
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-267239-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+    {{ content }}
+
+</body>
+
 </html>

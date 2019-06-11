@@ -46,7 +46,7 @@ b, strong {
 a {
     color: #CCCCCC;
     text-decoration: none;
-    transition: all .3s ease-in-out;
+    transition: all .2s ease-in-out;
     &:hover {
         color: #00AAFF;
     }
@@ -69,7 +69,6 @@ p {
             z-index: -1;
             height: 2px;
             background-color: #00AAFF;
-            transition: all .3s ease-in-out;
         }
         &:hover {
             color: #000000;
@@ -160,7 +159,7 @@ p {
     list-style: none;
     margin: 0;
     .contact__item {
-        margin-bottom: 4px;
+        margin-bottom: 8px;
         &:last-child {
             margin-bottom: 0;
         }
@@ -233,7 +232,7 @@ p {
             }
         }
         .social__item {
-            margin-right: 10px;
+            margin-right: 8px;
             &:last-child {
                 margin-right: 0;
             }
