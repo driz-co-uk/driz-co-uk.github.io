@@ -69,6 +69,7 @@ p {
             z-index: -1;
             height: 2px;
             background-color: #00AAFF;
+            transition: all .2s ease-in-out;
         }
         &:hover {
             color: #000000;
