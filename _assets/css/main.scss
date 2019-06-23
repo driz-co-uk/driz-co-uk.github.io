@@ -289,7 +289,12 @@ p {
             }
             .social__link {
                 .social__icon {
-                    font-size: 24px;
+                    @media (max-width: 991px) {
+                        font-size: 24px;
+                    }
+                    @media (min-width: 992px) {
+                        font-size: 32px;
+                    }
                 }
             }
         }
@@ -313,8 +318,8 @@ p {
     li {
         display: inline-block;
         margin: 0 20px 20px 0;
-        @include fluid-font-size(320px, 1200px, 16px, 28px);
-        @include fluid-line-height(320px, 1200px, 32px, 44px);
+        @include fluid-font-size(320px, 1200px, 14px, 24px);
+        @include fluid-line-height(320px, 1200px, 28px, 40px);
         font-family: 'Merriweather', serif;
         // &:after {
         //     content: '/';
