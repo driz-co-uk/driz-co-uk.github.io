@@ -18,8 +18,8 @@ GEM
     extras (0.3.0)
       forwardable-extended (~> 2.5)
     fastimage (2.1.5)
-    ffi (1.9.25)
-    font-awesome-sass (5.5.0.1)
+    ffi (1.11.1)
+    font-awesome-sass (5.8.1)
       sassc (>= 1.11)
     forwardable-extended (2.6.0)
     http_parser.rb (0.6.0)
@@ -92,8 +92,8 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (2.0.0)
-      ffi (~> 1.9.6)
+    sassc (2.0.1)
+      ffi (~> 1.9)
       rake
     sprockets (4.0.0.beta8)
       concurrent-ruby (~> 1.0)
@@ -106,7 +106,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  font-awesome-sass (~> 5.5.0)
+  font-awesome-sass (~> 5.8.1)
   jekyll (= 3.8.5)
   jekyll-assets (= 3.0.12)
   jekyll-git_metadata
