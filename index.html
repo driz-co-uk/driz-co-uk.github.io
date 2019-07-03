@@ -8,12 +8,12 @@ layout: default
 
     <div class="intro">
         <h1 class="title">Hello. <span class="break">I&#8217;m Cameron.</span></h1>
-        <p class="description">A software engineer, graphic designer, photographer, and mountain biker based in
+        <p class="description">A software engineer, graphic designer, photographer, and mountain biker based<br>in
         Kelham Island, Sheffield.</p>
         <p>I'm a Senior Web Developer <span class="break">at <a href="https://www.thefloow.com" target="_blank">The Floow</a>.</span></p>
     </div>
 
-    <div class="photo">
+    <div class="photo" style="display:none;">
         {% asset 'cameron.jpg' alt:'Photo of Cameron' %}
     </div>
 
@@ -65,8 +65,7 @@ layout: default
                 </a>
             </li>
         </ul>
-        <p class="copyright">&copy; 1987-{{ "now" | date: "%Y" }} <b>Cameron Drysdale</b>. <span>&pi;</span>
-            <br>rev {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
+        <p class="copyright">&copy; 1987-{{ "now" | date: "%Y" }} <b>Cameron Drysdale</b>.<br>rev {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }} <span>&pi;</span></p>
     </div>
     
 </div>
