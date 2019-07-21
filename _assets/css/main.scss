@@ -45,6 +45,7 @@ b, strong {
 
 a {
     color: #CCCCCC;
+    font-weight: 600;
     text-decoration: none;
     transition: all .2s ease-in-out;
     &:hover {
@@ -168,11 +169,10 @@ p {
             text-align: right;
         }
         .contact__link {
-            font-weight: 600;
-        }
-        @media (max-width: 991px) {
-            .contact__icon {
-                display: none;
+            @media (max-width: 991px) {
+                .contact__icon {
+                    display: none;
+                }
             }
         }
     }
