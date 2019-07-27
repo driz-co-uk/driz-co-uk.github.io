@@ -166,12 +166,20 @@ p {
             margin-bottom: 0;
         }
         @media (min-width: 992px) {
-            text-align: right;
+            display: flex;
+            justify-content: flex-end;
         }
         .contact__link {
             @media (max-width: 991px) {
                 .contact__icon {
                     display: none;
+                }
+            }
+            @media (min-width: 992px) {
+                display: flex;
+                align-items: center;
+                .contact__icon {
+                    margin-left: 4px;
                 }
             }
         }
