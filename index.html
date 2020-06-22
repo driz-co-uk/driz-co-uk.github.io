@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>driz</title>
+    <link rel="stylesheet" type="text/css" href="./application.css" data-turbolinks-track="reload">
+    <script src="./turbolinks.js" data-turbolinks-track="reload"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous" data-turbolinks-track="reload"></script>
+    <script src="./application.js" data-turbolinks-track="reload"></script>
+</head>
+
+<body class="">
+
+    <div class="section section--main section--full-height">
+        <div class="container">
+
+            <div class="header">
+                <a class="logo" href="./">
+                    {% asset 'logo.svg' alt:'driz logo' %}
+                </a>
+                <nav class="menu">
+                    <ul class="menu-menu">
+                        <li class="home">
+                            <a class="selected" href="./">Home</a>
+                        </li>
+                        <li>
+                            <a class="disabled" href="./work.html">Work</a>
+                        </li>
+                        <li>
+                            <a href="./notebook.html">Notebook</a>
+                        </li>
+                        <li>
+                            <a href="./about.html">About</a>
+                        </li>
+                        <li>
+                            <a href="./contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="burger">
+                    <a class="burger__link">
+                        <span class="burger__line"></span>
+                        <span class="burger__line"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="intro">
+                <div class="intro__content">
+                    <p class="hello">Hello. I&#8217;m <strong>Cameron</strong>. <span class="wave">👋🏻</span></p>
+                    <h1 class="title">Software engineer, <abbr title="User Experience">UX</abbr>/<abbr
+                            title="User Interface">UI</abbr> designer, photographer, and mountain biker.</h1>
+                    <p class=" margin-top-3">Specialist Web Developer at <a class="link" href="https://www.thefloow.com"
+                            target="_blank">The Floow</a>, based in
+                        Kelham Island, Sheffield, UK.</p>  
+                </div>
+                <div class="intro__photo">
+                    {% asset 'cameron.jpg' alt:'Photo of Cameron' %}
+                </div>
+                <div class="intro__buttons button-group margin-top-4">
+                    <div class="button-group">
+                        <a class="button button--secondary" href="./about.html">
+                            <i class="button__icon far fa-id-badge fa-fw"></i>
+                            <span class="button__label">More about me</span>
+                        </a>
+                    </div>
+                    <div class="button-group">
+                        <a class="button button--link" href="./contact.html">
+                            <i class="button__icon far fa-comment-dots fa-fw"></i>
+                            <span class="button__label">Get in touch</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- MAIN -->
+
+    <section id="work" class="section section--off-white">
+        <div class="container">
+
+            <div style="background-color: #fff;
+            width:100vw;
+            position:relative;
+            left:50%;
+            right:50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            margin-top: -64px;
+            margin-bottom: calc(64px + 32px);
+            padding-top: 64px;
+            padding-bottom: 0;
+            ">
+                <div class="container">
+
+                    <h2 class="center">Design &plus; development for apps and websites.</h2>
+                    <div class="content__column">
+                        <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
+                            eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                            ducimus.</p>
+                        <p class="center bold">Portfolio coming soon.</p>
+                    </div>
+
+                    <div style="position:relative;
+                    z-index:10;
+                    display: flex;
+                    align-items:flex-end;
+                    justify-content: space-evenly;
+                    bottom: -48px;
+                    ">
+                        <img src="./hero-desktop-vector.svg">
+                        <img src="./hero-ipad-vector.svg">
+                        <img src="./hero-iphone-vector.svg">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="skills">
+                <div class="skill">
+                    <i class="skill__icon far fa-paint-brush fa-fw"></i>
+                    <h3 class="skill__title">Design.</h3>
+                    <ul class="skill__description">
+                        <li>A/B testing</li>
+                        <li>Branding</li>
+                        <li>Atomic design</li>
+                        <li>Design systems</li>
+                        <li>Animation</li>
+                        <li>UI/UX</li>
+                        <li>Prototyping</li>
+                        <li>Accessibility</li>
+                        <li>Web design</li>
+                    </ul>
+                </div>
+                <div class="skill">
+                    <i class="skill__icon far fa-code fa-fw"></i>
+                    <h3 class="skill__title">Development.</h3>
+                    <ul class="skill__description">
+                        <li>Cordova/PhoneGap</li>
+                        <li>Electron</li>
+                        <li>Angular</li>
+                        <li>PHP</li>
+                        <li>Ruby on Rails</li>
+                        <li>RSpec</li>
+                        <li>Mocha/Chai</li>
+                        <li>Jest</li>
+                        <li>React</li>
+                        <li>JavaScript/Typescript</li>
+                        <li>HTML</li>
+                        <li>CSS/Sass</li>
+                        <li>WordPress</li>
+                        <li>Node.js</li>
+                        <li>GraphQL</li>
+                        <li>Gatsby</li>
+                        <li>Jekyll</li>
+                        <li>SQL</li>
+                        <li>REST</li>
+                        <li>Oauth</li>
+                    </ul>
+                </div>
+                <div class="skill">
+                    <i class="skill__icon far fa-server fa-fw"></i>
+                    <h3 class="skill__title">DevOps.</h3>
+                    <ul class="skill__description">
+                        <li>Heroku</li>
+                        <li>Apache</li>
+                        <li>Nginx</li>
+                        <li>IIS</li>
+                        <li>AWS</li>
+                        <li>Git</li>
+                        <li>SVN</li>
+                        <li>Docker</li>
+                        <li>CI/CD</li>
+                        <li>CDN</li>
+                        <li>Jenkins</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="divider divider--border-top">
+                <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with.</h3>
+                <p class="margin-bottom-3 center">Large, small, private and public sector.</p>
+
+                <div class="client-logos">
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/vodafone.svg" alt="Vodafone">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/mars.svg" alt="Mars">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/nhs.svg" alt="NHS">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/the_floow.svg" alt="The Floow">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/sheffield_hallam_university.svg" alt="Sheffield Hallam University">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/direct_line_group.svg" alt="Direct Line Group">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/nicholas_associates_software.svg" alt="Nicholas Associates Software">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/aaa.svg" alt="AAA">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/taschen.svg" alt="Taschen">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/haven_holidays.svg" alt="Haven Holidays">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <img src="./clients/butlins.svg" alt="Butlins">
+                        </div>
+                    </div>
+                    <div class="outer">
+                        <div class="inner">
+                            <a class="link" href="./contact.html">You?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider divider--border-top">
+                <div class="button-group button-group--centered">
+                    <div class="button-group">
+                        <a class="button button--disabled button--primary">
+                            <i class="button__icon far fa-images fa-fw"></i>
+                            <span class="button__label">View my work</span>
+                        </a>
+                    </div>
+                    <div class="button-group">
+                        <a class="button button--link" href="./contact.html">
+                            <i class="button__icon far fa-comment-dots fa-fw"></i>
+                            <span class="button__label">Get in touch</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <ul class="social">
+                <li class="social__item">
+                    <a class="social__link" href="https://twitter.com/driz" target="_blank">
+                        <i class="social__icon fab fa-twitter fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://facebook.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-facebook fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://linkedin.com/in/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-linkedin fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://flickr.com/driz" target="_blank">
+                        <i class="social__icon fab fa-flickr fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://instagram.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-instagram fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://dribbble.com/driz" target="_blank">
+                        <i class="social__icon fab fa-dribbble fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://github.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-github fa-fw"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="footer-menu">
+                <li>
+                    <a class="selected" href="./">Home</a>
+                </li>
+                <li>
+                    <a class="disabled" href="./work.html">Work</a>
+                </li>
+                <li>
+                    <a href="./notebook.html">Notebook</a>
+                </li>
+                <li>
+                    <a href="./about.html">About</a>
+                </li>
+                <li>
+                    <a href="./contact.html">Contact</a>
+                </li>
+            </ul>
+            <!--<p class="copyright">Copyright &copy; 1987-2020 <b>Cameron Drysdale</b>. All rights reserved.</p>
+            <p class="version">rev 2020.02.26.123 <span title="Pi">&pi;</span></p>-->
+            <p class="copyright">&copy; 1987-{{ "now" | date: "%Y" }} <b>Cameron Drysdale</b>. <span>&pi;</span>
+                <br>rev {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
+        </div>
+    </footer>
+</body>
+
+</html>

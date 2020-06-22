@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>driz</title>
+    <link rel="stylesheet" type="text/css" href="./application.css" data-turbolinks-track="reload">
+    <script src="./turbolinks.js" data-turbolinks-track="reload"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"
+        data-turbolinks-track="reload"></script>
+    <script src="./application.js" data-turbolinks-track="reload"></script>
+    <script src="https://unpkg.com/stimulus/dist/stimulus.umd.js" data-turbolinks-track="reload"></script>
+    <script src="./assets/js/controllers/contact_controller.js" data-turbolinks-track="reload"></script>
+</head>
+
+<body class="">
+
+    <div class="section section--main">
+        <div class="container">
+
+            <div class="header">
+                <a class="logo" href="./">
+                    <img
+                        src="https://driz.co.uk/assets/logo-678f549281ffb629431eb8ba7591e3c0470c3fe78341ee9d169dc471a5ae68ab.svg">
+                </a>
+                <div class="menu">
+                    <ul class="menu-menu">
+                        <li>
+                            <a class="disabled" href="./work.html">Work</a>
+                        </li>
+                        <li>
+                            <a href="./notebook.html">Notebook</a>
+                        </li>
+                        <li>
+                            <a href="./about.html">About</a>
+                        </li>
+                        <li>
+                            <a class="selected" href="./contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="burger">
+                    <a class="burger__link">
+                        <span class="burger__line"></span>
+                        <span class="burger__line"></span>
+                    </a>
+                </div>
+            </div>
+
+            <h1 class="title center">Get in touch.</h1>
+            <p class="description center">Send me an email below or <a class="link"
+                    href="https://twitter.com/intent/tweet?screen_name=driz" target="_blank">@driz</a> on Twitter.</p>
+
+        </div>
+    </div>
+
+    <div class="section section--white">
+        <div class="container">
+
+            <div class="panel">
+                <form class="form" autocomplete="off" data-controller="form">
+                    <div class="form__group">
+                        <label class="form__group__label" for="name"><i
+                                class="far fa-user fa-fw form__group__label__icon"></i> Name</label>
+                        <div class="form__group__input">
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group__label" for="email"><i
+                                class="far fa-envelope fa-fw form__group__label__icon"></i> Email</label>
+                        <div class="form__group__input">
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group__label" for="message"><i
+                                class="far fa-comment-dots fa-fw form__group__label__icon"></i> Message</label>
+                        <div class="form__group__input">
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form__buttons">
+                        <div class="button-group button-group--centered">
+                            <div class="button-group">
+                                <button class="button button--primary button--large" type="submit">
+                                    <i class="far fa-paper-plane fa-fw button__icon"></i>
+                                    <span class="button__label">Send</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="section section--off-white">
+        <div class="container">
+
+            <ul class="contact-links">
+                <li class="contact-links__item">
+                    <a href="tel:+447702580565" target="_blank">
+                        <i class="far fa-mobile-alt fa-fw"></i>
+                        <span>07702 580 565</span>
+                    </a>
+                </li>
+                <li class="contact-links__item">
+                    <a href="https://twitter.com/intent/tweet?screen_name=driz" target="_blank">
+                        <i class="fab fa-twitter fa-fw"></i>
+                        <span>@driz</span>
+                    </a>
+                </li>
+                <li class="contact-links__item">
+                    <a href="mailto:cameron@driz.co.uk" target="_blank">
+                        <i class="far fa-envelope fa-fw"></i>
+                        <span>cameron@driz.co.uk</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+
+            <ul class="social">
+                <li class="social__item">
+                    <a class="social__link" href="https://twitter.com/driz" target="_blank">
+                        <i class="social__icon fab fa-twitter fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://facebook.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-facebook fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://linkedin.com/in/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-linkedin fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://flickr.com/driz" target="_blank">
+                        <i class="social__icon fab fa-flickr fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://instagram.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-instagram fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://dribbble.com/driz" target="_blank">
+                        <i class="social__icon fab fa-dribbble fa-fw"></i>
+                    </a>
+                </li>
+                <li class="social__item">
+                    <a class="social__link" href="https://github.com/iamdriz" target="_blank">
+                        <i class="social__icon fab fa-github fa-fw"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="footer-menu">
+                <li>
+                    <a href="./">Home</a>
+                </li>
+                <li>
+                    <a class="disabled" href="./work.html">Work</a>
+                </li>
+                <li>
+                    <a href="./notebook.html">Notebook</a>
+                </li>
+                <li>
+                    <a href="./about.html">About</a>
+                </li>
+                <li>
+                    <a class="selected" href="./contact.html">Contact</a>
+                </li>
+            </ul>
+
+            <p class="copyright">Copyright &copy; 1987-2020 <b>Cameron Drysdale</b>. All rights reserved.</p>
+            <p class="version">rev 2020.02.26.123 <span title="Pi">&pi;</span></p>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
