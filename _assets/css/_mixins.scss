@@ -1,0 +1,37 @@
+@function strip-unit($value) {
+    @return $value / ($value * 0 + 1);
+}
+
+@function diff($value1, $value2) {
+    @return #{strip-unit($value2 - $value1)};
+}
+
+@mixin fluid-value($property, $start-vw, $end-vw, $min-value, $max-value) {
+    #{$property}: calc(#{$min-value} + #{diff($min-value, $max-value)} * ((100vw - #{$start-vw}) / #{diff($start-vw, $end-vw)}));
+}
+
+@mixin fluid-typography($start-vw,
+    $end-vw,
+    $min-line-height,
+    $max-line-height,
+    $min-font-size,
+    $max-font-size) {
+
+    // minimum
+    @media (max-width: #{strip-unit($start-vw)-1}px) {
+        line-height: $min-line-height;
+        font-size: $min-font-size;
+    }
+
+    // fluid between minimum and maximum
+    @media (min-width: $start-vw) and (max-width: #{strip-unit($end-vw)-1}px) {
+        @include fluid-value('line-height', $start-vw, $end-vw, $min-line-height, $max-line-height);
+        @include fluid-value('font-size', $start-vw, $end-vw, $min-font-size, $max-font-size);
+    }
+
+    // maximum
+    @media (min-width: $end-vw) {
+        line-height: $max-line-height;
+        font-size: $max-font-size;
+    }
+}

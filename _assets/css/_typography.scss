@@ -1,0 +1,135 @@
+@import "http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic";
+@import "http://fonts.googleapis.com/css?family=Merriweather+Sans:400,300,300italic,400italic,700,700italic,800,800italic";
+
+body {
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Merriweather Sans', sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+}
+
+b,
+strong {
+    font-weight: 600;
+}
+
+abbr[title] {
+    text-decoration: none;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.emphasis {
+    font-style: italic;
+}
+
+p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 16px;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+ul,
+ol {
+    list-style-position: inside;
+}
+
+.content ul li {
+    margin-bottom: 4px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Merriweather', serif;
+    font-weight: 900;
+    color: #ffffff;
+
+    strong {
+        font-weight: 900;
+    }
+}
+
+h1 {
+    font-size: 56px;
+    line-height: 64px;
+    margin-bottom: 32px;
+}
+
+h2 {
+    font-size: 40px;
+    line-height: 48px;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-size: 32px;
+    line-height: 40px;
+    margin-bottom: 16px;
+}
+
+h4 {
+    font-size: 24px;
+    line-height: 32px;
+    margin-bottom: 16px;
+}
+
+p+h2,
+p+h3,
+ul+h2,
+ul+h3 {
+    margin-top: 32px;
+}
+
+.title {
+    @include fluid-typography(320px, 1200px, 48px, 64px, 40px, 56px);
+    margin-bottom: 16px;
+}
+
+.description {
+    font-size: 32px;
+    line-height: 40px;
+
+    font-size: 24px;
+    line-height: 32px;
+}
+
+p.drop {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+p.drop:first-letter {
+    float: left;
+    margin: 0 8px 0 0;
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    color: var(--blue);
+}
+
+pre {
+    padding: 16px;
+    margin: 32px -24px;
+    overflow: auto;
+    border-radius: 16px;
+    border: #fff 8px solid;
+    box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+}

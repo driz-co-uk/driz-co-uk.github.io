@@ -1,118 +1,61 @@
-<!doctype html>
-<html lang="en">
+---
+title: driz
+layout: default
+---
 
-<head>
-    <meta charset="utf-8">
-    <title>driz</title>
-    <link rel="stylesheet" type="text/css" href="./application.css" data-turbolinks-track="reload">
-    <script src="./turbolinks.js" data-turbolinks-track="reload"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
-        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous" data-turbolinks-track="reload"></script>
-    <script src="./application.js" data-turbolinks-track="reload"></script>
-</head>
-
-<body class="">
-
-    <div class="section section--main section--full-height">
-        <div class="container">
-
-            <div class="header">
-                <a class="logo" href="./">
-                    {% asset 'logo.svg' alt:'driz logo' %}
-                </a>
-                <nav class="menu">
-                    <ul class="menu-menu">
-                        <li class="home">
-                            <a class="selected" href="./">Home</a>
-                        </li>
-                        <li>
-                            <a class="disabled" href="./work.html">Work</a>
-                        </li>
-                        <li>
-                            <a href="./notebook.html">Notebook</a>
-                        </li>
-                        <li>
-                            <a href="./about.html">About</a>
-                        </li>
-                        <li>
-                            <a href="./contact.html">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="burger">
-                    <a class="burger__link">
-                        <span class="burger__line"></span>
-                        <span class="burger__line"></span>
+<div class="section section--main section--full-height">
+    <div class="container">
+        {% include _header.html %}
+        <div class="intro">
+            <div class="intro__content">
+                <p class="hello">Hello. I&#8217;m <a href="/about"><strong>Cameron</strong></a>. <span
+                        class="wave">👋🏻</span></p>
+                <h1 class="title">Software engineer, <abbr title="User Interface">UI</abbr>/<abbr
+                        title="User Experience">UX</abbr> designer, photographer, and mountain biker.</h1>
+                <p class=" margin-top-3">Specialist Web Developer at <a href="https://www.thefloow.com" target="_blank"
+                        rel="external">The Floow</a>, based in
+                    <a href="https://www.thisiskelham.com" target="_blank" rel="external">Kelham Island, Sheffield,
+                        UK</a>.</p>
+            </div>
+            <div class="intro__photo">
+                {% asset 'cameron.jpg' alt:'Photo of Cameron' width="480" height="480" %}
+            </div>
+            <div class="intro__buttons button-group button-group--collapsible margin-top-4">
+                <div class="button-group">
+                    <a class="button button--secondary" href="/about">
+                        <i class="button__icon far fa-id-badge fa-fw"></i>
+                        <span class="button__label">More about me</span>
+                    </a>
+                </div>
+                <div class="button-group">
+                    <a class="button button--secondary button--outline" href="/contact">
+                        <i class="button__icon far fa-comment-dots fa-fw"></i>
+                        <span class="button__label">Get in touch</span>
                     </a>
                 </div>
             </div>
-
-            <div class="intro">
-                <div class="intro__content">
-                    <p class="hello">Hello. I&#8217;m <strong>Cameron</strong>. <span class="wave">👋🏻</span></p>
-                    <h1 class="title">Software engineer, <abbr title="User Experience">UX</abbr>/<abbr
-                            title="User Interface">UI</abbr> designer, photographer, and mountain biker.</h1>
-                    <p class=" margin-top-3">Specialist Web Developer at <a class="link" href="https://www.thefloow.com"
-                            target="_blank">The Floow</a>, based in
-                        Kelham Island, Sheffield, UK.</p>  
-                </div>
-                <div class="intro__photo">
-                    {% asset 'cameron.jpg' alt:'Photo of Cameron' %}
-                </div>
-                <div class="intro__buttons button-group margin-top-4">
-                    <div class="button-group">
-                        <a class="button button--secondary" href="./about.html">
-                            <i class="button__icon far fa-id-badge fa-fw"></i>
-                            <span class="button__label">More about me</span>
-                        </a>
-                    </div>
-                    <div class="button-group">
-                        <a class="button button--link" href="./contact.html">
-                            <i class="button__icon far fa-comment-dots fa-fw"></i>
-                            <span class="button__label">Get in touch</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div><!-- MAIN -->
 
+    </div>
+</div><!-- MAIN -->
+
+<main class="content">
     <section id="work" class="section section--off-white">
         <div class="container">
 
-            <div style="background-color: #fff;
-            width:100vw;
-            position:relative;
-            left:50%;
-            right:50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            margin-top: -64px;
-            margin-bottom: calc(64px + 32px);
-            padding-top: 64px;
-            padding-bottom: 0;
-            ">
+            <div class="work-wrapper">
                 <div class="container">
-
-                    <h2 class="center">Design &plus; development for apps and websites.</h2>
+                    <h2 class="center">Design &plus; development of apps and websites.</h2>
                     <div class="content__column">
                         <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
                             eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
                             ducimus.</p>
                         <p class="center bold">Portfolio coming soon.</p>
                     </div>
-
-                    <div style="position:relative;
-                    z-index:10;
-                    display: flex;
-                    align-items:flex-end;
-                    justify-content: space-evenly;
-                    bottom: -48px;
-                    ">
-                        <img src="./hero-desktop-vector.svg">
-                        <img src="./hero-ipad-vector.svg">
-                        <img src="./hero-iphone-vector.svg">
+                    <div class="work-screens">
+                        {% asset 'hero-desktop-vector.svg' alt:'' %}
+                        {% asset 'hero-ipad-vector.svg' alt:'' %}
+                        {% asset 'hero-iphone-vector.svg' alt:'' %}
                     </div>
 
                 </div>
@@ -121,48 +64,38 @@
             <div class="skills">
                 <div class="skill">
                     <i class="skill__icon far fa-paint-brush fa-fw"></i>
-                    <h3 class="skill__title">Design.</h3>
+                    <h4 class="skill__title">Design.</h4>
                     <ul class="skill__description">
-                        <li>A/B testing</li>
+                        <!-- <li>A/B testing</li> -->
                         <li>Branding</li>
                         <li>Atomic design</li>
                         <li>Design systems</li>
-                        <li>Animation</li>
+                        <!-- <li>Animation</li> -->
                         <li>UI/UX</li>
-                        <li>Prototyping</li>
+                        <!-- <li>Prototyping</li> -->
                         <li>Accessibility</li>
                         <li>Web design</li>
                     </ul>
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-code fa-fw"></i>
-                    <h3 class="skill__title">Development.</h3>
+                    <h4 class="skill__title">Code.</h4>
                     <ul class="skill__description">
-                        <li>Cordova/PhoneGap</li>
-                        <li>Electron</li>
-                        <li>Angular</li>
-                        <li>PHP</li>
-                        <li>Ruby on Rails</li>
-                        <li>RSpec</li>
-                        <li>Mocha/Chai</li>
-                        <li>Jest</li>
-                        <li>React</li>
-                        <li>JavaScript/Typescript</li>
                         <li>HTML</li>
-                        <li>CSS/Sass</li>
-                        <li>WordPress</li>
+                        <li>CSS</li>
+                        <li>Sass</li>
+                        <li>PHP</li>
+                        <li>Ruby</li>
+                        <li>JavaScript</li>
+                        <li>TypeScript</li>
+                        <li>JSX</li>
                         <li>Node.js</li>
-                        <li>GraphQL</li>
-                        <li>Gatsby</li>
-                        <li>Jekyll</li>
                         <li>SQL</li>
-                        <li>REST</li>
-                        <li>Oauth</li>
                     </ul>
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-server fa-fw"></i>
-                    <h3 class="skill__title">DevOps.</h3>
+                    <h4 class="skill__title">DevOps.</h4>
                     <ul class="skill__description">
                         <li>Heroku</li>
                         <li>Apache</li>
@@ -177,78 +110,105 @@
                         <li>Jenkins</li>
                     </ul>
                 </div>
+                <div class="skill">
+                    <i class="skill__icon far fa-cog fa-fw"></i>
+                    <h4 class="skill__title">Frameworks.</h4>
+                    <ul class="skill__description">
+                        <li>WordPress</li>
+                        <li>Textpattern</li>
+                        <li>Ruby on Rails</li>
+                        <li>Jekyll</li>
+                        <li>Gatsby</li>
+                        <li>Ionic</li>
+                        <li>Cordova</li>
+                        <li>Electron</li>
+                    </ul>
+                </div>
+                <div class="skill">
+                    <i class="skill__icon far fa-flask fa-fw"></i>
+                    <h4 class="skill__title">Test &plus; Lint.</h4>
+                    <ul class="skill__description">
+                        <li>RSpec</li>
+                        <li>Rubocop</li>
+                        <li>Brakeman</li>
+                        <li>Jest</li>
+                        <li>Mocha</li>
+                        <li>Chai</li>
+                        <li>ESLint</li>
+                        <li>Stylelint</li>
+                        <li>Selenium</li>
+                    </ul>
+                </div>
+                <div class="skill">
+                    <i class="skill__icon far fa-tools fa-fw"></i>
+                    <h4 class="skill__title">Tools.</h4>
+                    <ul class="skill__description">
+                        <li>Adobe CS/CC</li>
+                        <li>Sketch</li>
+                        <li>Figma</li>
+                        <li>Angular</li>
+                        <li>React</li>
+                        <li>Stimulus</li>
+                        <li>jQuery</li>
+                        <li>Webpack</li>
+                    </ul>
+                </div>
             </div>
+
+            <!-- <div class="work-list">
+                <div class="work-list__item">
+                    <img src="https://picsum.photos/1920/1080" width="1920" height="1080">
+                </div>
+                <div class="work-list__item">
+                    <img src="https://picsum.photos/1920/1080" width="1920" height="1080">
+                </div>
+            </div> -->
 
             <div class="divider divider--border-top">
                 <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with.</h3>
                 <p class="margin-bottom-3 center">Large, small, private and public sector.</p>
-
                 <div class="client-logos">
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/vodafone.svg" alt="Vodafone">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/vodafone.svg' alt:'Vodafone' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/mars.svg" alt="Mars">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/mars.svg' alt:'Mars' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/nhs.svg" alt="NHS">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/nhs.svg' alt:'NHS' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/the_floow.svg" alt="The Floow">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/the_floow.svg' alt:'The Floow' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/sheffield_hallam_university.svg" alt="Sheffield Hallam University">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/sheffield_hallam_university.svg' alt:'Sheffield Hallam University' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/direct_line_group.svg" alt="Direct Line Group">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/direct_line_group.svg' alt:'Direct Line Group' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/nicholas_associates_software.svg" alt="Nicholas Associates Software">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/nicholas_associates_software.svg' alt:'Nicholas Associates Software' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/aaa.svg" alt="AAA">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/aaa.svg' alt:'AAA' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/taschen.svg" alt="Taschen">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/taschen.svg' alt:'Taschen' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/haven_holidays.svg" alt="Haven Holidays">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/haven_holidays.svg' alt:'Haven Holidays' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <img src="./clients/butlins.svg" alt="Butlins">
-                        </div>
+                    <div class="client-logos__item">
+                        {% asset 'clients/butlins.svg' alt:'Butlins' %}
                     </div>
-                    <div class="outer">
-                        <div class="inner">
-                            <a class="link" href="./contact.html">You?</a>
-                        </div>
+                    <div class="client-logos__item">
+                        <a href="/contact">You?</a>
                     </div>
                 </div>
             </div>
 
             <div class="divider divider--border-top">
-                <div class="button-group button-group--centered">
+                <div class="button-group button-group--centered button-group--collapsible">
                     <div class="button-group">
                         <a class="button button--disabled button--primary">
                             <i class="button__icon far fa-images fa-fw"></i>
@@ -256,7 +216,7 @@
                         </a>
                     </div>
                     <div class="button-group">
-                        <a class="button button--link" href="./contact.html">
+                        <a class="button button--primary button--outline" href="/contact">
                             <i class="button__icon far fa-comment-dots fa-fw"></i>
                             <span class="button__label">Get in touch</span>
                         </a>
@@ -266,68 +226,113 @@
         </div>
     </section>
 
-    <footer class="footer">
+    <div class="section section--white">
         <div class="container">
-            <ul class="social">
-                <li class="social__item">
-                    <a class="social__link" href="https://twitter.com/driz" target="_blank">
-                        <i class="social__icon fab fa-twitter fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://facebook.com/iamdriz" target="_blank">
-                        <i class="social__icon fab fa-facebook fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://linkedin.com/in/iamdriz" target="_blank">
-                        <i class="social__icon fab fa-linkedin fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://flickr.com/driz" target="_blank">
-                        <i class="social__icon fab fa-flickr fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://instagram.com/iamdriz" target="_blank">
-                        <i class="social__icon fab fa-instagram fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://dribbble.com/driz" target="_blank">
-                        <i class="social__icon fab fa-dribbble fa-fw"></i>
-                    </a>
-                </li>
-                <li class="social__item">
-                    <a class="social__link" href="https://github.com/iamdriz" target="_blank">
-                        <i class="social__icon fab fa-github fa-fw"></i>
-                    </a>
-                </li>
-            </ul>
-            <ul class="footer-menu">
-                <li>
-                    <a class="selected" href="./">Home</a>
-                </li>
-                <li>
-                    <a class="disabled" href="./work.html">Work</a>
-                </li>
-                <li>
-                    <a href="./notebook.html">Notebook</a>
-                </li>
-                <li>
-                    <a href="./about.html">About</a>
-                </li>
-                <li>
-                    <a href="./contact.html">Contact</a>
-                </li>
-            </ul>
-            <!--<p class="copyright">Copyright &copy; 1987-2020 <b>Cameron Drysdale</b>. All rights reserved.</p>
-            <p class="version">rev 2020.02.26.123 <span title="Pi">&pi;</span></p>-->
-            <p class="copyright">&copy; 1987-{{ "now" | date: "%Y" }} <b>Cameron Drysdale</b>. <span>&pi;</span>
-                <br>rev {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
+            <h2 class="center">Notes and thoughts.</h2>
+            <div class="margin-bottom-4 content__column">
+                <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
+                    eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                    ducimus.</p>
+            </div>
+            <div class="posts">
+                {% assign notes = site.notes | reverse %}
+                {% for post in notes limit: 2 %}
+                <article class="post">
+                    <div class="post__image">
+                        <img src="https://picsum.photos/1920/1080?random={{ post.id }}" width="1920" height="1080">
+                    </div>
+                    <div class="post__content">
+                        <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                        <p class="post__excerpt">{{ post.excerpt }}</p>
+                        <div class="button-group">
+                            <a href="{{ post.url }}" class="button button--link">
+                                <span class="button__label">Read more</span> <i
+                                    class="button__icon button__icon--trailing far fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            <div class="divider divider--border-top">
+                <div class="button-group button-group--centered">
+                    <div class="button-group">
+                        <a class="button button--primary" href="/notebook">
+                            <i class="button__icon far fa-book fa-fw"></i>
+                            <span class="button__label">View more notes</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
-</body>
+    </div>
 
-</html>
+    <section id="photos" class="section section--off-white">
+        <div class="container">
+            <h2 class="center">I like to take photos.</h2>
+            <div class="content__column">
+                <p class="center">I enjoy getting out and about and taking photos with my Nikon DSLR and iPhone (mostly
+                    landscape and macro). Check out some of my photos on <a href="https://flickr.com/driz" target="_blank"
+                        rel="external">Flickr</a> and <a href="https://instagram.com/iamdriz" target="_blank"
+                        rel="external">Instagram</a>.</p>
+            </div>
+            <div class="photo-list">
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/30348012848/" title="Bokeh Bee">
+                        <img src="https://live.staticflickr.com/1897/30348012848_6f44465b0c_k.jpg" width="2048"
+                            height="1152" alt="Bokeh Bee">
+                    </a>
+                </div>
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/28678983897/" title="Moss">
+                        <img src="https://live.staticflickr.com/1767/28678983897_86f1c21a59_k.jpg" width="2048"
+                            height="1365" alt="Moss">
+                    </a>
+                </div>
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/43517874472/" title="Mould">
+                        <img src="https://live.staticflickr.com/1830/43517874472_3944f4dc54_k.jpg" width="2048"
+                            height="1365" alt="Mould">
+                    </a>
+                </div>
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/36600204296/"
+                        title="B&amp;W Fraisthorpe Beach">
+                        <img src="https://live.staticflickr.com/4353/36600204296_4edd6e3e31_k.jpg" width="2048"
+                            height="1365" alt="B&amp;W Fraisthorpe Beach">
+                    </a>
+                </div>
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/40475421421/" title="Old Wood">
+                        <img src="https://live.staticflickr.com/4768/40475421421_508a9838ce_k.jpg" width="2048"
+                            height="1365" alt="Old Wood">
+                    </a>
+                </div>
+                <div class="photo-list__item">
+                    <a target="_blank" href="https://www.flickr.com/photos/driz/43517817102/" title="Public Footpath">
+                        <img src="https://live.staticflickr.com/941/43517817102_d699286398_k.jpg" width="2048" height="1365"
+                            alt="Public Footpath">
+                    </a>
+                </div>
+            </div>
+            <div class="divider divider--border-top">
+                <div class="button-group button-group--centered button-group--collapsible">
+                    <div class="button-group">
+                        <a class="button button--primary button--outline" href="https://flickr.com/driz" target="_blank"
+                            rel="external">
+                            <i class="button__icon fab fa-flickr fa-fw"></i>
+                            <span class="button__label">View more on Flickr</span>
+                        </a>
+                    </div>
+                    <div class="button-group">
+                        <a class="button button--primary button--outline" href="https://instagram.com/iamdriz"
+                            target="_blank" rel="external">
+                            <i class="button__icon fab fa-instagram fa-fw"></i>
+                            <span class="button__label">View more on Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

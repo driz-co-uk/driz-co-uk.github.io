@@ -1,0 +1,22 @@
+figure,
+.figure {
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+figure img,
+.figure img {
+    border-radius: 16px;
+    border: #fff 8px solid;
+    box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+}
+
+figcaption,
+.figcaption {
+    margin-top: 16px;
+    font-weight: 600;
+
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,147 @@
+.container {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    @media (min-width: 768px) {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section {
+    padding-top: 32px;
+    padding-bottom: 32px;
+
+    @media (min-width: 768px) {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+}
+
+.section--main {
+    margin-top: 16px;
+    padding-top: 0;
+    background-color: #111;
+}
+
+.section--main .container {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto minmax(0, 100%);
+    align-items: center;
+    justify-content: center;
+}
+
+.section--full-height {
+    min-height: 100vh;
+    display: flex;
+}
+
+.section--full-height .container {
+    flex: 1;
+}
+
+.section--main.section--full-height {
+    min-height: calc(100vh - 16px);
+}
+
+.section--white {
+    color: #333;
+    background-color: #fff;
+}
+
+.section--off-white {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.section--blue {
+    color: #fff;
+    background-color: var(--blue);
+}
+
+.section--black {
+    color: #ccc;
+    background-color: #000;
+}
+
+.section--off-black {
+    color: #ccc;
+    background-color: #111;
+}
+
+.section--off-white h1,
+.section--white h1,
+.section--off-white h2,
+.section--white h2,
+.section--off-white h3,
+.section--white h3,
+.section--off-white h4,
+.section--white h4,
+.section--off-white h5,
+.section--white h5,
+.section--off-white h6,
+.section--white h6 {
+    color: #000;
+}
+
+.section--white a,
+.section--off-white a {
+    color: #000;
+}
+
+.section--white a:hover,
+.section--off-white a:hover {
+    color: var(--blue);
+}
+
+.section--white a:not(.button),
+.section--off-white a:not(.button) {
+    box-shadow: inset #00aaff 0 -4px 0;
+}
+
+.section--white a:not(.button):hover,
+.section--off-white a:not(.button):hover {
+    color: var(--black);
+    box-shadow: inset var(--blue) 0 -2.1em 0;
+}
+
+.content__column {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.work-wrapper {
+    background-color: #fff;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding-bottom: 0;
+    margin-top: -32px;
+    margin-bottom: calc(32px + 32px);
+    padding-top: 32px;
+
+    @media (min-width: 768px) {
+        margin-top: -64px;
+        margin-bottom: calc(64px + 32px);
+        padding-top: 64px;
+    }
+}
+
+.work-screens {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    /* this is the space between the text and monitors */
+    bottom: -48px;
+}

@@ -1,19 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'jekyll', '3.8.5'
-gem 'kramdown', '1.17.0'
+ruby '2.6.0'
 
-# used when running on Heroku or AWS
-gem 'rack-jekyll', '0.5.0'
-gem 'rake', '12.3.1'
-gem 'puma', '3.12.0'
-
-gem 'font-awesome-sass', '~> 5.8.1'
-gem 'jekyll-git_metadata'
+gem 'jekyll', '~> 3.8.5'
+gem 'kramdown'
+gem 'uglifier'
 
 group :jekyll_plugins do
-   gem 'sprockets', '~> 4.0.0.beta8'
-   gem 'jekyll-assets', '3.0.12'
+  gem 'jekyll-git_metadata'
+  gem 'octopress-paginate'
+  gem 'jekyll-roman'
+  gem 'sprockets', '~> 4.0.0' # locked because of manifest
+  gem 'jekyll-assets', git: "https://github.com/envygeeks/jekyll-assets"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

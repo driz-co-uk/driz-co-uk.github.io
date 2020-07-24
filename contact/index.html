@@ -1,0 +1,69 @@
+---
+title: Contact
+layout: default
+---
+
+<div class="section section--main">
+    <div class="container">
+        {% include _header.html %}
+        <div class="content__column">
+            <h1 class="title center">Get in touch.</h1>
+            <p class="description center">Send me an email below or <a
+                    href="https://twitter.com/intent/tweet?screen_name=driz" target="_blank">@driz</a> on Twitter.</p>
+        </div>
+    </div>
+</div>
+
+<main class="content">
+    <div class="section section--white">
+        <div class="container">
+            <div class="panel">
+                <form id="contact" class="form" autocomplete="off" data-controller="form"
+                    action="https://formkeep.com/f/537084a7e88d" accept-charset="UTF-8" enctype="multipart/form-data"
+                    method="POST">
+                    <input type="hidden" name="utf8" value="✓">
+                    <div class="form__group">
+                        <label class="form__group__label" for="name"><i
+                                class="far fa-user fa-fw form__group__label__icon"></i> Name</label>
+                        <div class="form__group__input">
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group__label" for="email"><i
+                                class="far fa-envelope fa-fw form__group__label__icon"></i> Email</label>
+                        <div class="form__group__input">
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group__label" for="message"><i
+                                class="far fa-comment-dots fa-fw form__group__label__icon"></i> Message</label>
+                        <div class="form__group__input">
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <label class="form__group__label"></label>
+                        <div class="form__group__input">
+                            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                            <div class="g-recaptcha" data-callback="imNotARobot"
+                                data-sitekey="6LdImLAZAAAAAFRWPNNCeyNy7vUAiawPvQceT_K7"></div>
+                        </div>
+                    </div>
+                    <div class="form__buttons">
+                        <div class="button-group button-group--centered">
+                            <div class="button-group">
+                                <button class="button button--primary button--large" type="submit">
+                                    <i class="far fa-paper-plane fa-fw button__icon"></i>
+                                    <span class="button__label">Send</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% include_relative _contact_links.html %}
+        </div>
+    </div>
+</main>

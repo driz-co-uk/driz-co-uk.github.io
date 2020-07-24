@@ -1,0 +1,81 @@
+---
+layout: default
+---
+
+<div class="section section--main">
+    <div class="container">
+        {% include _header.html %}
+        <div class="content__column">
+            <h1 class="title center">{{ page.title }}</h1>
+            <p class="center">{{ page.excerpt }}</p>
+        </div>
+    </div>
+</div>
+
+<main class="content">
+    <div class="section section--white">
+        <div class="container">
+            <div class="content__column">
+                {{ content }}
+                <p>Last updated: {% last_modified {{ page.path }} %}</p>
+            </div>
+            <div class="divider divider--border-top">
+                <ul class="pagination">
+                    {% if page.next.url %}
+                        <li class="pagination__item">
+                            <a class="pagination__link pagination__link--nav" href="{{page.next.url}}">
+                                <i class="far fa-chevron-left fa-fw"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="pagination__item pagination__item--disabled">
+                            <i class="far fa-chevron-left fa-fw"></i>
+                        </li>
+                    {% endif %}
+                        <li class="pagination__item">
+                            <a class="pagination__link pagination__link--nav" href="/notebook">
+                                <i class="far fa-list-ul fa-fw"></i>
+                            </a>
+                        </li>
+                    {% if page.previous.url %}
+                        <li class="pagination__item">
+                            <a class="pagination__link pagination__link--nav" href="{{page.previous.url}}">
+                                <i class="far fa-chevron-right fa-fw"></i>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="pagination__item pagination__item--disabled">
+                            <i class="far fa-chevron-right fa-fw"></i>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section--off-white">
+        <div class="container">
+            <h2 class="center margin-bottom-4">Other notes.</h2>
+            <div class="posts">
+                {% assign other_notes = site.notes | where_exp: "note", "note.url != page.url" | reverse | sample: 2 %}
+                {% for post in other_notes limit: 2 %}
+                    <article class="post">
+                        <div class="post__image">
+                            <img src="https://picsum.photos/1920/1080?random={{ post.id }}" width="1920" height="1080">
+                        </div>
+                        <div class="post__content">
+                            <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                            <p class="post__excerpt">{{ post.excerpt }}</p>
+                            <div class="button-group">
+                                <a href="{{ post.url }}" class="button button--link">
+                                    <span class="button__label">Read more</span> <i
+                                        class="button__icon button__icon--trailing far fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>

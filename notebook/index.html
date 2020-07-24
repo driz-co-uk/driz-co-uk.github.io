@@ -1,0 +1,88 @@
+---
+layout: default
+title: Notebook
+paginate:
+    collection: notes
+    permalink: /:num/
+    limit: false
+    per_page: 6
+    title_suffix: ' / :num'
+    reversed: true
+---
+
+<div class="section section--main">
+    <div class="container">
+        {% include _header.html %}
+        <div class="content__column">
+            <h1 class="title center">Notes and thoughts.</h1>
+            <p class="description center">Lorem ipsum, dolor sit.</p>
+        </div>
+    </div>
+</div>
+
+<main class="content">
+    <div class="section section--white">
+        <div class="container">
+            <div class="posts posts--3">
+                {% for post in paginator.notes %}
+                <article class="post">
+                    <div class="post__image">
+                        <img src="https://picsum.photos/1920/1080?random={{ post.id }}" width="1920" height="1080">
+                    </div>
+                    <div class="post__content">
+                        <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                        <p class="post__excerpt">{{ post.excerpt }}</p>
+                        <div class="button-group">
+                            <a href="{{ post.url }}" class="button button--link">
+                                <span class="button__label">Read more</span> <i
+                                    class="button__icon button__icon--trailing far fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            <div class="divider divider--border-top">
+                <ul class="pagination">
+                    {% if paginator.previous_page %}
+                    {% if paginator.previous_page == 1 %}
+                    <li class="pagination__item"><a class="pagination__link pagination__link--nav" href="/notebook"><i class="far fa-chevron-left fa-fw"></i></a></li>
+                    {% else %}
+                    <li class="pagination__item"><a class="pagination__link pagination__link--nav"
+                            href="/notebook/{{ paginator.previous_page | prepend: site.baseurl | replace: '//', '/' }}"><i
+                                class="far fa-chevron-left fa-fw"></i></a></li>
+                    {% endif %}
+                    {% else %}
+                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-left fa-fw"></i></li>
+                    {% endif %}
+                    {% for page in (1..paginator.total_pages) %}
+                    {% if page == paginator.page %}
+                    <li class="pagination__item pagination__item--current">{{ page | roman }}</li>
+                    {% elsif page == 1 %}
+                    <li class="pagination__item"><a class="pagination__link pagination__link--number"
+                            href="/notebook">{{ page | roman }}</a></li>
+                    {% else %}
+                    <li class="pagination__item"><a class="pagination__link pagination__link--number"
+                            href="/notebook/{{ page | prepend: site.baseurl | replace: '//', '/' }}">{{ page | roman }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if paginator.next_page %}
+                    <li class="pagination__item"><a class="pagination__link pagination__link--nav"
+                            href="/notebook/{{ paginator.next_page | prepend: site.baseurl | replace: '//', '/' }}"><i
+                                class="far fa-chevron-right fa-fw"></i></a></li>
+                    {% else %}
+                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-right fa-fw"></i></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <!--<div class="section section--off-white">
+        <div class="container">
+            
+        </div>
+    </div>-->
+    {% endif %}
+</main>

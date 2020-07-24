@@ -1,0 +1,30 @@
+<div class="header">
+    <a class="logo" href="/">
+        {% asset 'logo.svg' alt:'driz logo' %}
+    </a>
+    <nav class="menu">
+        <ul class="menu-menu">
+            <li class="menu__item home">
+                <a{% if page.url == '/' %} class="selected"{% endif %} href="/">Home</a>
+            </li>
+            <li class="menu__item">
+                <a class="disabled" href="/work">Work</a>
+            </li>
+            <li class="menu__item">
+                <a{% if page.url contains '/notebook' %} class="selected"{% endif %} href="/notebook">Notebook</a>
+            </li>
+            <li class="menu__item">
+                <a{% if page.url contains '/about' %} class="selected"{% endif %} href="/about">About</a>
+            </li>
+            <li class="menu__item">
+                <a{% if page.url contains '/contact' %} class="selected"{% endif %} href="/contact">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="burger">
+        <a class="burger__link">
+            <span class="burger__line"></span>
+            <span class="burger__line"></span>
+        </a>
+    </div>
+</div>
