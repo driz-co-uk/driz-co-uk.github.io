@@ -15,6 +15,11 @@
     text-overflow: ellipsis;
     border-radius: 20px;
     transition: all .2s ease-in-out;
+    box-shadow: inset transparent 0 -4px 0;
+}
+
+.button:hover {
+    box-shadow: inset var(--blue) 0 -2.1em 0;
 }
 
 .button--primary {
@@ -78,11 +83,16 @@
 }
 
 .button--link {
-    color: #ffffff;
+    color: var(--white);
     padding-left: 0;
     padding-right: 0;
     border-radius: 0;
     height: auto;
+
+    &:hover {
+        color: var(--black);
+        box-shadow: inset var(--blue) 0 -2.1em 0;
+    }
 }
 
 .button--disabled,

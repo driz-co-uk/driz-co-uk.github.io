@@ -1,0 +1,31 @@
+.work-list {
+    display: flex;
+    flex-flow: row wrap;
+    margin-top: 48px;
+    margin-left: -16px;
+    margin-right: -16px;
+
+    .work-list__item {
+        width: 50%;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 32px;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+            padding-bottom: 0;
+        }
+
+        img {
+            border-radius: 16px;
+            border: #fff 8px solid;
+            box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+        }
+
+        // .work-list__testimonial {
+        //     padding: 32px;
+        //     break-inside: avoid;
+        //     page-break-inside: avoid;
+        // }
+    }
+}

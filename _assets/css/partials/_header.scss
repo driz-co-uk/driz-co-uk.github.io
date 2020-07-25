@@ -37,6 +37,7 @@
     display: inline-block;
     position: relative;
     z-index: 2;
+    box-shadow: none !important;
 }
 
 .logo img {
@@ -137,7 +138,8 @@
 }
 
 .menu-menu li a:hover {
-    color: var(--blue);
+    color: var(--black);
+    box-shadow: inset var(--blue) 0 -2.1em 0;
 }
 
 .menu-menu li a.selected {
@@ -169,8 +171,13 @@
         justify-content: center;
     }
 
-    .menu--active {
-        transform: translateY(0);
+    .show-menu {
+        overflow: hidden;
+
+        .menu {
+            transform: translateY(0);
+            overflow-y: auto;
+        }
     }
 
     .menu-menu {

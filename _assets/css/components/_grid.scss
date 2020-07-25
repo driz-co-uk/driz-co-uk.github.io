@@ -86,22 +86,18 @@
 .section--white h5,
 .section--off-white h6,
 .section--white h6 {
-    color: #000;
+    color: var(--black);
 }
 
 .section--white a,
 .section--off-white a {
-    color: #000;
-}
-
-.section--white a:hover,
-.section--off-white a:hover {
-    color: var(--blue);
+    color: var(--black);
 }
 
 .section--white a:not(.button),
 .section--off-white a:not(.button) {
-    box-shadow: inset #00aaff 0 -4px 0;
+    color: var(--black);
+    box-shadow: inset var(--blue) 0 -4px 0;
 }
 
 .section--white a:not(.button):hover,
@@ -117,7 +113,7 @@
 }
 
 .work-wrapper {
-    background-color: #fff;
+    background-color: var(--white);
     width: 100vw;
     position: relative;
     left: 50%;

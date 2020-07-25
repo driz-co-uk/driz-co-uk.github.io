@@ -1,0 +1,49 @@
+.photo-list {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: -16px;
+    margin-right: -16px;
+
+    margin-top: 32px;
+    margin-bottom: 32px;
+
+    @media (min-width: 768px) {
+        margin-top: 48px;
+        margin-bottom: 48px;
+    }
+
+    .photo-list__item {
+        padding-left: 16px;
+        padding-right: 16px;
+
+        &:nth-child(1) {
+            width: 100%;
+            padding-bottom: 32px;
+        }
+
+        &:nth-child(2),
+        &:nth-child(3) {
+            width: 50%;
+
+            @media (min-width: 768px) {
+                padding-bottom: 32px;
+            }
+        }
+
+        &:nth-child(4),
+        &:nth-child(5),
+        &:nth-child(6) {
+            width: 33.3%;
+
+            @media (max-width: 767px) {
+                display: none;
+            }
+        }
+
+        img {
+            border-radius: 16px;
+            border: #fff 8px solid;
+            box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+        }
+    }
+}

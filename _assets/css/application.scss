@@ -22,6 +22,8 @@
 @import 'components/figure';
 @import 'components/nutshell-list';
 @import 'components/highlight';
+@import 'components/photo-list';
+@import 'components/work-list';
 
 // partials
 @import 'partials/header';
@@ -51,13 +53,13 @@ body {
 }
 
 body {
-    background-color: #000;
-    color: #ccc;
+    background-color: var(--black);
+    color: var(--foreground);
     overflow-x: hidden;
 }
 
 ::selection {
-    color: #fff;
+    color: var(--white);
     background: var(--blue);
 }
 
@@ -68,119 +70,21 @@ img {
 }
 
 a {
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
     font-weight: 600;
     transition: all .2s ease-in-out;
+    box-shadow: inset transparent 0 -4px 0;
 }
 
 a:hover {
-    color: var(--blue);
+    color: var(--black);
+    box-shadow: inset var(--blue) 0 -2.1em 0;
 }
-
-// .link {
-//     box-shadow: inset var(--blue) 0 -4px 0;
-// }
-
-// .link:hover {
-//     color: var(--black);
-//     box-shadow: inset var(--blue) 0 -2.1em 0;
-// }
 
 .turbolinks-progress-bar {
     height: 2px;
     background-color: var(--blue);
-}
-
-.photo-list {
-    display: flex;
-    flex-flow: row wrap;
-    margin-left: -16px;
-    margin-right: -16px;
-
-    margin-top: 32px;
-    margin-bottom: 32px;
-
-    @media (min-width: 768px) {
-        margin-top: 48px;
-        margin-bottom: 48px;
-    }
-
-    .photo-list__item {
-        padding-left: 16px;
-        padding-right: 16px;
-
-        &:nth-child(1) {
-            width: 100%;
-            padding-bottom: 32px;
-        }
-
-        &:nth-child(2),
-        &:nth-child(3) {
-            width: 50%;
-
-            @media (min-width: 768px) {
-                padding-bottom: 32px;
-            }
-        }
-
-        &:nth-child(4),
-        &:nth-child(5),
-        &:nth-child(6) {
-            width: 33.3%;
-
-            @media (max-width: 767px) {
-                display: none;
-            }
-        }
-
-        img {
-            border-radius: 16px;
-            border: #fff 8px solid;
-            box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
-        }
-    }
-}
-
-
-.work-list {
-    display: flex;
-    flex-flow: row wrap;
-    margin-top: 48px;
-    margin-left: -16px;
-    margin-right: -16px;
-
-    .work-list__item {
-        width: 50%;
-        padding-left: 16px;
-        padding-right: 16px;
-        padding-bottom: 32px;
-
-        &:nth-child(1),
-        &:nth-child(2) {
-            padding-bottom: 0;
-        }
-
-        img {
-            border-radius: 16px;
-            border: #fff 8px solid;
-            box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
-        }
-
-        // .work-list__testimonial {
-        //     padding: 32px;
-        //     break-inside: avoid;
-        //     page-break-inside: avoid;
-        // }
-    }
-}
-
-.underlined {
-    background-image: asset_url('underline.svg');
-    background-position: 50% 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
 }
 
 .blinking-cursor {

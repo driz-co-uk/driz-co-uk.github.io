@@ -68,6 +68,7 @@
 .social li a {
     color: #fff;
     font-weight: 400;
+    box-shadow: none !important;
 }
 
 .social li a:hover {
@@ -150,7 +151,8 @@
 }
 
 .footer-menu li a:hover {
-    color: var(--blue);
+    color: var(--black);
+    // color: var(--blue);
     /* box-shadow: var(--blue) 0 2px 0; */
 }
 

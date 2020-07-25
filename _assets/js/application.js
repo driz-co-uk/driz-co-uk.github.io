@@ -11,4 +11,6 @@ $(document).on('click', '.burger__link', (e) => {
     burger.toggleClass('burger__link--active');
     let menu = $('.menu');
     menu.toggleClass('menu--active');
+    let body = $('body');
+    body.toggleClass('show-menu');
 });
