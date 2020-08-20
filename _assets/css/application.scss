@@ -59,8 +59,8 @@ body {
 }
 
 ::selection {
-    color: var(--white);
-    background: var(--blue);
+    color: var(--black);
+    background-color: var(--blue);
 }
 
 img {
@@ -89,7 +89,7 @@ a:hover {
 
 .blinking-cursor {
     animation: 1s blink step-end infinite;
-    color: var(--blue);
+    // color: var(--blue);
 }
 
 @keyframes blink {

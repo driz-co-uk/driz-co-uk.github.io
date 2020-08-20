@@ -15,7 +15,8 @@ paginate:
         {% include _header.html %}
         <div class="content__column">
             <h1 class="title center">Notes and thoughts.</h1>
-            <p class="description center">Lorem ipsum, dolor sit.</p>
+            <p class="description center"><a href="#footnotes" aria-describedby="footnote-label"
+                    id="footnotes-ref">Lorem ipsum, dolor sit.</a></p>
         </div>
     </div>
 </div>
@@ -35,7 +36,7 @@ paginate:
                         <div class="button-group">
                             <a href="{{ post.url }}" class="button button--link">
                                 <span class="button__label">Read more</span> <i
-                                    class="button__icon button__icon--trailing far fa-arrow-circle-right"></i>
+                                    class="button__icon button__icon--trailing far fa-chevron-right"></i>
                             </a>
                         </div>
                     </div>
@@ -46,14 +47,16 @@ paginate:
                 <ul class="pagination">
                     {% if paginator.previous_page %}
                     {% if paginator.previous_page == 1 %}
-                    <li class="pagination__item"><a class="pagination__link pagination__link--nav" href="/notebook"><i class="far fa-chevron-left fa-fw"></i></a></li>
+                    <li class="pagination__item"><a class="pagination__link pagination__link--nav" href="/notebook"><i
+                                class="far fa-chevron-left fa-fw"></i></a></li>
                     {% else %}
                     <li class="pagination__item"><a class="pagination__link pagination__link--nav"
                             href="/notebook/{{ paginator.previous_page | prepend: site.baseurl | replace: '//', '/' }}"><i
                                 class="far fa-chevron-left fa-fw"></i></a></li>
                     {% endif %}
                     {% else %}
-                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-left fa-fw"></i></li>
+                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-left fa-fw"></i>
+                    </li>
                     {% endif %}
                     {% for page in (1..paginator.total_pages) %}
                     {% if page == paginator.page %}
@@ -63,7 +66,8 @@ paginate:
                             href="/notebook">{{ page | roman }}</a></li>
                     {% else %}
                     <li class="pagination__item"><a class="pagination__link pagination__link--number"
-                            href="/notebook/{{ page | prepend: site.baseurl | replace: '//', '/' }}">{{ page | roman }}</a></li>
+                            href="/notebook/{{ page | prepend: site.baseurl | replace: '//', '/' }}">{{ page | roman }}</a>
+                    </li>
                     {% endif %}
                     {% endfor %}
                     {% if paginator.next_page %}
@@ -71,7 +75,8 @@ paginate:
                             href="/notebook/{{ paginator.next_page | prepend: site.baseurl | replace: '//', '/' }}"><i
                                 class="far fa-chevron-right fa-fw"></i></a></li>
                     {% else %}
-                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-right fa-fw"></i></li>
+                    <li class="pagination__item pagination__item--disabled"><i class="far fa-chevron-right fa-fw"></i>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -86,3 +91,11 @@ paginate:
     </div>-->
     {% endif %}
 </main>
+
+<footer id="footnotes" class="section section--off-white">
+    <div class="container">
+        <ol>
+            <li>This wasn't an accident. <a href="#footnotes-ref" aria-label="Back to content">↩</a></li>
+        </ol>
+    </div>
+</footer>

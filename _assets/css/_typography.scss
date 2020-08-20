@@ -110,7 +110,8 @@ ul+h3 {
     line-height: 32px;
 }
 
-p.drop {
+p.drop,
+p.large {
     font-size: 20px;
     line-height: 28px;
 }
@@ -132,4 +133,39 @@ pre {
     border-radius: 16px;
     border: #fff 8px solid;
     box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+}
+
+article {
+    counter-reset: footnotes;
+}
+
+[aria-describedby="footnote-label"] {
+    counter-increment: footnotes;
+    pointer-events: none;
+    font-weight: normal;
+    color: inherit;
+}
+
+[aria-describedby="footnote-label"]::after {
+    content: '['counter(footnotes)']';
+    position: relative;
+    top: -.5em;
+    font-size: .5em;
+    margin-left: 4px;
+    cursor: pointer;
+    pointer-events: initial;
+    font-weight: 600;
+}
+
+[aria-label="Back to content"] {
+    font-size: 0.8em;
+}
+
+footer :target {
+    background: yellow;
+}
+
+#footnotes li {
+    font-size: 14px;
+    line-height: 22px;
 }

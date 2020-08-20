@@ -1,11 +1,11 @@
 .intro__photo {
     border-radius: 50%;
-}
 
-.intro__photo img {
-    border: #ffffff 8px solid;
-    box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
-    border-radius: 50%;
+    img {
+        border: #ffffff 8px solid;
+        box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+        border-radius: 50%;
+    }
 }
 
 @media (max-width: 991px) {
@@ -47,7 +47,7 @@
 
 .hello {
     font-size: 32px;
-    line-height: 48px;
+    line-height: 40px;
     margin-bottom: 16px;
 }
 

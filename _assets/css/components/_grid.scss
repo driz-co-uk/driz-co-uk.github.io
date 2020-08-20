@@ -23,9 +23,9 @@
 }
 
 .section--main {
-    margin-top: 16px;
+    // margin-top: 16px;
+    // background-color: #111;
     padding-top: 0;
-    background-color: #111;
 }
 
 .section--main .container {
@@ -45,9 +45,9 @@
     flex: 1;
 }
 
-.section--main.section--full-height {
-    min-height: calc(100vh - 16px);
-}
+// .section--main.section--full-height {
+//     min-height: calc(100vh - 16px);
+// }
 
 .section--white {
     color: #333;

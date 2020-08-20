@@ -89,6 +89,10 @@
     border-radius: 0;
     height: auto;
 
+    // .button__label {
+    //     box-shadow: inset var(--blue) 0 -4px 0;
+    // }
+
     &:hover {
         color: var(--black);
         box-shadow: inset var(--blue) 0 -2.1em 0;
