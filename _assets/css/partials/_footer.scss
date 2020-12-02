@@ -145,13 +145,12 @@
 .footer-menu li a {
     color: #ccc;
     font-weight: 600;
-    /* box-shadow: #fff 0 2px 0; */
+    box-shadow: none;
 }
 
 .footer-menu li a:hover {
     color: var(--black);
-    // color: var(--blue);
-    /* box-shadow: var(--blue) 0 2px 0; */
+    box-shadow: inset var(--blue) 0 -2.1em 0;
 }
 
 /* .footer-menu li a.selected {

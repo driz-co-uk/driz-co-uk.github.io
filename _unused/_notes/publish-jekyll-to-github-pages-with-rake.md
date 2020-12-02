@@ -1,6 +1,6 @@
 ---
 layout: note
-title: Publish Jekyll to GitHub Pages with Rake.
+title: Publish Jekyll to GitHub Pages with Rake
 date: 1993-01-01
 excerpt: >
   In the modern world of responsive web design we have devices ranging from watches to televisions, and as more devices with varying screen sizes appear on the market, specifying a font size for each 'breakpoint' isn't a feasible approach going forward... introducing Fluid Typography!

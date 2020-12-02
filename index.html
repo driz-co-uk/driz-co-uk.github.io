@@ -8,13 +8,13 @@ layout: default
         {% include _header.html %}
         <div class="intro">
             <div class="intro__content">
-                <p class="hello">Hello. I&#8217;m <a href="/about"><strong>Cameron</strong></a>. <span
+                <p class="hello">Hello, I&#8217;m <a href="/about"><strong>Cameron</strong></a>. <span
                         class="wave">👋🏻</span></p>
                 <h1 class="title">Software engineer, <abbr title="User Interface">UI</abbr>/<abbr
-                        title="User Experience">UX</abbr> designer, photographer, and mountain biker.</h1>
-                <p class=" margin-top-3">Specialist Web Developer and Team Lead at <a href="https://www.thefloow.com" target="_blank"
+                        title="User Experience">UX</abbr> designer, photographer, and mountain biker<span class="blue">.</span></h1>
+                <p class="margin-top-3">Specialist Web Developer and Team Lead at <a href="https://www.thefloow.com" target="_blank"
                         rel="external">The Floow</a>, based in
-                    <a href="https://www.thisiskelham.com" target="_blank" rel="external">Kelham Island</a>, Sheffield, UK.</p>
+                    <a href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter" target="_blank" rel="external">Kelham Island</a>, Sheffield, UK.</p>
             </div>
             <div class="intro__photo">
                 {% asset 'cameron.jpg' alt:'Photo of Cameron' width="480" height="480" %}
@@ -44,12 +44,12 @@ layout: default
 
             <div class="work-wrapper">
                 <div class="container">
-                    <h2 class="center">Design &plus; development of apps and websites.</h2>
+                    <h2 class="center">Design <span class="blue">&plus;</span> development of apps and websites<span class="blue">.</span></h2>
                     <div class="content__column">
                         <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
                             eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
                             ducimus.</p>
-                        <p class="center bold">Portfolio coming soon.</p>
+                        <p class="center bold">I&#8217;ll be adding a portfolio of work in the near future.</p>
                     </div>
                     <div class="work-screens">
                         {% asset 'hero-desktop-vector.svg' alt:'' %}
@@ -63,26 +63,24 @@ layout: default
             <div class="skills">
                 <div class="skill">
                     <i class="skill__icon far fa-paint-brush fa-fw"></i>
-                    <h4 class="skill__title">Design.</h4>
+                    <h4 class="skill__title">Design<span class="blue">.</span></h4>
                     <ul class="skill__description">
-                        <!-- <li>A/B testing</li> -->
                         <li>Branding</li>
                         <li>Atomic design</li>
                         <li>Design systems</li>
-                        <!-- <li>Animation</li> -->
                         <li>UI/UX</li>
-                        <!-- <li>Prototyping</li> -->
                         <li>Accessibility</li>
                         <li>Web design</li>
                     </ul>
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-code fa-fw"></i>
-                    <h4 class="skill__title">Code.</h4>
+                    <h4 class="skill__title">Code<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>HTML</li>
                         <li>CSS</li>
                         <li>Sass</li>
+                        <li>ASP.NET</li>
                         <li>PHP</li>
                         <li>Ruby</li>
                         <li>JavaScript</li>
@@ -94,7 +92,7 @@ layout: default
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-server fa-fw"></i>
-                    <h4 class="skill__title">DevOps.</h4>
+                    <h4 class="skill__title">DevOps<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>Heroku</li>
                         <li>Apache</li>
@@ -111,7 +109,7 @@ layout: default
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-cog fa-fw"></i>
-                    <h4 class="skill__title">Frameworks.</h4>
+                    <h4 class="skill__title">Frameworks<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>WordPress</li>
                         <li>Textpattern</li>
@@ -125,7 +123,7 @@ layout: default
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-flask fa-fw"></i>
-                    <h4 class="skill__title">Test &plus; Lint.</h4>
+                    <h4 class="skill__title">Test and Lint<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>RSpec</li>
                         <li>Rubocop</li>
@@ -140,16 +138,15 @@ layout: default
                 </div>
                 <div class="skill">
                     <i class="skill__icon far fa-tools fa-fw"></i>
-                    <h4 class="skill__title">Tools.</h4>
+                    <h4 class="skill__title">Tools<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>Adobe CS/CC</li>
                         <li>Sketch</li>
                         <li>Figma</li>
-                        <li>Angular</li>
+                        <li>AngularJS</li>
                         <li>React</li>
+                        <li>Vue</li>
                         <li>Stimulus</li>
-                        <li>jQuery</li>
-                        <li>Webpack</li>
                     </ul>
                 </div>
             </div>
@@ -164,44 +161,51 @@ layout: default
             </div> -->
 
             <div class="divider divider--border-top">
-                <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with.</h3>
-                <p class="margin-bottom-3 center">Large and small, private and public sector.</p>
+                <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with<span class="blue">.</span></h3>
+                <!--<p class="margin-bottom-3 center">Large and small, private and public sector.</p>-->
+                <div class="margin-bottom-3 content__column">
+                    <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
+                    eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                    ducimus.</p>
+                </div>
                 <div class="client-logos">
                     <div class="client-logos__item">
-                        {% asset 'clients/vodafone.svg' alt:'Vodafone' %}
+                        {% asset 'clients/vodafone.svg' alt:'Vodafone' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/mars.svg' alt:'Mars' %}
+                        {% asset 'clients/mars.svg' alt:'Mars' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/nhs.svg' alt:'NHS' %}
+                        {% asset 'clients/nhs.svg' alt:'NHS' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/the_floow.svg' alt:'The Floow' %}
+                        {% asset 'clients/the_floow.svg' alt:'The Floow' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/sheffield_hallam_university.svg' alt:'Sheffield Hallam University' %}
+                        {% asset 'clients/sheffield_hallam_university.svg' alt:'Sheffield Hallam University' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/direct_line_group.svg' alt:'Direct Line Group' %}
+                        {% asset 'clients/direct_line_group.svg' alt:'Direct Line Group' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/nicholas_associates_software.svg' alt:'Nicholas Associates Software' %}
+                        {% asset 'clients/nicholas_associates_software.svg' alt:'Nicholas Associates Software' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/aaa.svg' alt:'AAA' %}
+                        {% asset 'clients/aaa.svg' alt:'AAA' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/taschen.svg' alt:'Taschen' %}
+                        {% asset 'clients/taschen.svg' alt:'Taschen' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/haven_holidays.svg' alt:'Haven Holidays' %}
+                        {% asset 'clients/haven_holidays.svg' alt:'Haven Holidays' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        {% asset 'clients/butlins.svg' alt:'Butlins' %}
+                        {% asset 'clients/butlins.svg' alt:'Butlins' width="640" height="360" %}
                     </div>
                     <div class="client-logos__item">
-                        <a href="/contact">You?</a>
+                        <div class="">
+                            <a href="/contact">You?</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,7 +229,7 @@ layout: default
         </div>
     </section>
 
-    <div class="section section--white">
+    <!--<div class="section section--white">
         <div class="container">
             <h2 class="center">From the notebook.</h2>
             <div class="margin-bottom-4 content__column">
@@ -264,11 +268,11 @@ layout: default
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
-    <section id="photos" class="section section--off-white">
+    <section id="photos" class="section section--white">
         <div class="container">
-            <h2 class="center">I like to take photos.</h2>
+            <h2 class="center">I like to take photos<span class="blue">.</span></h2>
             <div class="content__column">
                 <p class="center">I enjoy getting out and about and taking photos with my Nikon DSLR and iPhone (mostly
                     landscape and macro). Check out some of my photos on <a href="https://flickr.com/driz" target="_blank"

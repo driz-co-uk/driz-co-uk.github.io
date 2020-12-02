@@ -1,6 +1,6 @@
 <div class="header">
     <a class="logo" href="/">
-        {% asset 'logo.svg' alt:'driz logo' %}
+        {% asset 'logo.svg' alt:'driz logo' width="240" height="72" %}
     </a>
     <nav class="menu">
         <ul class="menu-menu">
@@ -8,10 +8,10 @@
                 <a{% if page.url == '/' %} class="selected"{% endif %} href="/">Home</a>
             </li>
             <li class="menu__item">
-                <a class="disabled" href="/work">Work</a>
+                <a class="disabled" href="javascript:void(0);">Work</a>
             </li>
             <li class="menu__item">
-                <a{% if page.url contains '/notebook' %} class="selected"{% endif %} href="/notebook">Notebook</a>
+                <a class="disabled" href="javascript:void(0);">Notebook</a>
             </li>
             <li class="menu__item">
                 <a{% if page.url contains '/about' %} class="selected"{% endif %} href="/about">About</a>

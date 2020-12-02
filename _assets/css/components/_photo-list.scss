@@ -44,6 +44,18 @@
             border-radius: 16px;
             border: #fff 8px solid;
             box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
+            transition: all .2s ease-in-out;
+        }
+
+        a {
+            box-shadow: none;
+
+            &:hover {
+                img {
+                    transform: translateY(-8px);
+                    box-shadow: rgba(0, 0, 0, .25) 0 8px 32px;
+                }
+            }
         }
     }
 }

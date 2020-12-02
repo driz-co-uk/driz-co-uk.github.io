@@ -74,7 +74,7 @@ a {
     text-decoration: none;
     font-weight: 600;
     transition: all .2s ease-in-out;
-    box-shadow: inset transparent 0 -4px 0;
+    box-shadow: inset rgba(255, 255, 255, .25) 0 -4px 0;
 }
 
 a:hover {
@@ -89,7 +89,6 @@ a:hover {
 
 .blinking-cursor {
     animation: 1s blink step-end infinite;
-    // color: var(--blue);
 }
 
 @keyframes blink {
