@@ -1,7 +1,7 @@
 email: cameron@driz.co.uk
 title: Cameron Drysdale
 description: > # this means to ignore newlines until "baseurl:"
-  Hello. I'm Cameron. Software engineer, UI/UX designer, photographer, and mountain biker.
+  Hello. I'm Cameron. Software engineer, UI/UX devigner, photographer, and mountain biker.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://driz.co.uk" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: driz

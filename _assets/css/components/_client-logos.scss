@@ -1,25 +1,24 @@
 .client-logos {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 33.3%));
-    row-gap: 8px;
-    column-gap: 8px;
+    // row-gap: 8px;
+    // column-gap: 8px;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-}
 
-@media (min-width: 992px) {
-    .client-logos {
+    @media (min-width: 992px) {
         grid-template-columns: repeat(4, minmax(0, 25%));
+
     }
-}
 
-.client-logos__item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .client-logos__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-    img {
-        max-height: 48px + 64px;
+        img {
+            max-height: 48px + 64px;
+        }
     }
 }

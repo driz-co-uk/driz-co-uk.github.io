@@ -4,20 +4,20 @@
     </a>
     <nav class="menu">
         <ul class="menu-menu">
-            <li class="menu__item home">
-                <a{% if page.url == '/' %} class="selected"{% endif %} href="/">Home</a>
+            <li class="menu__item hide-on-desktop">
+                <a class="menu__item__link{% if page.url == '/' %} selected{% endif %}" href="/">Home</a>
             </li>
             <li class="menu__item">
-                <a class="disabled" href="javascript:void(0);">Work</a>
+                <a class="menu__item__link disabled" href="javascript:void(0);">Work</a>
             </li>
             <li class="menu__item">
-                <a class="disabled" href="javascript:void(0);">Notebook</a>
+                <a class="menu__item__link disabled" href="javascript:void(0);">Notebook</a>
             </li>
             <li class="menu__item">
-                <a{% if page.url contains '/about' %} class="selected"{% endif %} href="/about">About</a>
+                <a class="menu__item__link{% if page.url contains '/about' %} selected{% endif %}" href="/about">About</a>
             </li>
             <li class="menu__item">
-                <a{% if page.url contains '/contact' %} class="selected"{% endif %} href="/contact">Contact</a>
+                <a class="menu__item__link{% if page.url contains '/contact' %} selected{% endif %}" href="/contact">Contact</a>
             </li>
         </ul>
     </nav>
