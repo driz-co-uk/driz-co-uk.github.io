@@ -1,0 +1,40 @@
+<section id="notes" class="section section--white">
+    <div class="container">
+        <h2 class="center">From the notebook<span class="blue">.</span></h2>
+        <div class="margin-bottom-4 content__column">
+            <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
+                eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                ducimus.</p>
+        </div>
+        <div class="posts">
+            {% assign notes = site.notes | reverse %}
+            {% for post in notes limit: 2 %}
+            <article class="post">
+                <div class="post__image">
+                    <img src="https://picsum.photos/1920/1080?random={{ post.id }}" width="1920" height="1080">
+                </div>
+                <div class="post__content">
+                    <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                    <p class="post__excerpt">{{ post.excerpt }}</p>
+                    <div class="button-group">
+                        <a href="{{ post.url }}" class="button button--link">
+                            <span class="button__label">Read more</span> <i
+                                class="button__icon button__icon--trailing far fa-chevron-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="divider divider--border-top">
+            <div class="button-group button-group--centered">
+                <div class="button-group">
+                    <a class="button button--primary" href="/notebook">
+                        <i class="button__icon far fa-book fa-fw"></i>
+                        <span class="button__label">View more notes</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

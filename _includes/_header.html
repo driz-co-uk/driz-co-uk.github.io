@@ -7,12 +7,15 @@
             <li class="menu__item hide-on-desktop">
                 <a class="menu__item__link{% if page.url == '/' %} selected{% endif %}" href="/">Home</a>
             </li>
-            <li class="menu__item">
+            {% comment %}<li class="menu__item">
                 <a class="menu__item__link disabled" href="javascript:void(0);">Work</a>
             </li>
             <li class="menu__item">
                 <a class="menu__item__link disabled" href="javascript:void(0);">Notebook</a>
             </li>
+            <li class="menu__item">
+                <a class="menu__item__link{% if page.url contains '/store' %} selected{% endif %}" href="/store">Store</a>
+            </li>{% endcomment %}
             <li class="menu__item">
                 <a class="menu__item__link{% if page.url contains '/about' %} selected{% endif %}" href="/about">About</a>
             </li>

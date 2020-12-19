@@ -6,19 +6,19 @@ layout: compress
 
 <head>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>{% if page.title
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>{% if page.title
 		%}{{ page.title }} - {{ site.title }}{%
 	else
 		%}{{ site.title }}{%
 	endif
 	%}</title>
-	{% if page.description %}
-	<meta name="description" content="{{ page.description | strip_newlines }}">
-	{% elsif page.excerpt %}
-	<meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
-	{% elsif site.description %}
-	<meta name="description" content="{{ site.description | strip_newlines }}">
+    {% if page.description %}
+    <meta name="description" content="{{ page.description | strip_newlines }}">
+    {% elsif page.excerpt %}
+    <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}">
+    {% elsif site.description %}
+    <meta name="description" content="{{ site.description | strip_newlines }}">
     {% endif %}
     <meta name="google-site-verification" content="6JZG3v_UCsWSTG86tLE4SYPT_kkFNI-wey7RCl5koOg">
     <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png">
@@ -39,14 +39,24 @@ layout: compress
 
     <script>
         (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
                 (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
         ga('create', 'UA-267239-3', 'auto');
         ga('send', 'pageview');
     </script>
+
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.js"></script>
+    <div hidden id="snipcart" data-api-key="OTM0Mjg2ZDItNjY1OC00MDExLTg5ZTItNDU3ZjE2OGZiYjI4NjM3NDM3OTUzNjQxNDAzNjg1"
+        data-currency="gbp" data-config-add-product-behavior="nonei"></div>
 
     {{ content }}
 

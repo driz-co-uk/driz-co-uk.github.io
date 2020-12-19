@@ -18,6 +18,8 @@ collections:
   notes:
     output: true
     permalink: /notebook/:title
+  goodies:
+    output: false
 
 exclude:
   - Gemfile

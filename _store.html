@@ -1,0 +1,59 @@
+<section id="store" class="section section--off-white">
+    <div class="container">
+        <h2 class="center">Digital goodies<span class="blue">.</span></h2>
+        <div class="margin-bottom-4 content__column">
+            <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
+                eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                ducimus.</p>
+        </div>
+        <div class="products">
+            {% assign products = site.goodies | reverse %}
+            {% for item in products limit: 2 %}
+            <div class="product-item" id="{{ item.id }}">
+                <div class="product-item__content">
+                    <div class="product-item__content__inner">
+                        <h3>{{ item.title }}<span class="blue">.</span></h3>
+                        <p class="large bold">£{{ item.price }}</p>
+                        <p>{{ item.description }}</p>
+                        <div class="form__buttons">
+                            <div class="button-group">
+                                <div class="button-group">
+                                    <button class="button button--primary button--outline snipcart-add-item"
+                                        data-item-id="{{ item.id }}" data-item-price="{{ item.price }}"
+                                        data-item-url="/store#{{ item.id }}"
+                                        data-item-description="{{ item.description }}"
+                                        data-item-image="https://picsum.photos/1920/1080?random={{ item.id }}"
+                                        data-item-name="{{ item.title }}">
+                                        <i class="far fa-plus fa-fw button__icon"></i> <span
+                                            class="button__label">Add
+                                            to
+                                            cart</span>
+                                    </button>
+                                </div>
+                                <div class="button-group">
+                                    <a class="button button--link" href="/store#{{ item.id }}">
+                                        <span class="button__label">Read more</span> <i class="far fa-chevron-right button__icon button__icon--trailing"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-item__image">
+                    <img src="https://picsum.photos/1920/1080?random={{ item.id }}" width="1920" height="1080">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="divider divider--border-top">
+            <div class="button-group button-group--centered">
+                <div class="button-group">
+                    <a class="button button--primary" href="/store">
+                        <i class="button__icon far fa-gifts fa-fw"></i>
+                        <span class="button__label">View more goodies</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

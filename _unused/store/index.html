@@ -1,0 +1,63 @@
+---
+title: Store
+layout: default
+---
+
+<div class="section section--main">
+    <div class="container">
+        {% include _header.html %}
+        <div class="content__column">
+            <h1 class="title center">Digital goodies<span class="blue">.</span></h1>
+            <p class="description center">Lorem ipsum dolor sit amet.</p>
+        </div>
+    </div>
+</div>
+
+<main class="content">
+    <div class="section section--white">
+        <div class="container">
+            <div class="products">
+                {% assign products = site.goodies | reverse %}
+                {% for item in products limit: 2 %}
+                <div class="product-item" id="{{ item.id }}">
+                    <div class="product-item__content">
+                        <div class="product-item__content__inner">
+                            <h3>{{ item.title }}<span class="blue">.</span></h3>
+                            <p class="large bold">£{{ item.price }}</p>
+                            <p>{{ item.description }}</p>
+                            <div class="form__buttons">
+                                <div class="button-group">
+                                    <button class="button button--primary button--outline snipcart-add-item"
+                                        data-item-id="{{ item.id }}" data-item-price="{{ item.price }}"
+                                        data-item-url="/store#{{ item.id }}"
+                                        data-item-description="{{ item.description }}"
+                                        data-item-image="https://picsum.photos/1920/1080?random={{ item.id }}"
+                                        data-item-name="{{ item.title }}">
+                                        <i class="far fa-plus fa-fw button__icon"></i> <span
+                                            class="button__label">Add
+                                            to
+                                            cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-item__image">
+                        <img src="https://picsum.photos/1920/1080?random={{ item.id }}" width="1920" height="1080">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="divider divider--border-top">
+                <div class="button-group button-group--centered">
+                    <div class="button-group">
+                        <button class="button button--primary button--large snipcart-checkout">
+                            <i class="far fa-shopping-cart fa-fw button__icon"></i> <span class="button__label">Checkout <span
+                                class="snipcart-total-price">£0.00</span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -141,3 +141,56 @@
     /* this is the space between the text and monitors */
     bottom: -48px;
 }
+
+.products {
+    .product-item {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-left: -16px;
+        margin-right: -16px;
+        margin-bottom: 48px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        // &:nth-child(even) {
+        //     .product-item__image {
+        //         order: 1;
+        //     }
+
+        //     .product-item__content {
+        //         order: 2;
+        //     }
+        // }
+
+        .product-item__content,
+        .product-item__image {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .product-item__content {
+            width: 100%;
+
+            @media (min-width: 768px) {
+                width: 50%;
+            }
+
+            // .product-item__content__inner {
+            //     padding-left: 32px;
+            //     padding-right: 32px;
+            // }
+        }
+
+        .product-item__image {
+            width: 100%;
+
+            @media (min-width: 768px) {
+                width: 50%;
+            }
+        }
+    }
+}

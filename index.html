@@ -11,10 +11,12 @@ layout: default
                 <p class="hello">Hello, I&#8217;m <a href="/about"><strong>Cameron</strong></a>. <span
                         class="wave">👋🏻</span></p>
                 <h1 class="title">Software engineer, <abbr title="User Interface">UI</abbr>/<abbr
-                        title="User Experience">UX</abbr> devigner, photographer, and mountain biker<span class="blue">.</span></h1>
-                <p class="margin-top-3">Specialist Web Developer and Team Lead at <a href="https://www.thefloow.com" target="_blank"
-                        rel="external">The Floow</a>, based in
-                    <a href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter" target="_blank" rel="external">Kelham Island</a>, Sheffield, UK.</p>
+                        title="User Experience">UX</abbr> <abbr title="Designer/Developer">devigner</abbr>,
+                    photographer, and mountain biker<span class="blue">.</span></h1>
+                <p class="margin-top-3">Specialist Web Developer and Team Lead at <a href="https://www.thefloow.com"
+                        target="_blank" rel="external">The Floow</a>, based in
+                    <a href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter" target="_blank" rel="external">Kelham
+                        Island</a>, Sheffield.</p>
             </div>
             <div class="intro__photo">
                 {% asset 'cameron.jpg' alt:'Photo of Cameron' width="480" height="480" %}
@@ -44,10 +46,13 @@ layout: default
 
             <div class="work-wrapper">
                 <div class="container">
-                    <h2 class="center">Design <span class="blue">&plus;</span> development of apps and websites<span class="blue">.</span></h2>
+                    <h2 class="center">Design <span class="blue">&plus;</span> development of apps and websites<span
+                            class="blue">.</span></h2>
                     <div class="content__column">
-                        <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
-                            eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                        <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia
+                            voluptates
+                            eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum
+                            laborum
                             ducimus.</p>
                         <p class="center bold">I&#8217;ll be adding a portfolio of work in the near future.</p>
                     </div>
@@ -99,12 +104,12 @@ layout: default
                         <li>Nginx</li>
                         <li>IIS</li>
                         <li>AWS</li>
-                        <li>Git</li>
-                        <li>SVN</li>
+                        <li>GitHub</li>
+                        <li>Bitbucket</li>
                         <li>Docker</li>
-                        <li>CI/CD</li>
                         <li>Bamboo</li>
                         <li>Jenkins</li>
+                        <li>CircleCI</li>
                     </ul>
                 </div>
                 <div class="skill">
@@ -126,6 +131,7 @@ layout: default
                     <h4 class="skill__title">Test and Lint<span class="blue">.</span></h4>
                     <ul class="skill__description">
                         <li>RSpec</li>
+                        <li>Cucumber</li>
                         <li>Rubocop</li>
                         <li>Brakeman</li>
                         <li>Jest</li>
@@ -147,26 +153,30 @@ layout: default
                         <li>React</li>
                         <li>Vue</li>
                         <li>Stimulus</li>
+                        <li>jQuery</li>
+                        <li>Webpack</li>
+                        <li>&hellip;</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- <div class="work-list">
+            {% comment %}<div class="work-list">
                 <div class="work-list__item">
                     <img src="https://picsum.photos/1920/1080" width="1920" height="1080">
                 </div>
                 <div class="work-list__item">
                     <img src="https://picsum.photos/1920/1080" width="1920" height="1080">
                 </div>
-            </div> -->
+            </div>{% endcomment %}
 
             <div class="divider divider--border-top">
-                <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with<span class="blue">.</span></h3>
-                <!--<p class="margin-bottom-3 center">Large and small, private and public sector.</p>-->
+                <h3 class="margin-bottom-2 center">Some of the clients I&#8217;ve worked with<span class="blue">.</span>
+                </h3>
+                {% comment %}<p class="margin-bottom-3 center">Large and small, private and public sector.</p>{% endcomment %}
                 <div class="margin-bottom-3 content__column">
                     <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
-                    eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
-                    ducimus.</p>
+                        eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
+                        ducimus.</p>
                 </div>
                 <div class="client-logos">
                     <div class="client-logos__item">
@@ -210,7 +220,7 @@ layout: default
                 </div>
             </div>
 
-            <div class="divider divider--border-top">
+            {% comment %}<div class="divider divider--border-top">
                 <div class="button-group button-group--centered button-group--collapsible">
                     <div class="button-group">
                         <a class="button button--disabled button--primary">
@@ -225,59 +235,18 @@ layout: default
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>{% endcomment %}
         </div>
     </section>
-
-    <!--<div class="section section--white">
-        <div class="container">
-            <h2 class="center">From the notebook.</h2>
-            <div class="margin-bottom-4 content__column">
-                <p class="center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe officia voluptates
-                    eveniet labore alias odio voluptate expedita inventore corporis repellat, deleniti illum laborum
-                    ducimus.</p>
-            </div>
-            <div class="posts">
-                {% assign notes = site.notes | reverse %}
-                {% for post in notes limit: 2 %}
-                <article class="post">
-                    <div class="post__image">
-                        <img src="https://picsum.photos/1920/1080?random={{ post.id }}" width="1920" height="1080">
-                    </div>
-                    <div class="post__content">
-                        <h3 class="post__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                        <p class="post__excerpt">{{ post.excerpt }}</p>
-                        <div class="button-group">
-                            <a href="{{ post.url }}" class="button button--link">
-                                <span class="button__label">Read more</span> <i
-                                    class="button__icon button__icon--trailing far fa-chevron-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-            <div class="divider divider--border-top">
-                <div class="button-group button-group--centered">
-                    <div class="button-group">
-                        <a class="button button--primary" href="/notebook">
-                            <i class="button__icon far fa-book fa-fw"></i>
-                            <span class="button__label">View more notes</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
 
     <section id="photos" class="section section--white">
         <div class="container">
             <h2 class="center">I like to take photos<span class="blue">.</span></h2>
             <div class="content__column">
                 <p class="center">I enjoy getting out and about and taking photos with my Nikon DSLR and iPhone (mostly
-                    landscape and macro). Check out some of my photos on <a href="https://flickr.com/driz" target="_blank"
-                        rel="external">Flickr</a> and <a href="https://instagram.com/iamdriz" target="_blank"
-                        rel="external">Instagram</a>.</p>
+                    landscape and macro). Check out some of my photos on <a href="https://flickr.com/driz"
+                        target="_blank" rel="external">Flickr</a> and <a href="https://instagram.com/iamdriz"
+                        target="_blank" rel="external">Instagram</a>.</p>
             </div>
             <div class="photo-list">
                 <div class="photo-list__item">
@@ -313,8 +282,8 @@ layout: default
                 </div>
                 <div class="photo-list__item">
                     <a target="_blank" href="https://www.flickr.com/photos/driz/43517817102/" title="Public Footpath">
-                        <img src="https://live.staticflickr.com/941/43517817102_d699286398_k.jpg" width="2048" height="1365"
-                            alt="Public Footpath">
+                        <img src="https://live.staticflickr.com/941/43517817102_d699286398_k.jpg" width="2048"
+                            height="1365" alt="Public Footpath">
                     </a>
                 </div>
             </div>
