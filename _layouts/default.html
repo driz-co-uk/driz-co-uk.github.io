@@ -53,15 +53,16 @@ layout: compress
         ga('send', 'pageview');
     </script>
 
-    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.css" />
-    <script async src="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.js"></script>
-    <div hidden id="snipcart" data-api-key="OTM0Mjg2ZDItNjY1OC00MDExLTg5ZTItNDU3ZjE2OGZiYjI4NjM3NDM3OTUzNjQxNDAzNjg1"
-        data-currency="gbp" data-config-add-product-behavior="nonei"></div>
-
     {{ content }}
 
     {% include _footer.html %}
 
+    {% comment %}
+    <link rel="stylesheet" href="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.css" />
+    <script async src="https://cdn.snipcart.com/themes/v3.0.27/default/snipcart.js"></script>
+    <div hidden id="snipcart" data-api-key="OTM0Mjg2ZDItNjY1OC00MDExLTg5ZTItNDU3ZjE2OGZiYjI4NjM3NDM3OTUzNjQxNDAzNjg1"
+        data-currency="gbp" data-config-add-product-behavior="nonei"></div>
+    {% endcomment %}
 </body>
 
 </html>
