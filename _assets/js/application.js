@@ -18,14 +18,14 @@ $(document).on('click', '.burger__link', (e) => {
 });
 
 $.fn.visible = function (partial) {
-    var $t = $(this),
-        $w = $(window),
-        viewTop = $w.scrollTop(),
-        viewBottom = viewTop + $w.height(),
-        _top = $t.offset().top,
-        _bottom = _top + $t.height(),
-        compareTop = partial === true ? _bottom : _top,
-        compareBottom = partial === true ? _top : _bottom;
+    let $this = $(this),
+        $window = $(window),
+        viewTop = $window.scrollTop(),
+        viewBottom = viewTop + $window.height(),
+        top = $this.offset().top,
+        bottom = top + $this.height(),
+        compareTop = partial === true ? bottom : top,
+        compareBottom = partial === true ? top : bottom;
     return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
 };
 
@@ -35,6 +35,8 @@ function setAnimations() {
             if ($(el).visible(true)) {
                 if (!$(el).hasClass('animation--completed'))
                     $(el).addClass('animation--animated');
+            } else {
+                //$(el).removeClass('animation--animated');
             }
             $(el).one('webkitAnimationEnd animationend', function () {
                 $(this).removeClass('animation--animated').addClass('animation--completed');
@@ -42,6 +44,9 @@ function setAnimations() {
         });
     }
     $(window).scroll(function () {
+        animations();
+    });
+    $(window).resize(function () {
         animations();
     });
     animations();
