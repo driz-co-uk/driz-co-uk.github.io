@@ -1,3 +1,5 @@
+//= require ./vendor/jquery-1.12.4.min
+//= require ./vendor/waypoints-4.0.1.min
 //= require_tree ./vendor
 //= require_tree ./controllers
 
@@ -13,4 +15,26 @@ $(document).on('click', '.burger__link', (e) => {
     menu.toggleClass('menu--active');
     let body = $('body');
     body.toggleClass('show-menu');
+});
+
+function setAnimations() {
+    $('.animation').each(function () {
+        new Waypoint.Inview({
+            element: $(this),
+            enter: function () {
+                $(this.element).addClass('animation--animated');
+            }
+        });
+        $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+            $(this).addClass('animation--completed');
+        });
+    });
+}
+
+$(document).on('turbolinks:load', function () {
+    setAnimations();
+});
+
+$(document).on('turbolinks:before-cache', function () {
+    $('.animation').removeClass('animation--animated animation--completed');
 });

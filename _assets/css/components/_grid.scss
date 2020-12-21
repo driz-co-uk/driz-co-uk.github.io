@@ -140,6 +140,14 @@
     justify-content: space-evenly;
     /* this is the space between the text and monitors */
     bottom: -48px;
+
+    img {
+        margin-right: 32px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 
 .products {
