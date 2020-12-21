@@ -18,11 +18,12 @@ $(document).on('click', '.burger__link', (e) => {
 });
 
 function setAnimations() {
-    $('.animation').each(function () {
+    $('.animation:visible').each(function () {
         new Waypoint.Inview({
             element: $(this),
             enter: function () {
-                $(this.element).addClass('animation--animated');
+                if($(this.element).is(':visible'))
+                    $(this.element).addClass('animation--animated');
             }
         });
         $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
