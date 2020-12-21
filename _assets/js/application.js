@@ -28,7 +28,7 @@ function setAnimations() {
                     $(this.element).addClass('animation--animated');
             }
         });
-        $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+        $(this).one('webkitAnimationEnd animationend', function () {
             $(this).removeClass('animation--animated').addClass('animation--completed');
         });
     });
