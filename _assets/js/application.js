@@ -36,6 +36,7 @@ function setAnimations() {
 
 $(document).on('turbolinks:load', function () {
     setAnimations();
+    // $('.animation').addClass('animation--completed');
 });
 
 $(document).on('turbolinks:before-cache', function () {
