@@ -24,12 +24,12 @@ function setAnimations() {
         new Waypoint.Inview({
             element: $(this),
             enter: function () {
-                if($(this.element).is(':visible'))
+                if($(this.element).is(':visible') && !$(this.element).hasClass('animation--completed'))
                     $(this.element).addClass('animation--animated');
             }
         });
         $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-            $(this).addClass('animation--completed');
+            $(this).removeClass('animation--animated').addClass('animation--completed');
         });
     });
 }
@@ -39,5 +39,5 @@ $(document).on('turbolinks:load', function () {
 });
 
 $(document).on('turbolinks:before-cache', function () {
-    $('.animation').removeClass('animation--animated animation--completed');
+    $('.animation--completed:visible').removeClass('animation--completed');
 });
