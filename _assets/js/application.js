@@ -20,11 +20,11 @@ $(document).on('click', '.burger__link', (e) => {
 });
 
 function setAnimations() {
-    $('.animation:visible').each(function () {
+    $('.animation').each(function () {
         new Waypoint.Inview({
             element: $(this),
             enter: function () {
-                if($(this.element).is(':visible') && !$(this.element).hasClass('animation--completed'))
+                if(!$(this.element).hasClass('animation--completed'))
                     $(this.element).addClass('animation--animated');
             }
         });
@@ -38,6 +38,6 @@ $(document).on('turbolinks:load', function () {
     setAnimations();
 });
 
-$(document).on('turbolinks:before-cache', function () {
-    $('.animation--completed:visible').removeClass('animation--completed');
+$(document).on('turbolinks:before-render', function () {
+    $('.animation--completed').removeClass('animation--completed');
 });
