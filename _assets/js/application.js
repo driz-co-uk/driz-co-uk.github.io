@@ -1,5 +1,7 @@
+//= require ./vendor/turbolinks-5.2.0.min
 //= require ./vendor/jquery-1.12.4.min
 //= require ./vendor/waypoints-4.0.1.min
+//= require ./vendor/inview-4.0.1.min
 //= require_tree ./vendor
 //= require_tree ./controllers
 
