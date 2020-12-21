@@ -1,7 +1,5 @@
 //= require ./vendor/turbolinks-5.2.0.min
 //= require ./vendor/jquery-1.12.4.min
-//= require ./vendor/waypoints-4.0.1.min
-//= require ./vendor/inview-4.0.1.min
 //= require ./vendor/stimulus-1.1.1.umd
 //= require_tree ./controllers
 
@@ -19,24 +17,38 @@ $(document).on('click', '.burger__link', (e) => {
     body.toggleClass('show-menu');
 });
 
+$.fn.visible = function (partial) {
+    var $t = $(this),
+        $w = $(window),
+        viewTop = $w.scrollTop(),
+        viewBottom = viewTop + $w.height(),
+        _top = $t.offset().top,
+        _bottom = _top + $t.height(),
+        compareTop = partial === true ? _bottom : _top,
+        compareBottom = partial === true ? _top : _bottom;
+    return ((compareBottom <= viewBottom) && (compareTop >= viewTop));
+};
+
 function setAnimations() {
-    $('.animation').each(function () {
-        new Waypoint.Inview({
-            element: $(this),
-            enter: function () {
-                if(!$(this.element).hasClass('animation--completed'))
-                    $(this.element).addClass('animation--animated');
+    function animations() {
+        $('.animation').each(function (i, el) {
+            if ($(el).visible(true)) {
+                if (!$(el).hasClass('animation--completed'))
+                    $(el).addClass('animation--animated');
             }
+            $(el).one('webkitAnimationEnd animationend', function () {
+                $(this).removeClass('animation--animated').addClass('animation--completed');
+            });
         });
-        $(this).one('webkitAnimationEnd animationend', function () {
-            $(this).removeClass('animation--animated').addClass('animation--completed');
-        });
+    }
+    $(window).scroll(function () {
+        animations();
     });
+    animations();
 }
 
 $(document).on('turbolinks:load', function () {
     setAnimations();
-    // $('.animation').addClass('animation--completed');
 });
 
 $(document).on('turbolinks:before-cache', function () {
