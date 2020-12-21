@@ -2,7 +2,7 @@
 //= require ./vendor/jquery-1.12.4.min
 //= require ./vendor/waypoints-4.0.1.min
 //= require ./vendor/inview-4.0.1.min
-//= require_tree ./vendor
+//= require ./vendor/stimulus-1.1.1.umd
 //= require_tree ./controllers
 
 // show the progress bar regardless of delay
@@ -38,6 +38,6 @@ $(document).on('turbolinks:load', function () {
     setAnimations();
 });
 
-$(document).on('turbolinks:before-render', function () {
+$(document).on('turbolinks:before-cache', function () {
     $('.animation--completed').removeClass('animation--completed');
 });
