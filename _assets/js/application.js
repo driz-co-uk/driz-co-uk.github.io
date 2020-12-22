@@ -1,10 +1,10 @@
-//= require ./vendor/turbolinks-5.2.0.min
+//= require ./vendor/turbo-7.0.0-beta.1.umd
 //= require ./vendor/jquery-1.12.4.min
 //= require ./vendor/stimulus-1.1.1.umd
 //= require_tree ./controllers
 
 // show the progress bar regardless of delay
-Turbolinks.setProgressBarDelay(0);
+Turbo.setProgressBarDelay(0);
 
 // burger menu
 $(document).on('click', '.burger__link', (e) => {
@@ -62,11 +62,11 @@ function setAnimations() {
 }
 
 // set animations when document is loaded
-$(document).on('turbolinks:load', function () {
+$(document).on('turbo:load', function () {
     setAnimations();
 });
 
 // remove animation complete states before caching
-$(document).on('turbolinks:before-cache', function () {
+$(document).on('turbo:before-cache', function () {
     $('.animation--completed').removeClass('animation--completed');
 });
