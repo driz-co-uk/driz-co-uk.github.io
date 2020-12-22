@@ -1,42 +1,6 @@
 <footer class="footer">
     <div class="container">
-        <ul class="social">
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://twitter.com/driz" target="_blank">
-                    <i class="social__icon fab fa-twitter fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://facebook.com/iamdriz" target="_blank">
-                    <i class="social__icon fab fa-facebook fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://linkedin.com/in/iamdriz" target="_blank">
-                    <i class="social__icon fab fa-linkedin fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://flickr.com/driz" target="_blank">
-                    <i class="social__icon fab fa-flickr fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://instagram.com/iamdriz" target="_blank">
-                    <i class="social__icon fab fa-instagram fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://dribbble.com/driz" target="_blank">
-                    <i class="social__icon fab fa-dribbble fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item animation animation--fade-in">
-                <a class="social__link" href="https://github.com/iamdriz" target="_blank">
-                    <i class="social__icon fab fa-github fa-fw"></i>
-                </a>
-            </li>
-        </ul>
+        {% include _social.html %}
         <ul class="footer-menu">
             <li class="footer-menu__item animation animation--fade-in">
                 <a class="footer-menu__link" href="/">Home</a>
@@ -57,7 +21,9 @@
                 <a class="footer-menu__link" href="/contact">Contact</a>
             </li>
         </ul>
-        <p class="copyright animation animation--fade-in">Copyright &copy; 1987-{{ "now" | date: "%Y" }} <strong>Cameron Drysdale</strong>. All rights reserved.</p>
-        <p class="version animation animation--fade-in">{{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}
+        <p class="copyright animation animation--fade-in">Copyright &copy; 1987-{{ "now" | date: "%Y" }} <strong>Cameron
+                Drysdale</strong>. All rights reserved.</p>
+        <p class="version animation animation--fade-in">
+            {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}
     </div>
 </footer>
