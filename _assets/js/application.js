@@ -84,4 +84,6 @@ $(document).on('turbo:load', function () {
 $(document).on('turbo:before-cache', function () {
     // remove animation complete states before caching
     $('.animation--completed').removeClass('animation--completed');
+    // remove any errors
+    $('.error').remove();
 });

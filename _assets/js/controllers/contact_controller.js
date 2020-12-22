@@ -17,7 +17,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _defineProperty(this, "onSubmit", event => {
                 if (!this.validateForm()) {
                     event.preventDefault();
-                    this.firstInvalidField.focus();
+                    let firstInvalidField = this.firstInvalidField;
+                    if(firstInvalidField) firstInvalidField.focus();
                 }
             });
         }
