@@ -74,13 +74,14 @@ function setRecaptcha() {
     });
 }
 
-// set animations when document is loaded
 $(document).on('turbo:load', function () {
+    // set animations when document is loaded
     setAnimations();
+    // set recaptcha when document is loaded
     setRecaptcha();
 });
 
-// remove animation complete states before caching
 $(document).on('turbo:before-cache', function () {
+    // remove animation complete states before caching
     $('.animation--completed').removeClass('animation--completed');
 });
