@@ -5,9 +5,11 @@
         -webkit-animation-fill-mode: forwards;
         animation-fill-mode: forwards;
         // enable hard acceleration
-        // -webkit-backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
         // fix webkit bug jitter
-        // -webkit-transform: perspective(1000px);
+        -webkit-transform: perspective(1000px);
+        transform: perspective(1000px);
     }
 
     &.animation--scale-in {
