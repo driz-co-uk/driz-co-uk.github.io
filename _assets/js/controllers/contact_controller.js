@@ -103,7 +103,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, _temp));
 })();
 
-function imNotARobot() {
+function recaptchaClicked() {
     const response = grecaptcha.getResponse();
     const isValid = response.length !== 0;
     if(isValid) $('#g-recaptcha').find('.error').remove();

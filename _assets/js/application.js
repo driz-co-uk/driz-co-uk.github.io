@@ -69,7 +69,7 @@ function setRecaptcha() {
         // render the recaptcha (causes a reset)
         grecaptcha.render("g-recaptcha", {
             "sitekey": "6LdImLAZAAAAAFRWPNNCeyNy7vUAiawPvQceT_K7",
-            "callback": "imNotARobot"
+            "callback": "recaptchaClicked"
         });
     });
 }
