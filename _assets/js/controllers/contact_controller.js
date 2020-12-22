@@ -62,6 +62,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         validateField(field) {
             if (!this.shouldValidateField(field)) return true;
+            // handle recaptcha iframe being classed as a valid element
+            if(field.type === undefined) return true;
             const isValid = field.checkValidity();
             field.classList.toggle('invalid', !isValid);
             this.refreshErrorForInvalidField(field, isValid);
