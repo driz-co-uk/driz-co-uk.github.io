@@ -36,26 +36,37 @@ function setAnimations() {
                 if (!$(el).hasClass('animation--completed'))
                     $(el).addClass('animation--animated');
             } else {
-                //$(el).removeClass('animation--animated');
+                // $(el).removeClass('animation--animated');
             }
             $(el).one('webkitAnimationEnd animationend', function () {
                 $(this).removeClass('animation--animated').addClass('animation--completed');
             });
         });
     }
+    // check animations on scroll
     $(window).scroll(function () {
         animations();
     });
+    // check animations on resize
     $(window).resize(function () {
         animations();
     });
+    // quick hack to handle menu issue
+    $(document).on('click', '.burger__link', function () {
+        $('.menu').one('webkitTransitionEnd tranisitionend', function () {
+            animations();
+        });
+    });
+    // check animations on load
     animations();
 }
 
+// set animations when document is loaded
 $(document).on('turbolinks:load', function () {
     setAnimations();
 });
 
+// remove animation complete states before caching
 $(document).on('turbolinks:before-cache', function () {
     $('.animation--completed').removeClass('animation--completed');
 });
