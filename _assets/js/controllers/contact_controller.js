@@ -53,7 +53,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             const response = grecaptcha.getResponse();
             const isValid = response.length !== 0;
             if(!isValid) { 
-                $('#g-recaptcha').append('<p class="error">Please verify you\'re human.');
+                $('#g-recaptcha').append('<p class="error">Please verify you\'re not a robot.');
             } else {
                 $('#g-recaptcha').find('.error').remove();
             }
