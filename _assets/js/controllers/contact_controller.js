@@ -42,7 +42,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 if (this.shouldValidateField(field) && !this.validateField(field)) isValid = false;
             });
             // validate recaptcha (if exists)
-            if($('.g-recaptcha').length > 0) {
+            if($('#g-recaptcha').length > 0) {
                 if(!this.validateRecaptcha()) isValid = false;
             }
             return isValid;
@@ -52,9 +52,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             const response = grecaptcha.getResponse();
             const isValid = response.length !== 0;
             if(!isValid) { 
-                $('.g-recaptcha').append('<p class="error">Please verify you\'re human.');
+                $('#g-recaptcha').append('<p class="error">Please verify you\'re human.');
             } else {
-                $('.g-recaptcha').find('.error').remove();
+                $('#g-recaptcha').find('.error').remove();
             }
             return isValid;
         }
@@ -106,5 +106,5 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function imNotARobot() {
     const response = grecaptcha.getResponse();
     const isValid = response.length !== 0;
-    if(isValid) $('.g-recaptcha').find('.error').remove();
+    if(isValid) $('#g-recaptcha').find('.error').remove();
 }

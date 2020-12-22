@@ -61,9 +61,23 @@ function setAnimations() {
     animations();
 }
 
+function setRecaptcha() {
+    if(!$('#g-recaptcha').length > 0) return;
+    grecaptcha.ready(function() {
+        // fixes placeholder error
+        $('#g-recaptcha').html('');
+        // render the recaptcha (causes a reset)
+        grecaptcha.render("g-recaptcha", {
+            "sitekey": "6LdImLAZAAAAAFRWPNNCeyNy7vUAiawPvQceT_K7",
+            "callback": "imNotARobot"
+        });
+    });
+}
+
 // set animations when document is loaded
 $(document).on('turbo:load', function () {
     setAnimations();
+    setRecaptcha();
 });
 
 // remove animation complete states before caching
