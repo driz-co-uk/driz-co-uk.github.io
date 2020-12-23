@@ -144,6 +144,7 @@
     img {
         margin-right: 32px;
 
+        // -webkit-box-reflect: below 0px -webkit-gradient(linear, right top, right bottom, from(transparent), to(rgba(255, 255, 255, 0.4)));
         &:last-child {
             margin-right: 0;
         }

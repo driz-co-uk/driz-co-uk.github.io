@@ -28,6 +28,7 @@
         display: grid;
         grid-template-areas: "content photo"
             "buttons photo";
+        grid-template-columns: 2fr 1fr;
         grid-column-gap: 32px;
         align-items: center;
     }
@@ -42,6 +43,7 @@
 
     .intro__photo {
         grid-area: photo;
+        min-width: 320px;
     }
 }
 

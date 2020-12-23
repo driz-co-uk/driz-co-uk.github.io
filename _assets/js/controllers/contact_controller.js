@@ -73,17 +73,20 @@ function _defineProperty(obj, key, value) {
         }
 
         validateField(field) {
+            // check if we should validate the field
             if (!this.shouldValidateField(field)) return true;
-            // handle recaptcha iframe being classed as a valid element
-            if(field.type === undefined) return true;
+            // check if field is valid
             const isValid = field.checkValidity();
+            // add class if field is not valid
             field.classList.toggle('invalid', !isValid);
+            // update the error message
             this.refreshErrorForInvalidField(field, isValid);
+            // return if the field is valid or not
             return isValid;
         }
 
         shouldValidateField(field) {
-            return !field.disabled && !['file', 'reset', 'submit', 'button'].includes(field.type);
+            return !field.disabled && !['file', 'reset', 'submit', 'button', undefined].includes(field.type);
         }
 
         refreshErrorForInvalidField(field, isValid) {
