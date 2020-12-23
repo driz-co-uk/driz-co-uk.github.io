@@ -3,24 +3,24 @@
         {% asset 'logo.svg' alt:'driz logo' width="240" height="72" %}
     </a>
     <nav class="menu">
-        <ul class="menu-menu">
-            <li class="menu__item hide-on-desktop animation animation--fade-in">
-                <a class="menu__item__link{% if page.url == '/' %} selected{% endif %}" href="/">Home</a>
+        <ul class="menu-list">
+            <li class="menu-list__item hide-on-desktop animation animation--fade-in">
+                <a class="menu-list__item__link{% if page.url == '/' %} selected{% endif %}" href="/">Home</a>
             </li>
-            {% comment %}<li class="menu__item animation animation--fade-in">
-                <a class="menu__item__link disabled" href="javascript:void(0);">Work</a>
+            {% comment %}<li class="menu-list__item animation animation--fade-in">
+                <a class="menu-list__item__link disabled" href="javascript:void(0);">Work</a>
             </li>
-            <li class="menu__item animation animation--fade-in">
-                <a class="menu__item__link disabled" href="javascript:void(0);">Notebook</a>
+            <li class="menu-list__item animation animation--fade-in">
+                <a class="menu-list__item__link disabled" href="javascript:void(0);">Notebook</a>
             </li>
-            <li class="menu__item animation animation--fade-in">
-                <a class="menu__item__link{% if page.url contains '/store' %} selected{% endif %}" href="/store">Store</a>
+            <li class="menu-list__item animation animation--fade-in">
+                <a class="menu-list__item__link{% if page.url contains '/store' %} selected{% endif %}" href="/store">Store</a>
             </li>{% endcomment %}
-            <li class="menu__item animation animation--fade-in">
-                <a class="menu__item__link{% if page.url contains '/about' %} selected{% endif %}" href="/about">About</a>
+            <li class="menu-list__item animation animation--fade-in">
+                <a class="menu-list__item__link{% if page.url contains '/about' %} selected{% endif %}" href="/about">About</a>
             </li>
-            <li class="menu__item animation animation--fade-in">
-                <a class="menu__item__link{% if page.url contains '/contact' %} selected{% endif %}" href="/contact">Contact</a>
+            <li class="menu-list__item animation animation--fade-in">
+                <a class="menu-list__item__link{% if page.url contains '/contact' %} selected{% endif %}" href="/contact">Contact</a>
             </li>
         </ul>
     </nav>
