@@ -51,7 +51,7 @@ function setAnimations() {
     $(window).resize(function () {
         animations();
     });
-    // quick hack to handle menu issue
+    // quick hack to make sure menu list appears
     $(document).on('click', '.burger__link', function () {
         $('.menu').one('webkitTransitionEnd tranisitionend', function () {
             animations();
@@ -64,9 +64,9 @@ function setAnimations() {
 function setRecaptcha() {
     if(!$('#g-recaptcha').length > 0) return;
     grecaptcha.ready(function() {
-        // fixes placeholder error
+        // clear the previous recaptcha (if any) to prevent placeholder must be empty error
         $('#g-recaptcha').html('');
-        // render the recaptcha (causes a reset)
+        // render the recaptcha
         grecaptcha.render("g-recaptcha", {
             "sitekey": "6LdImLAZAAAAAFRWPNNCeyNy7vUAiawPvQceT_K7",
             "callback": "recaptchaClicked"
