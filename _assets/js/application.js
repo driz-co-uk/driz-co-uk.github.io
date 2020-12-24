@@ -57,6 +57,8 @@ function setAnimations() {
             animations();
         });
     });
+    // add js class to html
+    $('html').addClass('js');
     // check animations on load
     animations();
 }
