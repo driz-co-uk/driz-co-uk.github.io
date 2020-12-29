@@ -48,6 +48,14 @@ function _defineProperty(obj, key, value) {
             this.element.removeEventListener('ajax:beforeSend', this.onSubmit);
         }
 
+        submitStart() {
+            // turbo:submit-start->form#submitStart
+        }
+
+        submitEnd() {
+            // turbo:submit-end->form#submitEnd
+        }
+
         validateForm() {
             let isValid = true;
             // validate fields

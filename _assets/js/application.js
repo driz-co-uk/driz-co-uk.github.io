@@ -1,6 +1,6 @@
 //= require ./vendor/turbo-7.0.0-beta.1.umd
 //= require ./vendor/jquery-1.12.4.min
-//= require ./vendor/stimulus-1.1.1.umd
+//= require ./vendor/stimulus-2.0.0.umd
 //= require_tree ./controllers
 
 // show the progress bar regardless of delay

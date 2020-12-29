@@ -26,11 +26,9 @@
 @import 'components/work-list';
 @import 'components/animation';
 @import 'components/social';
-
-// partials
-@import 'partials/header';
-@import 'partials/footer';
-@import 'partials/intro';
+@import 'components/header';
+@import 'components/footer';
+@import 'components/intro';
 
 html {
     box-sizing: border-box;
@@ -105,3 +103,61 @@ a:hover {
         opacity: 1;
     }
 }
+
+.dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .75);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.slider {
+    position: relative;
+
+    &--mobile {
+        width: 375px;
+        height: 667px;
+    }
+
+    &--tablet {
+        width: 768px;
+        height: 1024px;
+    }
+
+    &--desktop {
+        width: 1440px;
+        height: 900px;
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0;
+        transition: all 1s ease-in-out;
+
+        &--visible {
+            opacity: 1;
+        }
+    }
+}
+
+// html {
+//     scroll-snap-type: y mandatory;
+//     height: 100%;
+//     overflow-y: auto;
+// }
+
+// .section,
+// .header,
+// .footer {
+//     scroll-snap-align: start;
+//     scroll-snap-stop: normal;
+// }
