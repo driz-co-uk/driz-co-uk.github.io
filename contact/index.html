@@ -15,7 +15,7 @@ layout: default
 </header>
 
 <main class="content">
-    <div class="section section--white">
+    <div class="section section--white section--off-white-skew-bottom">
         <div class="container">
             <div class="panel">
                 <form id="contact" class="form" autocomplete="off" data-controller="form"
@@ -43,12 +43,12 @@ layout: default
                             <textarea id="message" name="message" required></textarea>
                         </div>
                     </div>
-                    <div class="form__group animation animation--fade-in">
+                    <!-- <div class="form__group animation animation--fade-in">
                         <label class="form__group__label"></label>
                         <div class="form__group__input">
                             <div id="g-recaptcha"></div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form__buttons">
                         <div class="button-group button-group--centered">
                             <div class="button-group animation animation--fade-in">
@@ -61,6 +61,11 @@ layout: default
                     </div>
                 </form>
             </div>
+            
+        </div>
+    </div>
+    <div class="section section--off-white">
+        <div class="container">
             {% include_relative _contact_links.html %}
         </div>
     </div>

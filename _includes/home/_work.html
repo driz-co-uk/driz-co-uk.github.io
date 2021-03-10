@@ -1,6 +1,6 @@
-<section id="work" class="section section--off-white">
+<section id="work" class="section section--off-white section--white-skew-bottom">
     <div class="container">
-        <div class="work-wrapper">
+        <div class="work-wrapper section--red-skew-bottom">
             <div class="container">
                 <h2 class="center animation animation--fade-in">Design <span class="blue">&plus;</span> development of
                     apps and websites<span class="blue">.</span></h2>
@@ -29,7 +29,7 @@
         </div>
         <div class="skills">
             <div class="skill">
-                <i class="skill__icon far fa-paint-brush fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-paint-brush fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">Design<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>Branding</li>
@@ -41,13 +41,12 @@
                 </ul>
             </div>
             <div class="skill">
-                <i class="skill__icon far fa-code fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-code fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">Code<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>HTML</li>
                     <li>CSS</li>
                     <li>Sass</li>
-                    <li>ASP.NET</li>
                     <li>PHP</li>
                     <li>Ruby</li>
                     <li>JavaScript</li>
@@ -58,7 +57,7 @@
                 </ul>
             </div>
             <div class="skill">
-                <i class="skill__icon far fa-server fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-server fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">DevOps<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>Heroku</li>
@@ -71,11 +70,10 @@
                     <li>Docker</li>
                     <li>Bamboo</li>
                     <li>Jenkins</li>
-                    <li>CircleCI</li>
                 </ul>
             </div>
             <div class="skill">
-                <i class="skill__icon far fa-cog fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-cog fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">Frameworks<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>WordPress</li>
@@ -89,7 +87,7 @@
                 </ul>
             </div>
             <div class="skill">
-                <i class="skill__icon far fa-flask fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-flask fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">Test and Lint<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>RSpec</li>
@@ -105,7 +103,7 @@
                 </ul>
             </div>
             <div class="skill">
-                <i class="skill__icon far fa-tools fa-fw animation animation--scale-in"></i>
+                <i class="skill__icon far fa-tools fa-fw animation animation--bounce-in"></i>
                 <h4 class="skill__title animation animation--fade-in">Tools<span class="blue">.</span></h4>
                 <ul class="skill__description animation animation--fade-in">
                     <li>Adobe CS/CC</li>
@@ -115,8 +113,8 @@
                     <li>React</li>
                     <li>Vue</li>
                     <li>jQuery</li>
-                    <li>Turbo</li>
                     <li>Stimulus</li>
+                    <li>PostCSS</li>
                     <li>Webpack</li>
                 </ul>
             </div>
@@ -204,38 +202,58 @@
     </div>
 </section>
 
-<div class="slider slider--desktop" id="slider-desktop" data-controller="slider" data-slider-index-value="0">
+<!--
+<div id="slider-desktop" class="slider slider--desktop" data-controller="slider" data-slider-index-value="0">
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/1440/900?random=7" width="1440" height="900">
+        <img src="https://picsum.photos/1440/900?random=7"
+            srcset="https://picsum.photos/1440/900?random=7 1x, https://picsum.photos/2880/1800?random=7 2x"
+            width="1440" height="900" alt="">
     </div>
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/1440/900?random=8" width="1440" height="900">
+        <img src="https://picsum.photos/1440/900?random=8"
+            srcset="https://picsum.photos/1440/900?random=8 1x, https://picsum.photos/2880/1800?random=8 2x"
+            width="1440" height="900" alt="">
     </div>
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/1440/900?random=9" width="1440" height="900">
-    </div>
-</div>
-
-<div class="slider slider--tablet" id="slider-tablet" data-controller="slider" data-slider-index-value="0">
-    <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/768/1024?random=4" width="768" height="1024">
-    </div>
-    <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/768/1024?random=5" width="768" height="1024">
-    </div>
-    <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/768/1024?random=6" width="768" height="1024">
+        <img src="https://picsum.photos/1440/900?random=9"
+            srcset="https://picsum.photos/1440/900?random=9 1x, https://picsum.photos/2880/1800?random=9 2x"
+            width="1440" height="900" alt="">
     </div>
 </div>
 
-<div class="slider slider--mobile" id="slider-mobile" data-controller="slider" data-slider-index-value="0">
+<div id="slider-tablet" class="slider slider--tablet" data-controller="slider" data-slider-index-value="0">
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/375/667?random=1" width="375" height="667">
+        <img src="https://picsum.photos/768/1024?random=4"
+            srcset="https://picsum.photos/768/1024?random=4 1x, https://picsum.photos/1536/2048?random=4 2x" width="768"
+            height="1024" alt="">
     </div>
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/375/667?random=2" width="375" height="667">
+        <img src="https://picsum.photos/768/1024?random=5"
+            srcset="https://picsum.photos/768/1024?random=5 1x, https://picsum.photos/1536/2048?random=5 2x" width="768"
+            height="1024" alt="">
     </div>
     <div class="slide" data-slider-target="slide">
-        <img src="https://picsum.photos/375/667?random=3" width="375" height="667">
+        <img src="https://picsum.photos/768/1024?random=6"
+            srcset="https://picsum.photos/768/1024?random=6 1x, https://picsum.photos/1536/2048?random=6 2x" width="768"
+            height="1024" alt="">
     </div>
 </div>
+
+<div id="slider-mobile" class="slider slider--mobile" data-controller="slider" data-slider-index-value="0">
+    <div class="slide" data-slider-target="slide">
+        <img src="https://picsum.photos/375/667?random=1"
+            srcset="https://picsum.photos/375/667?random=1 1x, https://picsum.photos/750/1334?random=1 2x" width="375"
+            height="667" alt="">
+    </div>
+    <div class="slide" data-slider-target="slide">
+        <img src="https://picsum.photos/375/667?random=2"
+            srcset="https://picsum.photos/375/667?random=2 1x, https://picsum.photos/750/1334?random=2 2x" width="375"
+            height="667" alt="">
+    </div>
+    <div class="slide" data-slider-target="slide">
+        <img src="https://picsum.photos/375/667?random=3"
+            srcset="https://picsum.photos/375/667?random=3 1x, https://picsum.photos/750/1334?random=3 2x" width="375"
+            height="667" alt="">
+    </div>
+</div>
+-->

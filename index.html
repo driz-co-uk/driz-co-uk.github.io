@@ -13,13 +13,13 @@ layout: default
                 <h1 class="title animation animation--fade-in">Software engineer, <abbr title="User Interface">UI</abbr>/<abbr
                         title="User Experience">UX</abbr> <abbr title="Designer/Developer">devigner</abbr>,
                     photographer, and mountain biker<span class="blue">.</span></h1>
-                <p class="margin-top-3 animation animation--fade-in">Specialist Web Developer and Team Lead at <a href="https://www.thefloow.com"
+                <p class="margin-top-3 animation animation--fade-in">Web Team Lead at <a href="https://www.thefloow.com"
                         target="_blank" rel="external">The Floow</a>, based in
                     <a href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter" target="_blank" rel="external">Kelham
-                        Island</a>, Sheffield.</p>
+                        Island</a>, Sheffield, UK.</p>
             </div>
-            <div class="intro__photo animation animation--fade-in">
-                {% asset 'cameron.jpg' alt:'Photo of Cameron' width="480" height="480" %}
+            <div class="intro__photo animation animation--bounce-in">
+                {% asset 'cameron2.jpg' alt:'Photo of Cameron' width="480" height="480" %}
             </div>
             <div class="intro__buttons button-group button-group--collapsible margin-top-4">
                 <div class="button-group animation animation--fade-in">
@@ -42,4 +42,11 @@ layout: default
 <main class="content">
     {% include home/_work.html %}
     {% include home/_photos.html %}
+    <!--<turbo-stream action="append" target="cameron">
+        <template>
+            <p>Hello cameron!</p>
+        </template>
+    </turbo-stream>
+    <div id="cameron"></div>-->
+    {% include home/_fitness.html %}
 </main>

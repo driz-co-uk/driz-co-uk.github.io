@@ -1,12 +1,12 @@
 .footer {
     text-align: center;
-    padding-top: 32px;
-    padding-bottom: 32px;
-
-    @media (min-width: 768px) {
-        padding-top: 64px;
-        padding-bottom: 64px;
-    }
+    padding-top: 48px;
+    padding-bottom: 48px;
+    background: var(--black);
+    // @media (min-width: 768px) {
+    //     padding-top: 64px;
+    //     padding-bottom: 64px;
+    // }
 }
 
 .copyright {

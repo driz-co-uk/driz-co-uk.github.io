@@ -3,9 +3,10 @@
     grid-template-columns: auto 1fr;
     align-items: center;
     position: relative;
-    padding-top: 32px;
+    padding-top: 48px;
     padding-bottom: 34px;
-    margin-bottom: 32px;
+    // padding-bottom: 50px;
+    margin-bottom: 48px;
 
     @media (min-width: 768px) {
         padding-top: 48px;
@@ -27,11 +28,11 @@
             rgba(255, 255, 255, .125) 75%,
             rgba(255, 255, 255, 0) 100%);
 
-    // width: 100vw;
-    // left: 50%;
-    // right: 50%;
-    // margin-left: -50vw;
-    // margin-right: -50vw;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .logo {
@@ -127,6 +128,14 @@
 .menu-list li {
     font-size: 24px;
     line-height: 32px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    text-transform: lowercase;
+}
+
+.menu-list li i {
+    margin-right: 16px;
 }
 
 .menu-list li .menu-list__item__link {

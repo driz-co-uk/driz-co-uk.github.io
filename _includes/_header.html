@@ -5,6 +5,7 @@
     <nav class="menu">
         <ul class="menu-list">
             <li class="menu-list__item hide-on-desktop animation animation--fade-in">
+                <!-- <i class="fad fa-home"></i> -->
                 <a class="menu-list__item__link{% if page.url == '/' %} selected{% endif %}" href="/">Home</a>
             </li>
             {% comment %}<li class="menu-list__item animation animation--fade-in">
@@ -17,10 +18,16 @@
                 <a class="menu-list__item__link{% if page.url contains '/store' %} selected{% endif %}" href="/store">Store</a>
             </li>{% endcomment %}
             <li class="menu-list__item animation animation--fade-in">
+                <!-- <i class="fad fa-id-badge"></i> -->
                 <a class="menu-list__item__link{% if page.url contains '/about' %} selected{% endif %}" href="/about">About</a>
             </li>
             <li class="menu-list__item animation animation--fade-in">
+                <!-- <i class="fad fa-comment-dots"></i> -->
                 <a class="menu-list__item__link{% if page.url contains '/contact' %} selected{% endif %}" href="/contact">Contact</a>
+            </li>
+            <li class="menu-list__item animation animation--fade-in">
+                <!-- <i class="fad fa-ellipsis-v-alt"></i> -->
+                <a class="menu-list__item__link{% if page.url contains '/etc' %} selected{% endif %}" href="/etc">Etc</a>
             </li>
         </ul>
     </nav>

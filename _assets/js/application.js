@@ -1,4 +1,4 @@
-//= require ./vendor/turbo-7.0.0-beta.1.umd
+//= require ./vendor/turbo-7.0.0-beta.4.umd
 //= require ./vendor/jquery-1.12.4.min
 //= require ./vendor/stimulus-2.0.0.umd
 //= require_tree ./controllers
@@ -36,8 +36,9 @@ function setAnimations() {
                 if (!$(el).hasClass('animation--completed'))
                     $(el).addClass('animation--animated');
             } else {
-                // $(el).removeClass('animation--animated');
+                //$(el).removeClass('animation--animated').removeClass('animation--completed');
             }
+            // don't think we really need to do this...
             $(el).one('webkitAnimationEnd animationend', function () {
                 $(this).removeClass('animation--animated').addClass('animation--completed');
             });
@@ -64,8 +65,8 @@ function setAnimations() {
 }
 
 function setRecaptcha() {
-    if(!$('#g-recaptcha').length > 0) return;
-    grecaptcha.ready(function() {
+    if (!$('#g-recaptcha').length > 0) return;
+    grecaptcha.ready(function () {
         // clear the previous recaptcha (if any) to prevent placeholder must be empty error
         $('#g-recaptcha').html('');
         // render the recaptcha

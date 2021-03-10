@@ -1,6 +1,6 @@
 /*
-Turbo 7.0.0-beta.1
-Copyright © 2020 Basecamp, LLC
+Turbo 7.0.0-beta.4
+Copyright © 2021 Basecamp, LLC
  */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
@@ -30,7 +30,7 @@ Copyright © 2020 Basecamp, LLC
     function findSubmitterFromClickTarget(target) {
         var element = target instanceof Element ? target : target instanceof Node ? target.parentElement : null;
         var candidate = element ? element.closest("input, button") : null;
-        return (candidate === null || candidate === void 0 ? void 0 : candidate.getAttribute("type")) == "submit" ? candidate : null;
+        return (candidate === null || candidate === void 0 ? void 0 : candidate.type) == "submit" ? candidate : null;
     }
     function clickCaptured(event) {
         var submitter = findSubmitterFromClickTarget(event.target);
@@ -169,85 +169,178 @@ Copyright © 2020 Basecamp, LLC
         return cooked;
     }
 
-    var Location = (function () {
-        function Location(url) {
-            var linkWithAnchor = document.createElement("a");
-            linkWithAnchor.href = url;
-            this.absoluteURL = linkWithAnchor.href;
-            var anchorLength = linkWithAnchor.hash.length;
-            if (anchorLength < 2) {
-                this.requestURL = this.absoluteURL;
-            }
-            else {
-                this.requestURL = this.absoluteURL.slice(0, -anchorLength);
-                this.anchor = linkWithAnchor.hash.slice(1);
-            }
+    var FrameLoadingStyle;
+    (function (FrameLoadingStyle) {
+        FrameLoadingStyle["eager"] = "eager";
+        FrameLoadingStyle["lazy"] = "lazy";
+    })(FrameLoadingStyle || (FrameLoadingStyle = {}));
+    var FrameElement = (function (_super) {
+        __extends(FrameElement, _super);
+        function FrameElement() {
+            var _this = _super.call(this) || this;
+            _this.loaded = Promise.resolve();
+            _this.delegate = new FrameElement.delegateConstructor(_this);
+            return _this;
         }
-        Object.defineProperty(Location, "currentLocation", {
+        Object.defineProperty(FrameElement, "observedAttributes", {
             get: function () {
-                return this.wrap(window.location.toString());
+                return ["loading", "src"];
             },
             enumerable: false,
             configurable: true
         });
-        Location.wrap = function (locatable) {
-            if (typeof locatable == "string") {
-                return new this(locatable);
+        FrameElement.prototype.connectedCallback = function () {
+            this.delegate.connect();
+        };
+        FrameElement.prototype.disconnectedCallback = function () {
+            this.delegate.disconnect();
+        };
+        FrameElement.prototype.attributeChangedCallback = function (name) {
+            if (name == "loading") {
+                this.delegate.loadingStyleChanged();
             }
-            else if (locatable != null) {
-                return locatable;
+            else if (name == "src") {
+                this.delegate.sourceURLChanged();
             }
         };
-        Location.prototype.getOrigin = function () {
-            return this.absoluteURL.split("/", 3).join("/");
-        };
-        Location.prototype.getPath = function () {
-            return (this.requestURL.match(/\/\/[^/]*(\/[^?;]*)/) || [])[1] || "/";
-        };
-        Location.prototype.getPathComponents = function () {
-            return this.getPath().split("/").slice(1);
-        };
-        Location.prototype.getLastPathComponent = function () {
-            return this.getPathComponents().slice(-1)[0];
-        };
-        Location.prototype.getExtension = function () {
-            return (this.getLastPathComponent().match(/\.[^.]*$/) || [])[0] || "";
-        };
-        Location.prototype.isHTML = function () {
-            return !!this.getExtension().match(/^(?:|\.(?:htm|html|xhtml))$/);
-        };
-        Location.prototype.isPrefixedBy = function (location) {
-            var prefixURL = getPrefixURL(location);
-            return this.isEqualTo(location) || stringStartsWith(this.absoluteURL, prefixURL);
-        };
-        Location.prototype.isEqualTo = function (location) {
-            return location && this.absoluteURL === location.absoluteURL;
-        };
-        Location.prototype.toCacheKey = function () {
-            return this.requestURL;
-        };
-        Location.prototype.toJSON = function () {
-            return this.absoluteURL;
-        };
-        Location.prototype.toString = function () {
-            return this.absoluteURL;
-        };
-        Location.prototype.valueOf = function () {
-            return this.absoluteURL;
-        };
-        return Location;
-    }());
-    function getPrefixURL(location) {
-        return addTrailingSlash(location.getOrigin() + location.getPath());
+        Object.defineProperty(FrameElement.prototype, "src", {
+            get: function () {
+                return this.getAttribute("src");
+            },
+            set: function (value) {
+                if (value) {
+                    this.setAttribute("src", value);
+                }
+                else {
+                    this.removeAttribute("src");
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "loading", {
+            get: function () {
+                return frameLoadingStyleFromString(this.getAttribute("loading") || "");
+            },
+            set: function (value) {
+                if (value) {
+                    this.setAttribute("loading", value);
+                }
+                else {
+                    this.removeAttribute("loading");
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "disabled", {
+            get: function () {
+                return this.hasAttribute("disabled");
+            },
+            set: function (value) {
+                if (value) {
+                    this.setAttribute("disabled", "");
+                }
+                else {
+                    this.removeAttribute("disabled");
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "autoscroll", {
+            get: function () {
+                return this.hasAttribute("autoscroll");
+            },
+            set: function (value) {
+                if (value) {
+                    this.setAttribute("autoscroll", "");
+                }
+                else {
+                    this.removeAttribute("autoscroll");
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "complete", {
+            get: function () {
+                return !this.delegate.isLoading;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "isActive", {
+            get: function () {
+                return this.ownerDocument === document && !this.isPreview;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameElement.prototype, "isPreview", {
+            get: function () {
+                var _a, _b;
+                return (_b = (_a = this.ownerDocument) === null || _a === void 0 ? void 0 : _a.documentElement) === null || _b === void 0 ? void 0 : _b.hasAttribute("data-turbo-preview");
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return FrameElement;
+    }(HTMLElement));
+    function frameLoadingStyleFromString(style) {
+        switch (style.toLowerCase()) {
+            case "lazy": return FrameLoadingStyle.lazy;
+            default: return FrameLoadingStyle.eager;
+        }
     }
-    function addTrailingSlash(url) {
-        return stringEndsWith(url, "/") ? url : url + "/";
+
+    function expandURL(locatable) {
+        var anchor = document.createElement("a");
+        anchor.href = locatable.toString();
+        return new URL(anchor.href);
     }
-    function stringStartsWith(string, prefix) {
-        return string.slice(0, prefix.length) === prefix;
+    function getAnchor(url) {
+        var anchorMatch;
+        if (url.hash) {
+            return url.hash.slice(1);
+        }
+        else if (anchorMatch = url.href.match(/#(.*)$/)) {
+            return anchorMatch[1];
+        }
+        else {
+            return "";
+        }
     }
-    function stringEndsWith(string, suffix) {
-        return string.slice(-suffix.length) === suffix;
+    function getExtension(url) {
+        return (getLastPathComponent(url).match(/\.[^.]*$/) || [])[0] || "";
+    }
+    function isHTML(url) {
+        return !!getExtension(url).match(/^(?:|\.(?:htm|html|xhtml))$/);
+    }
+    function isPrefixedBy(baseURL, url) {
+        var prefix = getPrefix(url);
+        return baseURL.href === expandURL(prefix).href || baseURL.href.startsWith(prefix);
+    }
+    function toCacheKey(url) {
+        var anchorLength = url.hash.length;
+        if (anchorLength < 2) {
+            return url.href;
+        }
+        else {
+            return url.href.slice(0, -anchorLength);
+        }
+    }
+    function getPathComponents(url) {
+        return url.pathname.split("/").slice(1);
+    }
+    function getLastPathComponent(url) {
+        return getPathComponents(url).slice(-1)[0];
+    }
+    function getPrefix(url) {
+        return addTrailingSlash(url.origin + url.pathname);
+    }
+    function addTrailingSlash(value) {
+        return value.endsWith("/") ? value : value + "/";
     }
 
     var FetchResponse = (function () {
@@ -268,6 +361,20 @@ Copyright © 2020 Basecamp, LLC
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(FetchResponse.prototype, "clientError", {
+            get: function () {
+                return this.statusCode >= 400 && this.statusCode <= 499;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FetchResponse.prototype, "serverError", {
+            get: function () {
+                return this.statusCode >= 500 && this.statusCode <= 599;
+            },
+            enumerable: false,
+            configurable: true
+        });
         Object.defineProperty(FetchResponse.prototype, "redirected", {
             get: function () {
                 return this.response.redirected;
@@ -277,14 +384,14 @@ Copyright © 2020 Basecamp, LLC
         });
         Object.defineProperty(FetchResponse.prototype, "location", {
             get: function () {
-                return Location.wrap(this.response.url);
+                return expandURL(this.response.url);
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(FetchResponse.prototype, "isHTML", {
             get: function () {
-                return this.contentType && this.contentType.match(/^text\/html|^application\/xhtml\+xml/);
+                return this.contentType && this.contentType.match(/^(?:text\/([^\s;,]+\b)?html|application\/xhtml\+xml)\b/);
             },
             enumerable: false,
             configurable: true
@@ -337,8 +444,15 @@ Copyright © 2020 Basecamp, LLC
     function nextAnimationFrame() {
         return new Promise(function (resolve) { return requestAnimationFrame(function () { return resolve(); }); });
     }
+    function nextEventLoopTick() {
+        return new Promise(function (resolve) { return setTimeout(function () { return resolve(); }, 0); });
+    }
     function nextMicrotask() {
         return Promise.resolve();
+    }
+    function parseHTMLDocument(html) {
+        if (html === void 0) { html = ""; }
+        return new DOMParser().parseFromString(html, "text/html");
     }
     function unindent(strings) {
         var values = [];
@@ -392,33 +506,28 @@ Copyright © 2020 Basecamp, LLC
     }
     var FetchRequest = (function () {
         function FetchRequest(delegate, method, location, body) {
+            if (body === void 0) { body = new URLSearchParams; }
             this.abortController = new AbortController;
             this.delegate = delegate;
             this.method = method;
-            this.location = location;
-            this.body = body;
+            if (this.isIdempotent) {
+                this.url = mergeFormDataEntries(location, __spread(body.entries()));
+            }
+            else {
+                this.body = body;
+                this.url = location;
+            }
         }
-        Object.defineProperty(FetchRequest.prototype, "url", {
+        Object.defineProperty(FetchRequest.prototype, "location", {
             get: function () {
-                var url = this.location.absoluteURL;
-                var query = this.params.toString();
-                if (this.isIdempotent && query.length) {
-                    return [url, query].join(url.includes("?") ? "&" : "?");
-                }
-                else {
-                    return url;
-                }
+                return this.url;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(FetchRequest.prototype, "params", {
             get: function () {
-                return this.entries.reduce(function (params, _a) {
-                    var _b = __read(_a, 2), name = _b[0], value = _b[1];
-                    params.append(name, value.toString());
-                    return params;
-                }, new URLSearchParams);
+                return this.url.searchParams;
             },
             enumerable: false,
             configurable: true
@@ -445,7 +554,7 @@ Copyright © 2020 Basecamp, LLC
                         case 1:
                             _a.trys.push([1, 4, 5, 6]);
                             this.delegate.requestStarted(this);
-                            return [4, fetch(this.url, fetchOptions)];
+                            return [4, fetch(this.url.href, fetchOptions)];
                         case 2:
                             response = _a.sent();
                             return [4, this.receive(response)];
@@ -488,7 +597,7 @@ Copyright © 2020 Basecamp, LLC
                     credentials: "same-origin",
                     headers: this.headers,
                     redirect: "follow",
-                    body: this.isIdempotent ? undefined : this.body,
+                    body: this.body,
                     signal: this.abortSignal
                 };
             },
@@ -504,19 +613,11 @@ Copyright © 2020 Basecamp, LLC
         });
         Object.defineProperty(FetchRequest.prototype, "headers", {
             get: function () {
-                return __assign({ "Accept": "text/html, application/xhtml+xml" }, this.additionalHeaders);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FetchRequest.prototype, "additionalHeaders", {
-            get: function () {
-                if (typeof this.delegate.additionalHeadersForRequest == "function") {
-                    return this.delegate.additionalHeadersForRequest(this);
+                var headers = __assign({}, this.defaultHeaders);
+                if (typeof this.delegate.prepareHeadersForRequest == "function") {
+                    this.delegate.prepareHeadersForRequest(headers, this);
                 }
-                else {
-                    return {};
-                }
+                return headers;
             },
             enumerable: false,
             configurable: true
@@ -528,33 +629,131 @@ Copyright © 2020 Basecamp, LLC
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(FetchRequest.prototype, "defaultHeaders", {
+            get: function () {
+                return {
+                    "Accept": "text/html, application/xhtml+xml"
+                };
+            },
+            enumerable: false,
+            configurable: true
+        });
         return FetchRequest;
     }());
-
-    var FormInterceptor = (function () {
-        function FormInterceptor(delegate, element) {
-            var _this = this;
-            this.submitBubbled = (function (event) {
-                if (event.target instanceof HTMLFormElement) {
-                    var form = event.target;
-                    var submitter = event.submitter || undefined;
-                    if (_this.delegate.shouldInterceptFormSubmission(form, submitter)) {
-                        event.preventDefault();
-                        event.stopImmediatePropagation();
-                        _this.delegate.formSubmissionIntercepted(form, submitter);
-                    }
+    function mergeFormDataEntries(url, entries) {
+        var e_1, _a;
+        var currentSearchParams = new URLSearchParams(url.search);
+        try {
+            for (var entries_1 = __values(entries), entries_1_1 = entries_1.next(); !entries_1_1.done; entries_1_1 = entries_1.next()) {
+                var _b = __read(entries_1_1.value, 2), name_1 = _b[0], value = _b[1];
+                if (value instanceof File)
+                    continue;
+                if (currentSearchParams.has(name_1)) {
+                    currentSearchParams.delete(name_1);
+                    url.searchParams.set(name_1, value);
                 }
-            });
+                else {
+                    url.searchParams.append(name_1, value);
+                }
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (entries_1_1 && !entries_1_1.done && (_a = entries_1.return)) _a.call(entries_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        return url;
+    }
+
+    var AppearanceObserver = (function () {
+        function AppearanceObserver(delegate, element) {
+            var _this = this;
+            this.started = false;
+            this.intersect = function (entries) {
+                var lastEntry = entries.slice(-1)[0];
+                if (lastEntry === null || lastEntry === void 0 ? void 0 : lastEntry.isIntersecting) {
+                    _this.delegate.elementAppearedInViewport(_this.element);
+                }
+            };
             this.delegate = delegate;
             this.element = element;
+            this.intersectionObserver = new IntersectionObserver(this.intersect);
         }
-        FormInterceptor.prototype.start = function () {
-            this.element.addEventListener("submit", this.submitBubbled);
+        AppearanceObserver.prototype.start = function () {
+            if (!this.started) {
+                this.started = true;
+                this.intersectionObserver.observe(this.element);
+            }
         };
-        FormInterceptor.prototype.stop = function () {
-            this.element.removeEventListener("submit", this.submitBubbled);
+        AppearanceObserver.prototype.stop = function () {
+            if (this.started) {
+                this.started = false;
+                this.intersectionObserver.unobserve(this.element);
+            }
         };
-        return FormInterceptor;
+        return AppearanceObserver;
+    }());
+
+    var StreamMessage = (function () {
+        function StreamMessage(html) {
+            this.templateElement = document.createElement("template");
+            this.templateElement.innerHTML = html;
+        }
+        StreamMessage.wrap = function (message) {
+            if (typeof message == "string") {
+                return new this(message);
+            }
+            else {
+                return message;
+            }
+        };
+        Object.defineProperty(StreamMessage.prototype, "fragment", {
+            get: function () {
+                var e_1, _a;
+                var fragment = document.createDocumentFragment();
+                try {
+                    for (var _b = __values(this.foreignElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                        var element = _c.value;
+                        fragment.appendChild(document.importNode(element, true));
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+                return fragment;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(StreamMessage.prototype, "foreignElements", {
+            get: function () {
+                return this.templateChildren.reduce(function (streamElements, child) {
+                    if (child.tagName.toLowerCase() == "turbo-stream") {
+                        return __spread(streamElements, [child]);
+                    }
+                    else {
+                        return streamElements;
+                    }
+                }, []);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(StreamMessage.prototype, "templateChildren", {
+            get: function () {
+                return Array.from(this.templateElement.content.children);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        StreamMessage.contentType = "text/vnd.turbo-stream.html";
+        return StreamMessage;
     }());
 
     var FormSubmissionState;
@@ -566,21 +765,34 @@ Copyright © 2020 Basecamp, LLC
         FormSubmissionState[FormSubmissionState["stopping"] = 4] = "stopping";
         FormSubmissionState[FormSubmissionState["stopped"] = 5] = "stopped";
     })(FormSubmissionState || (FormSubmissionState = {}));
+    var FormEnctype;
+    (function (FormEnctype) {
+        FormEnctype["urlEncoded"] = "application/x-www-form-urlencoded";
+        FormEnctype["multipart"] = "multipart/form-data";
+        FormEnctype["plain"] = "text/plain";
+    })(FormEnctype || (FormEnctype = {}));
+    function formEnctypeFromString(encoding) {
+        switch (encoding.toLowerCase()) {
+            case FormEnctype.multipart: return FormEnctype.multipart;
+            case FormEnctype.plain: return FormEnctype.plain;
+            default: return FormEnctype.urlEncoded;
+        }
+    }
     var FormSubmission = (function () {
         function FormSubmission(delegate, formElement, submitter, mustRedirect) {
             if (mustRedirect === void 0) { mustRedirect = false; }
             this.state = FormSubmissionState.initialized;
             this.delegate = delegate;
             this.formElement = formElement;
-            this.formData = buildFormData(formElement, submitter);
             this.submitter = submitter;
-            this.fetchRequest = new FetchRequest(this, this.method, this.location, this.formData);
+            this.formData = buildFormData(formElement, submitter);
+            this.fetchRequest = new FetchRequest(this, this.method, this.location, this.body);
             this.mustRedirect = mustRedirect;
         }
         Object.defineProperty(FormSubmission.prototype, "method", {
             get: function () {
                 var _a;
-                var method = ((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formmethod")) || this.formElement.method;
+                var method = ((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formmethod")) || this.formElement.getAttribute("method") || "";
                 return fetchMethodFromString(method.toLowerCase()) || FetchMethod.get;
             },
             enumerable: false,
@@ -596,7 +808,37 @@ Copyright © 2020 Basecamp, LLC
         });
         Object.defineProperty(FormSubmission.prototype, "location", {
             get: function () {
-                return Location.wrap(this.action);
+                return expandURL(this.action);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FormSubmission.prototype, "body", {
+            get: function () {
+                if (this.enctype == FormEnctype.urlEncoded || this.method == FetchMethod.get) {
+                    return new URLSearchParams(this.stringFormData);
+                }
+                else {
+                    return this.formData;
+                }
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FormSubmission.prototype, "enctype", {
+            get: function () {
+                var _a;
+                return formEnctypeFromString(((_a = this.submitter) === null || _a === void 0 ? void 0 : _a.getAttribute("formenctype")) || this.formElement.enctype);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FormSubmission.prototype, "stringFormData", {
+            get: function () {
+                return __spread(this.formData).reduce(function (entries, _a) {
+                    var _b = __read(_a, 2), name = _b[0], value = _b[1];
+                    return entries.concat(typeof value == "string" ? [[name, value]] : []);
+                }, []);
             },
             enumerable: false,
             configurable: true
@@ -622,15 +864,14 @@ Copyright © 2020 Basecamp, LLC
                 return true;
             }
         };
-        FormSubmission.prototype.additionalHeadersForRequest = function (request) {
-            var headers = {};
-            if (this.method != FetchMethod.get) {
+        FormSubmission.prototype.prepareHeadersForRequest = function (headers, request) {
+            if (!request.isIdempotent) {
                 var token = getCookieValue(getMetaContent("csrf-param")) || getMetaContent("csrf-token");
                 if (token) {
                     headers["X-CSRF-Token"] = token;
                 }
+                headers["Accept"] = [StreamMessage.contentType, headers["Accept"]].join(", ");
             }
-            return headers;
         };
         FormSubmission.prototype.requestStarted = function (request) {
             this.state = FormSubmissionState.waiting;
@@ -641,7 +882,10 @@ Copyright © 2020 Basecamp, LLC
             this.result = { success: response.succeeded, fetchResponse: response };
         };
         FormSubmission.prototype.requestSucceededWithResponse = function (request, response) {
-            if (this.requestMustRedirect(request) && !response.redirected) {
+            if (response.clientError || response.serverError) {
+                this.delegate.formSubmissionFailedWithResponse(this, response);
+            }
+            else if (this.requestMustRedirect(request) && responseSucceededWithoutRedirect(response)) {
                 var error = new Error("Form responses must redirect to another location");
                 this.delegate.formSubmissionErrored(this, error);
             }
@@ -692,6 +936,197 @@ Copyright © 2020 Basecamp, LLC
         var element = document.querySelector("meta[name=\"" + name + "\"]");
         return element && element.content;
     }
+    function responseSucceededWithoutRedirect(response) {
+        return response.statusCode == 200 && !response.redirected;
+    }
+
+    var Snapshot = (function () {
+        function Snapshot(element) {
+            this.element = element;
+        }
+        Object.defineProperty(Snapshot.prototype, "children", {
+            get: function () {
+                return __spread(this.element.children);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Snapshot.prototype.hasAnchor = function (anchor) {
+            return this.getElementForAnchor(anchor) != null;
+        };
+        Snapshot.prototype.getElementForAnchor = function (anchor) {
+            try {
+                return this.element.querySelector("[id='" + anchor + "'], a[name='" + anchor + "']");
+            }
+            catch (_a) {
+                return null;
+            }
+        };
+        Object.defineProperty(Snapshot.prototype, "firstAutofocusableElement", {
+            get: function () {
+                return this.element.querySelector("[autofocus]");
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Snapshot.prototype, "permanentElements", {
+            get: function () {
+                return __spread(this.element.querySelectorAll("[id][data-turbo-permanent]"));
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Snapshot.prototype.getPermanentElementById = function (id) {
+            return this.element.querySelector("#" + id + "[data-turbo-permanent]");
+        };
+        Snapshot.prototype.getPermanentElementsPresentInSnapshot = function (snapshot) {
+            return this.permanentElements.filter(function (_a) {
+                var id = _a.id;
+                return snapshot.getPermanentElementById(id);
+            });
+        };
+        return Snapshot;
+    }());
+
+    var FormInterceptor = (function () {
+        function FormInterceptor(delegate, element) {
+            var _this = this;
+            this.submitBubbled = (function (event) {
+                if (event.target instanceof HTMLFormElement) {
+                    var form = event.target;
+                    var submitter = event.submitter || undefined;
+                    if (_this.delegate.shouldInterceptFormSubmission(form, submitter)) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+                        _this.delegate.formSubmissionIntercepted(form, submitter);
+                    }
+                }
+            });
+            this.delegate = delegate;
+            this.element = element;
+        }
+        FormInterceptor.prototype.start = function () {
+            this.element.addEventListener("submit", this.submitBubbled);
+        };
+        FormInterceptor.prototype.stop = function () {
+            this.element.removeEventListener("submit", this.submitBubbled);
+        };
+        return FormInterceptor;
+    }());
+
+    var View = (function () {
+        function View(delegate, element) {
+            this.delegate = delegate;
+            this.element = element;
+        }
+        View.prototype.scrollToAnchor = function (anchor) {
+            var element = this.snapshot.getElementForAnchor(anchor);
+            if (element) {
+                this.scrollToElement(element);
+            }
+            else {
+                this.scrollToPosition({ x: 0, y: 0 });
+            }
+        };
+        View.prototype.scrollToElement = function (element) {
+            element.scrollIntoView();
+        };
+        View.prototype.scrollToPosition = function (_a) {
+            var x = _a.x, y = _a.y;
+            this.scrollRoot.scrollTo(x, y);
+        };
+        Object.defineProperty(View.prototype, "scrollRoot", {
+            get: function () {
+                return window;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        View.prototype.render = function (renderer) {
+            return __awaiter(this, void 0, void 0, function () {
+                var isPreview, shouldRender, snapshot;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (this.renderer) {
+                                throw new Error("rendering is already in progress");
+                            }
+                            isPreview = renderer.isPreview, shouldRender = renderer.shouldRender, snapshot = renderer.newSnapshot;
+                            if (!shouldRender) return [3, 5];
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, , 3, 4]);
+                            this.renderer = renderer;
+                            this.prepareToRenderSnapshot(renderer);
+                            this.delegate.viewWillRenderSnapshot(snapshot, isPreview);
+                            return [4, this.renderSnapshot(renderer)];
+                        case 2:
+                            _a.sent();
+                            this.delegate.viewRenderedSnapshot(snapshot, isPreview);
+                            this.finishRenderingSnapshot(renderer);
+                            return [3, 4];
+                        case 3:
+                            delete this.renderer;
+                            return [7];
+                        case 4: return [3, 6];
+                        case 5:
+                            this.invalidate();
+                            _a.label = 6;
+                        case 6: return [2];
+                    }
+                });
+            });
+        };
+        View.prototype.invalidate = function () {
+            this.delegate.viewInvalidated();
+        };
+        View.prototype.prepareToRenderSnapshot = function (renderer) {
+            this.markAsPreview(renderer.isPreview);
+            renderer.prepareToRender();
+        };
+        View.prototype.markAsPreview = function (isPreview) {
+            if (isPreview) {
+                this.element.setAttribute("data-turbo-preview", "");
+            }
+            else {
+                this.element.removeAttribute("data-turbo-preview");
+            }
+        };
+        View.prototype.renderSnapshot = function (renderer) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, renderer.render()];
+                        case 1:
+                            _a.sent();
+                            return [2];
+                    }
+                });
+            });
+        };
+        View.prototype.finishRenderingSnapshot = function (renderer) {
+            renderer.finishRendering();
+        };
+        return View;
+    }());
+
+    var FrameView = (function (_super) {
+        __extends(FrameView, _super);
+        function FrameView() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        FrameView.prototype.invalidate = function () {
+            this.element.innerHTML = "";
+        };
+        Object.defineProperty(FrameView.prototype, "snapshot", {
+            get: function () {
+                return new Snapshot(this.element);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return FrameView;
+    }(View));
 
     var LinkInterceptor = (function () {
         function LinkInterceptor(delegate, element) {
@@ -741,20 +1176,292 @@ Copyright © 2020 Basecamp, LLC
         return LinkInterceptor;
     }());
 
+    var Renderer = (function () {
+        function Renderer(currentSnapshot, newSnapshot, isPreview) {
+            var _this = this;
+            this.currentSnapshot = currentSnapshot;
+            this.newSnapshot = newSnapshot;
+            this.isPreview = isPreview;
+            this.promise = new Promise(function (resolve, reject) { return _this.resolvingFunctions = { resolve: resolve, reject: reject }; });
+        }
+        Object.defineProperty(Renderer.prototype, "shouldRender", {
+            get: function () {
+                return true;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Renderer.prototype.prepareToRender = function () {
+            return;
+        };
+        Renderer.prototype.finishRendering = function () {
+            if (this.resolvingFunctions) {
+                this.resolvingFunctions.resolve();
+                delete this.resolvingFunctions;
+            }
+        };
+        Renderer.prototype.createScriptElement = function (element) {
+            if (element.getAttribute("data-turbo-eval") == "false") {
+                return element;
+            }
+            else {
+                var createdScriptElement = document.createElement("script");
+                createdScriptElement.textContent = element.textContent;
+                createdScriptElement.async = false;
+                copyElementAttributes(createdScriptElement, element);
+                return createdScriptElement;
+            }
+        };
+        Renderer.prototype.preservingPermanentElements = function (callback) {
+            var placeholders = relocatePermanentElements(this.currentSnapshot, this.newSnapshot);
+            callback();
+            replacePlaceholderElementsWithClonedPermanentElements(placeholders);
+        };
+        Renderer.prototype.focusFirstAutofocusableElement = function () {
+            var element = this.newSnapshot.firstAutofocusableElement;
+            if (elementIsFocusable(element)) {
+                element.focus();
+            }
+        };
+        Object.defineProperty(Renderer.prototype, "currentElement", {
+            get: function () {
+                return this.currentSnapshot.element;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Renderer.prototype, "newElement", {
+            get: function () {
+                return this.newSnapshot.element;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return Renderer;
+    }());
+    function replaceElementWithElement(fromElement, toElement) {
+        var parentElement = fromElement.parentElement;
+        if (parentElement) {
+            return parentElement.replaceChild(toElement, fromElement);
+        }
+    }
+    function copyElementAttributes(destinationElement, sourceElement) {
+        var e_1, _a;
+        try {
+            for (var _b = __values(__spread(sourceElement.attributes)), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var _d = _c.value, name_1 = _d.name, value = _d.value;
+                destinationElement.setAttribute(name_1, value);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+    }
+    function createPlaceholderForPermanentElement(permanentElement) {
+        var element = document.createElement("meta");
+        element.setAttribute("name", "turbo-permanent-placeholder");
+        element.setAttribute("content", permanentElement.id);
+        return { element: element, permanentElement: permanentElement };
+    }
+    function replacePlaceholderElementsWithClonedPermanentElements(placeholders) {
+        var e_2, _a;
+        try {
+            for (var placeholders_1 = __values(placeholders), placeholders_1_1 = placeholders_1.next(); !placeholders_1_1.done; placeholders_1_1 = placeholders_1.next()) {
+                var _b = placeholders_1_1.value, element = _b.element, permanentElement = _b.permanentElement;
+                var clonedElement = permanentElement.cloneNode(true);
+                replaceElementWithElement(element, clonedElement);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (placeholders_1_1 && !placeholders_1_1.done && (_a = placeholders_1.return)) _a.call(placeholders_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+    }
+    function relocatePermanentElements(currentSnapshot, newSnapshot) {
+        return currentSnapshot.getPermanentElementsPresentInSnapshot(newSnapshot).reduce(function (placeholders, permanentElement) {
+            var newElement = newSnapshot.getPermanentElementById(permanentElement.id);
+            if (newElement) {
+                var placeholder = createPlaceholderForPermanentElement(permanentElement);
+                replaceElementWithElement(permanentElement, placeholder.element);
+                replaceElementWithElement(newElement, permanentElement);
+                return __spread(placeholders, [placeholder]);
+            }
+            else {
+                return placeholders;
+            }
+        }, []);
+    }
+    function elementIsFocusable(element) {
+        return element && typeof element.focus == "function";
+    }
+
+    var FrameRenderer = (function (_super) {
+        __extends(FrameRenderer, _super);
+        function FrameRenderer() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Object.defineProperty(FrameRenderer.prototype, "shouldRender", {
+            get: function () {
+                return true;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        FrameRenderer.prototype.render = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, nextAnimationFrame()];
+                        case 1:
+                            _a.sent();
+                            this.preservingPermanentElements(function () {
+                                _this.loadFrameElement();
+                            });
+                            this.scrollFrameIntoView();
+                            return [4, nextAnimationFrame()];
+                        case 2:
+                            _a.sent();
+                            this.focusFirstAutofocusableElement();
+                            return [2];
+                    }
+                });
+            });
+        };
+        FrameRenderer.prototype.loadFrameElement = function () {
+            var _a;
+            var destinationRange = document.createRange();
+            destinationRange.selectNodeContents(this.currentElement);
+            destinationRange.deleteContents();
+            var frameElement = this.newElement;
+            var sourceRange = (_a = frameElement.ownerDocument) === null || _a === void 0 ? void 0 : _a.createRange();
+            if (sourceRange) {
+                sourceRange.selectNodeContents(frameElement);
+                this.currentElement.appendChild(sourceRange.extractContents());
+            }
+        };
+        FrameRenderer.prototype.scrollFrameIntoView = function () {
+            if (this.currentElement.autoscroll || this.newElement.autoscroll) {
+                var element = this.currentElement.firstElementChild;
+                var block = readScrollLogicalPosition(this.currentElement.getAttribute("data-autoscroll-block"), "end");
+                if (element) {
+                    element.scrollIntoView({ block: block });
+                    return true;
+                }
+            }
+            return false;
+        };
+        return FrameRenderer;
+    }(Renderer));
+    function readScrollLogicalPosition(value, defaultValue) {
+        if (value == "end" || value == "start" || value == "center" || value == "nearest") {
+            return value;
+        }
+        else {
+            return defaultValue;
+        }
+    }
+
     var FrameController = (function () {
         function FrameController(element) {
             this.resolveVisitPromise = function () { };
             this.element = element;
+            this.view = new FrameView(this, this.element);
+            this.appearanceObserver = new AppearanceObserver(this, this.element);
             this.linkInterceptor = new LinkInterceptor(this, this.element);
             this.formInterceptor = new FormInterceptor(this, this.element);
         }
         FrameController.prototype.connect = function () {
+            if (this.loadingStyle == FrameLoadingStyle.lazy) {
+                this.appearanceObserver.start();
+            }
             this.linkInterceptor.start();
             this.formInterceptor.start();
         };
         FrameController.prototype.disconnect = function () {
+            this.appearanceObserver.stop();
             this.linkInterceptor.stop();
             this.formInterceptor.stop();
+        };
+        FrameController.prototype.sourceURLChanged = function () {
+            if (this.loadingStyle == FrameLoadingStyle.eager) {
+                this.loadSourceURL();
+            }
+        };
+        FrameController.prototype.loadingStyleChanged = function () {
+            if (this.loadingStyle == FrameLoadingStyle.lazy) {
+                this.appearanceObserver.start();
+            }
+            else {
+                this.appearanceObserver.stop();
+                this.loadSourceURL();
+            }
+        };
+        FrameController.prototype.loadSourceURL = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            if (!(this.isActive && this.sourceURL && this.sourceURL != this.loadingURL)) return [3, 4];
+                            _a.label = 1;
+                        case 1:
+                            _a.trys.push([1, , 3, 4]);
+                            this.loadingURL = this.sourceURL;
+                            this.element.loaded = this.visit(this.sourceURL);
+                            this.appearanceObserver.stop();
+                            return [4, this.element.loaded];
+                        case 2:
+                            _a.sent();
+                            return [3, 4];
+                        case 3:
+                            delete this.loadingURL;
+                            return [7];
+                        case 4: return [2];
+                    }
+                });
+            });
+        };
+        FrameController.prototype.loadResponse = function (response) {
+            return __awaiter(this, void 0, void 0, function () {
+                var html, body, snapshot, _a, renderer, error_1;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            _b.trys.push([0, 5, , 6]);
+                            return [4, response.responseHTML];
+                        case 1:
+                            html = _b.sent();
+                            if (!html) return [3, 4];
+                            body = parseHTMLDocument(html).body;
+                            _a = Snapshot.bind;
+                            return [4, this.extractForeignFrameElement(body)];
+                        case 2:
+                            snapshot = new (_a.apply(Snapshot, [void 0, _b.sent()]))();
+                            renderer = new FrameRenderer(this.view.snapshot, snapshot, false);
+                            return [4, this.view.render(renderer)];
+                        case 3:
+                            _b.sent();
+                            _b.label = 4;
+                        case 4: return [3, 6];
+                        case 5:
+                            error_1 = _b.sent();
+                            console.error(error_1);
+                            this.view.invalidate();
+                            return [3, 6];
+                        case 6: return [2];
+                    }
+                });
+            });
+        };
+        FrameController.prototype.elementAppearedInViewport = function (element) {
+            this.loadSourceURL();
         };
         FrameController.prototype.shouldInterceptLinkClick = function (element, url) {
             return this.shouldInterceptNavigation(element);
@@ -771,31 +1478,14 @@ Copyright © 2020 Basecamp, LLC
             }
             this.formSubmission = new FormSubmission(this, element, submitter);
             if (this.formSubmission.fetchRequest.isIdempotent) {
-                this.navigateFrame(element, this.formSubmission.fetchRequest.url);
+                this.navigateFrame(element, this.formSubmission.fetchRequest.url.href);
             }
             else {
                 this.formSubmission.start();
             }
         };
-        FrameController.prototype.visit = function (url) {
-            return __awaiter(this, void 0, void 0, function () {
-                var location, request;
-                var _this = this;
-                return __generator(this, function (_a) {
-                    location = Location.wrap(url);
-                    request = new FetchRequest(this, FetchMethod.get, location);
-                    return [2, new Promise(function (resolve) {
-                            _this.resolveVisitPromise = function () {
-                                _this.resolveVisitPromise = function () { };
-                                resolve();
-                            };
-                            request.perform();
-                        })];
-                });
-            });
-        };
-        FrameController.prototype.additionalHeadersForRequest = function (request) {
-            return { "Turbo-Frame": this.id };
+        FrameController.prototype.prepareHeadersForRequest = function (headers, request) {
+            headers["Turbo-Frame"] = this.id;
         };
         FrameController.prototype.requestStarted = function (request) {
             this.element.setAttribute("busy", "");
@@ -831,13 +1521,36 @@ Copyright © 2020 Basecamp, LLC
         };
         FrameController.prototype.formSubmissionSucceededWithResponse = function (formSubmission, response) {
             var frame = this.findFrameElement(formSubmission.formElement);
-            frame.controller.loadResponse(response);
+            frame.delegate.loadResponse(response);
         };
         FrameController.prototype.formSubmissionFailedWithResponse = function (formSubmission, fetchResponse) {
+            this.element.delegate.loadResponse(fetchResponse);
         };
         FrameController.prototype.formSubmissionErrored = function (formSubmission, error) {
         };
         FrameController.prototype.formSubmissionFinished = function (formSubmission) {
+        };
+        FrameController.prototype.viewWillRenderSnapshot = function (snapshot, isPreview) {
+        };
+        FrameController.prototype.viewRenderedSnapshot = function (snapshot, isPreview) {
+        };
+        FrameController.prototype.viewInvalidated = function () {
+        };
+        FrameController.prototype.visit = function (url) {
+            return __awaiter(this, void 0, void 0, function () {
+                var request;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    request = new FetchRequest(this, FetchMethod.get, expandURL(url));
+                    return [2, new Promise(function (resolve) {
+                            _this.resolveVisitPromise = function () {
+                                _this.resolveVisitPromise = function () { };
+                                resolve();
+                            };
+                            request.perform();
+                        })];
+                });
+            });
         };
         FrameController.prototype.navigateFrame = function (element, url) {
             var frame = this.findFrameElement(element);
@@ -845,37 +1558,8 @@ Copyright © 2020 Basecamp, LLC
         };
         FrameController.prototype.findFrameElement = function (element) {
             var _a;
-            var id = element.getAttribute("data-turbo-frame");
+            var id = element.getAttribute("data-turbo-frame") || this.element.getAttribute("target");
             return (_a = getFrameElementById(id)) !== null && _a !== void 0 ? _a : this.element;
-        };
-        FrameController.prototype.loadResponse = function (response) {
-            return __awaiter(this, void 0, void 0, function () {
-                var fragment, _a, element;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0:
-                            _a = fragmentFromHTML;
-                            return [4, response.responseHTML];
-                        case 1:
-                            fragment = _a.apply(void 0, [_b.sent()]);
-                            return [4, this.extractForeignFrameElement(fragment)];
-                        case 2:
-                            element = _b.sent();
-                            if (!element) return [3, 5];
-                            return [4, nextAnimationFrame()];
-                        case 3:
-                            _b.sent();
-                            this.loadFrameElement(element);
-                            this.scrollFrameIntoView(element);
-                            return [4, nextAnimationFrame()];
-                        case 4:
-                            _b.sent();
-                            this.focusFirstAutofocusableElement();
-                            _b.label = 5;
-                        case 5: return [2];
-                    }
-                });
-            });
         };
         FrameController.prototype.extractForeignFrameElement = function (container) {
             return __awaiter(this, void 0, void 0, function () {
@@ -893,40 +1577,12 @@ Copyright © 2020 Basecamp, LLC
                             _a.sent();
                             return [4, this.extractForeignFrameElement(element)];
                         case 2: return [2, _a.sent()];
-                        case 3: return [2];
+                        case 3:
+                            console.error("Response has no matching <turbo-frame id=\"" + id + "\"> element");
+                            return [2, new FrameElement()];
                     }
                 });
             });
-        };
-        FrameController.prototype.loadFrameElement = function (frameElement) {
-            var _a;
-            var destinationRange = document.createRange();
-            destinationRange.selectNodeContents(this.element);
-            destinationRange.deleteContents();
-            var sourceRange = (_a = frameElement.ownerDocument) === null || _a === void 0 ? void 0 : _a.createRange();
-            if (sourceRange) {
-                sourceRange.selectNodeContents(frameElement);
-                this.element.appendChild(sourceRange.extractContents());
-            }
-        };
-        FrameController.prototype.focusFirstAutofocusableElement = function () {
-            var element = this.firstAutofocusableElement;
-            if (element) {
-                element.focus();
-                return true;
-            }
-            return false;
-        };
-        FrameController.prototype.scrollFrameIntoView = function (frame) {
-            if (this.element.autoscroll || frame.autoscroll) {
-                var element = this.element.firstElementChild;
-                var block = readScrollLogicalPosition(this.element.getAttribute("data-autoscroll-block"), "end");
-                if (element) {
-                    element.scrollIntoView({ block: block });
-                    return true;
-                }
-            }
-            return false;
         };
         FrameController.prototype.shouldInterceptNavigation = function (element) {
             var id = element.getAttribute("data-turbo-frame") || this.element.getAttribute("target");
@@ -941,14 +1597,6 @@ Copyright © 2020 Basecamp, LLC
             }
             return true;
         };
-        Object.defineProperty(FrameController.prototype, "firstAutofocusableElement", {
-            get: function () {
-                var element = this.element.querySelector("[autofocus]");
-                return element instanceof HTMLElement ? element : null;
-            },
-            enumerable: false,
-            configurable: true
-        });
         Object.defineProperty(FrameController.prototype, "id", {
             get: function () {
                 return this.element.id;
@@ -963,6 +1611,34 @@ Copyright © 2020 Basecamp, LLC
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(FrameController.prototype, "sourceURL", {
+            get: function () {
+                return this.element.src;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameController.prototype, "loadingStyle", {
+            get: function () {
+                return this.element.loading;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameController.prototype, "isLoading", {
+            get: function () {
+                return this.formSubmission !== undefined || this.loadingURL !== undefined;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(FrameController.prototype, "isActive", {
+            get: function () {
+                return this.element.isActive;
+            },
+            enumerable: false,
+            configurable: true
+        });
         return FrameController;
     }());
     function getFrameElementById(id) {
@@ -973,19 +1649,6 @@ Copyright © 2020 Basecamp, LLC
             }
         }
     }
-    function readScrollLogicalPosition(value, defaultValue) {
-        if (value == "end" || value == "start" || value == "center" || value == "nearest") {
-            return value;
-        }
-        else {
-            return defaultValue;
-        }
-    }
-    function fragmentFromHTML(html) {
-        if (html === void 0) { html = ""; }
-        var foreignDocument = document.implementation.createHTMLDocument();
-        return foreignDocument.createRange().createContextualFragment(html);
-    }
     function activateElement(element) {
         if (element && element.ownerDocument !== document) {
             element = document.importNode(element, true);
@@ -994,106 +1657,6 @@ Copyright © 2020 Basecamp, LLC
             return element;
         }
     }
-
-    var FrameElement = (function (_super) {
-        __extends(FrameElement, _super);
-        function FrameElement() {
-            var _this = _super.call(this) || this;
-            _this.controller = new FrameController(_this);
-            return _this;
-        }
-        Object.defineProperty(FrameElement, "observedAttributes", {
-            get: function () {
-                return ["src"];
-            },
-            enumerable: false,
-            configurable: true
-        });
-        FrameElement.prototype.connectedCallback = function () {
-            this.controller.connect();
-        };
-        FrameElement.prototype.disconnectedCallback = function () {
-            this.controller.disconnect();
-        };
-        FrameElement.prototype.attributeChangedCallback = function () {
-            if (this.src && this.isActive) {
-                var value = this.controller.visit(this.src);
-                Object.defineProperty(this, "loaded", { value: value, configurable: true });
-            }
-        };
-        FrameElement.prototype.formSubmissionIntercepted = function (element, submitter) {
-            this.controller.formSubmissionIntercepted(element, submitter);
-        };
-        Object.defineProperty(FrameElement.prototype, "src", {
-            get: function () {
-                return this.getAttribute("src");
-            },
-            set: function (value) {
-                if (value) {
-                    this.setAttribute("src", value);
-                }
-                else {
-                    this.removeAttribute("src");
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FrameElement.prototype, "loaded", {
-            get: function () {
-                return Promise.resolve(undefined);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FrameElement.prototype, "disabled", {
-            get: function () {
-                return this.hasAttribute("disabled");
-            },
-            set: function (value) {
-                if (value) {
-                    this.setAttribute("disabled", "");
-                }
-                else {
-                    this.removeAttribute("disabled");
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FrameElement.prototype, "autoscroll", {
-            get: function () {
-                return this.hasAttribute("autoscroll");
-            },
-            set: function (value) {
-                if (value) {
-                    this.setAttribute("autoscroll", "");
-                }
-                else {
-                    this.removeAttribute("autoscroll");
-                }
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FrameElement.prototype, "isActive", {
-            get: function () {
-                return this.ownerDocument === document && !this.isPreview;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(FrameElement.prototype, "isPreview", {
-            get: function () {
-                var _a, _b;
-                return (_b = (_a = this.ownerDocument) === null || _a === void 0 ? void 0 : _a.documentElement) === null || _b === void 0 ? void 0 : _b.hasAttribute("data-turbo-preview");
-            },
-            enumerable: false,
-            configurable: true
-        });
-        return FrameElement;
-    }(HTMLElement));
-    customElements.define("turbo-frame", FrameElement);
 
     var StreamActions = {
         append: function () {
@@ -1252,6 +1815,9 @@ Copyright © 2020 Basecamp, LLC
         });
         return StreamElement;
     }(HTMLElement));
+
+    FrameElement.delegateConstructor = FrameController;
+    customElements.define("turbo-frame", FrameElement);
     customElements.define("turbo-stream", StreamElement);
 
     (function () {
@@ -1361,9 +1927,11 @@ Copyright © 2020 Basecamp, LLC
     }());
     var templateObject_1$1;
 
-    var HeadDetails = (function () {
-        function HeadDetails(children) {
-            this.detailsByOuterHTML = children.reduce(function (result, element) {
+    var HeadSnapshot = (function (_super) {
+        __extends(HeadSnapshot, _super);
+        function HeadSnapshot() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.detailsByOuterHTML = _this.children.reduce(function (result, element) {
                 var _a;
                 var outerHTML = element.outerHTML;
                 var details = outerHTML in result
@@ -1375,27 +1943,28 @@ Copyright © 2020 Basecamp, LLC
                     };
                 return __assign(__assign({}, result), (_a = {}, _a[outerHTML] = __assign(__assign({}, details), { elements: __spread(details.elements, [element]) }), _a));
             }, {});
+            return _this;
         }
-        HeadDetails.fromHeadElement = function (headElement) {
-            var children = headElement ? __spread(headElement.children) : [];
-            return new this(children);
+        Object.defineProperty(HeadSnapshot.prototype, "trackedElementSignature", {
+            get: function () {
+                var _this = this;
+                return Object.keys(this.detailsByOuterHTML)
+                    .filter(function (outerHTML) { return _this.detailsByOuterHTML[outerHTML].tracked; })
+                    .join("");
+            },
+            enumerable: false,
+            configurable: true
+        });
+        HeadSnapshot.prototype.getScriptElementsNotInSnapshot = function (snapshot) {
+            return this.getElementsMatchingTypeNotInSnapshot("script", snapshot);
         };
-        HeadDetails.prototype.getTrackedElementSignature = function () {
+        HeadSnapshot.prototype.getStylesheetElementsNotInSnapshot = function (snapshot) {
+            return this.getElementsMatchingTypeNotInSnapshot("stylesheet", snapshot);
+        };
+        HeadSnapshot.prototype.getElementsMatchingTypeNotInSnapshot = function (matchedType, snapshot) {
             var _this = this;
             return Object.keys(this.detailsByOuterHTML)
-                .filter(function (outerHTML) { return _this.detailsByOuterHTML[outerHTML].tracked; })
-                .join("");
-        };
-        HeadDetails.prototype.getScriptElementsNotInDetails = function (headDetails) {
-            return this.getElementsMatchingTypeNotInDetails("script", headDetails);
-        };
-        HeadDetails.prototype.getStylesheetElementsNotInDetails = function (headDetails) {
-            return this.getElementsMatchingTypeNotInDetails("stylesheet", headDetails);
-        };
-        HeadDetails.prototype.getElementsMatchingTypeNotInDetails = function (matchedType, headDetails) {
-            var _this = this;
-            return Object.keys(this.detailsByOuterHTML)
-                .filter(function (outerHTML) { return !(outerHTML in headDetails.detailsByOuterHTML); })
+                .filter(function (outerHTML) { return !(outerHTML in snapshot.detailsByOuterHTML); })
                 .map(function (outerHTML) { return _this.detailsByOuterHTML[outerHTML]; })
                 .filter(function (_a) {
                 var type = _a.type;
@@ -1406,36 +1975,40 @@ Copyright © 2020 Basecamp, LLC
                 return element;
             });
         };
-        HeadDetails.prototype.getProvisionalElements = function () {
-            var _this = this;
-            return Object.keys(this.detailsByOuterHTML).reduce(function (result, outerHTML) {
-                var _a = _this.detailsByOuterHTML[outerHTML], type = _a.type, tracked = _a.tracked, elements = _a.elements;
-                if (type == null && !tracked) {
-                    return __spread(result, elements);
-                }
-                else if (elements.length > 1) {
-                    return __spread(result, elements.slice(1));
-                }
-                else {
-                    return result;
-                }
-            }, []);
-        };
-        HeadDetails.prototype.getMetaValue = function (name) {
+        Object.defineProperty(HeadSnapshot.prototype, "provisionalElements", {
+            get: function () {
+                var _this = this;
+                return Object.keys(this.detailsByOuterHTML).reduce(function (result, outerHTML) {
+                    var _a = _this.detailsByOuterHTML[outerHTML], type = _a.type, tracked = _a.tracked, elements = _a.elements;
+                    if (type == null && !tracked) {
+                        return __spread(result, elements);
+                    }
+                    else if (elements.length > 1) {
+                        return __spread(result, elements.slice(1));
+                    }
+                    else {
+                        return result;
+                    }
+                }, []);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        HeadSnapshot.prototype.getMetaValue = function (name) {
             var element = this.findMetaElementByName(name);
             return element
                 ? element.getAttribute("content")
                 : null;
         };
-        HeadDetails.prototype.findMetaElementByName = function (name) {
+        HeadSnapshot.prototype.findMetaElementByName = function (name) {
             var _this = this;
             return Object.keys(this.detailsByOuterHTML).reduce(function (result, outerHTML) {
                 var _a = __read(_this.detailsByOuterHTML[outerHTML].elements, 1), element = _a[0];
                 return elementIsMetaElementWithName(element, name) ? element : result;
             }, undefined);
         };
-        return HeadDetails;
-    }());
+        return HeadSnapshot;
+    }(Snapshot));
     function elementType(element) {
         if (elementIsScript(element)) {
             return "script";
@@ -1460,84 +2033,76 @@ Copyright © 2020 Basecamp, LLC
         return tagName == "meta" && element.getAttribute("name") == name;
     }
 
-    var Snapshot = (function () {
-        function Snapshot(headDetails, bodyElement) {
-            this.headDetails = headDetails;
-            this.bodyElement = bodyElement;
+    var PageSnapshot = (function (_super) {
+        __extends(PageSnapshot, _super);
+        function PageSnapshot(element, headSnapshot) {
+            var _this = _super.call(this, element) || this;
+            _this.headSnapshot = headSnapshot;
+            return _this;
         }
-        Snapshot.wrap = function (value) {
-            if (value instanceof this) {
-                return value;
-            }
-            else if (typeof value == "string") {
-                return this.fromHTMLString(value);
-            }
-            else {
-                return this.fromHTMLElement(value);
-            }
+        PageSnapshot.fromHTMLString = function (html) {
+            if (html === void 0) { html = ""; }
+            return this.fromDocument(parseHTMLDocument(html));
         };
-        Snapshot.fromHTMLString = function (html) {
-            var documentElement = new DOMParser().parseFromString(html, "text/html").documentElement;
-            return this.fromHTMLElement(documentElement);
+        PageSnapshot.fromElement = function (element) {
+            return this.fromDocument(element.ownerDocument);
         };
-        Snapshot.fromHTMLElement = function (htmlElement) {
-            var headElement = htmlElement.querySelector("head");
-            var bodyElement = htmlElement.querySelector("body") || document.createElement("body");
-            var headDetails = HeadDetails.fromHeadElement(headElement);
-            return new this(headDetails, bodyElement);
+        PageSnapshot.fromDocument = function (_a) {
+            var head = _a.head, body = _a.body;
+            return new this(body, new HeadSnapshot(head));
         };
-        Snapshot.prototype.clone = function () {
-            var bodyElement = Snapshot.fromHTMLString(this.bodyElement.outerHTML).bodyElement;
-            return new Snapshot(this.headDetails, bodyElement);
+        PageSnapshot.prototype.clone = function () {
+            return new PageSnapshot(this.element.cloneNode(true), this.headSnapshot);
         };
-        Snapshot.prototype.getRootLocation = function () {
-            var root = this.getSetting("root", "/");
-            return new Location(root);
+        Object.defineProperty(PageSnapshot.prototype, "headElement", {
+            get: function () {
+                return this.headSnapshot.element;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageSnapshot.prototype, "rootLocation", {
+            get: function () {
+                var _a;
+                var root = (_a = this.getSetting("root")) !== null && _a !== void 0 ? _a : "/";
+                return expandURL(root);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageSnapshot.prototype, "cacheControlValue", {
+            get: function () {
+                return this.getSetting("cache-control");
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageSnapshot.prototype, "isPreviewable", {
+            get: function () {
+                return this.cacheControlValue != "no-preview";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageSnapshot.prototype, "isCacheable", {
+            get: function () {
+                return this.cacheControlValue != "no-cache";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageSnapshot.prototype, "isVisitable", {
+            get: function () {
+                return this.getSetting("visit-control") != "reload";
+            },
+            enumerable: false,
+            configurable: true
+        });
+        PageSnapshot.prototype.getSetting = function (name) {
+            return this.headSnapshot.getMetaValue("turbo-" + name);
         };
-        Snapshot.prototype.getCacheControlValue = function () {
-            return this.getSetting("cache-control");
-        };
-        Snapshot.prototype.getElementForAnchor = function (anchor) {
-            try {
-                return this.bodyElement.querySelector("[id='" + anchor + "'], a[name='" + anchor + "']");
-            }
-            catch (_a) {
-                return null;
-            }
-        };
-        Snapshot.prototype.getPermanentElements = function () {
-            return __spread(this.bodyElement.querySelectorAll("[id][data-turbo-permanent]"));
-        };
-        Snapshot.prototype.getPermanentElementById = function (id) {
-            return this.bodyElement.querySelector("#" + id + "[data-turbo-permanent]");
-        };
-        Snapshot.prototype.getPermanentElementsPresentInSnapshot = function (snapshot) {
-            return this.getPermanentElements().filter(function (_a) {
-                var id = _a.id;
-                return snapshot.getPermanentElementById(id);
-            });
-        };
-        Snapshot.prototype.findFirstAutofocusableElement = function () {
-            return this.bodyElement.querySelector("[autofocus]");
-        };
-        Snapshot.prototype.hasAnchor = function (anchor) {
-            return this.getElementForAnchor(anchor) != null;
-        };
-        Snapshot.prototype.isPreviewable = function () {
-            return this.getCacheControlValue() != "no-preview";
-        };
-        Snapshot.prototype.isCacheable = function () {
-            return this.getCacheControlValue() != "no-cache";
-        };
-        Snapshot.prototype.isVisitable = function () {
-            return this.getSetting("visit-control") != "reload";
-        };
-        Snapshot.prototype.getSetting = function (name, defaultValue) {
-            var value = this.headDetails.getMetaValue("turbo-" + name);
-            return value == null ? defaultValue : value;
-        };
-        return Snapshot;
-    }());
+        return PageSnapshot;
+    }(Snapshot));
 
     var TimingMetric;
     (function (TimingMetric) {
@@ -1566,7 +2131,6 @@ Copyright © 2020 Basecamp, LLC
     })(SystemStatusCode || (SystemStatusCode = {}));
     var Visit = (function () {
         function Visit(delegate, location, restorationIdentifier, options) {
-            var _this = this;
             if (options === void 0) { options = {}; }
             this.identifier = uuid();
             this.timingMetrics = {};
@@ -1575,17 +2139,6 @@ Copyright © 2020 Basecamp, LLC
             this.scrolled = false;
             this.snapshotCached = false;
             this.state = VisitState.initialized;
-            this.performScroll = function () {
-                if (!_this.scrolled) {
-                    if (_this.action == "restore") {
-                        _this.scrollToRestoredPosition() || _this.scrollToTop();
-                    }
-                    else {
-                        _this.scrollToAnchor() || _this.scrollToTop();
-                    }
-                    _this.scrolled = true;
-                }
-            };
             this.delegate = delegate;
             this.location = location;
             this.restorationIdentifier = restorationIdentifier || uuid();
@@ -1656,8 +2209,9 @@ Copyright © 2020 Basecamp, LLC
             }
         };
         Visit.prototype.changeHistory = function () {
+            var _a;
             if (!this.historyChanged) {
-                var actionForHistory = this.location.isEqualTo(this.referrer) ? "replace" : this.action;
+                var actionForHistory = this.location.href === ((_a = this.referrer) === null || _a === void 0 ? void 0 : _a.href) ? "replace" : this.action;
                 var method = this.getHistoryMethodForAction(actionForHistory);
                 this.history.update(method, this.location, this.restorationIdentifier);
                 this.historyChanged = true;
@@ -1704,32 +2258,41 @@ Copyright © 2020 Basecamp, LLC
             var _this = this;
             if (this.response) {
                 var _a = this.response, statusCode_1 = _a.statusCode, responseHTML_1 = _a.responseHTML;
-                this.render(function () {
-                    _this.cacheSnapshot();
-                    if (isSuccessful(statusCode_1) && responseHTML_1 != null) {
-                        _this.view.render({ snapshot: Snapshot.fromHTMLString(responseHTML_1) }, _this.performScroll);
-                        _this.adapter.visitRendered(_this);
-                        _this.complete();
-                    }
-                    else {
-                        _this.view.render({ error: responseHTML_1 }, _this.performScroll);
-                        _this.adapter.visitRendered(_this);
-                        _this.fail();
-                    }
-                });
+                this.render(function () { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                this.cacheSnapshot();
+                                if (!(isSuccessful(statusCode_1) && responseHTML_1 != null)) return [3, 2];
+                                return [4, this.view.renderPage(PageSnapshot.fromHTMLString(responseHTML_1))];
+                            case 1:
+                                _a.sent();
+                                this.adapter.visitRendered(this);
+                                this.complete();
+                                return [3, 4];
+                            case 2: return [4, this.view.renderError(PageSnapshot.fromHTMLString(responseHTML_1))];
+                            case 3:
+                                _a.sent();
+                                this.adapter.visitRendered(this);
+                                this.fail();
+                                _a.label = 4;
+                            case 4: return [2];
+                        }
+                    });
+                }); });
             }
         };
         Visit.prototype.getCachedSnapshot = function () {
             var snapshot = this.view.getCachedSnapshotForLocation(this.location) || this.getPreloadedSnapshot();
-            if (snapshot && (!this.location.anchor || snapshot.hasAnchor(this.location.anchor))) {
-                if (this.action == "restore" || snapshot.isPreviewable()) {
+            if (snapshot && (!getAnchor(this.location) || snapshot.hasAnchor(getAnchor(this.location)))) {
+                if (this.action == "restore" || snapshot.isPreviewable) {
                     return snapshot;
                 }
             }
         };
         Visit.prototype.getPreloadedSnapshot = function () {
             if (this.snapshotHTML) {
-                return Snapshot.wrap(this.snapshotHTML);
+                return PageSnapshot.fromHTMLString(this.snapshotHTML);
             }
         };
         Visit.prototype.hasCachedSnapshot = function () {
@@ -1740,14 +2303,22 @@ Copyright © 2020 Basecamp, LLC
             var snapshot = this.getCachedSnapshot();
             if (snapshot) {
                 var isPreview_1 = this.shouldIssueRequest();
-                this.render(function () {
-                    _this.cacheSnapshot();
-                    _this.view.render({ snapshot: snapshot, isPreview: isPreview_1 }, _this.performScroll);
-                    _this.adapter.visitRendered(_this);
-                    if (!isPreview_1) {
-                        _this.complete();
-                    }
-                });
+                this.render(function () { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                this.cacheSnapshot();
+                                return [4, this.view.renderPage(snapshot)];
+                            case 1:
+                                _a.sent();
+                                this.adapter.visitRendered(this);
+                                if (!isPreview_1) {
+                                    this.complete();
+                                }
+                                return [2];
+                        }
+                    });
+                }); });
             }
         };
         Visit.prototype.followRedirect = function () {
@@ -1807,6 +2378,17 @@ Copyright © 2020 Basecamp, LLC
         Visit.prototype.requestFinished = function () {
             this.finishRequest();
         };
+        Visit.prototype.performScroll = function () {
+            if (!this.scrolled) {
+                if (this.action == "restore") {
+                    this.scrollToRestoredPosition() || this.scrollToTop();
+                }
+                else {
+                    this.scrollToAnchor() || this.scrollToTop();
+                }
+                this.scrolled = true;
+            }
+        };
         Visit.prototype.scrollToRestoredPosition = function () {
             var scrollPosition = this.restorationData.scrollPosition;
             if (scrollPosition) {
@@ -1815,8 +2397,8 @@ Copyright © 2020 Basecamp, LLC
             }
         };
         Visit.prototype.scrollToAnchor = function () {
-            if (this.location.anchor != null) {
-                this.view.scrollToAnchor(this.location.anchor);
+            if (getAnchor(this.location) != null) {
+                this.view.scrollToAnchor(getAnchor(this.location));
                 return true;
             }
         };
@@ -1851,11 +2433,23 @@ Copyright © 2020 Basecamp, LLC
             }
         };
         Visit.prototype.render = function (callback) {
-            var _this = this;
-            this.cancelRender();
-            this.frame = requestAnimationFrame(function () {
-                delete _this.frame;
-                callback.call(_this);
+            return __awaiter(this, void 0, void 0, function () {
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            this.cancelRender();
+                            return [4, new Promise(function (resolve) {
+                                    _this.frame = requestAnimationFrame(function () { return resolve(); });
+                                })];
+                        case 1:
+                            _a.sent();
+                            callback();
+                            delete this.frame;
+                            this.performScroll();
+                            return [2];
+                    }
+                });
             });
         };
         Visit.prototype.cancelRender = function () {
@@ -1959,7 +2553,8 @@ Copyright © 2020 Basecamp, LLC
                     var form = event.target instanceof HTMLFormElement ? event.target : undefined;
                     var submitter = event.submitter || undefined;
                     if (form) {
-                        if (_this.delegate.willSubmitForm(form, submitter)) {
+                        var method = (submitter === null || submitter === void 0 ? void 0 : submitter.getAttribute("formmethod")) || form.method;
+                        if (method != "dialog" && _this.delegate.willSubmitForm(form, submitter)) {
                             event.preventDefault();
                             _this.delegate.formSubmitted(form, submitter);
                         }
@@ -2012,7 +2607,7 @@ Copyright © 2020 Basecamp, LLC
         FrameRedirector.prototype.formSubmissionIntercepted = function (element, submitter) {
             var frame = this.findFrameElement(element);
             if (frame) {
-                frame.formSubmissionIntercepted(element, submitter);
+                frame.delegate.formSubmissionIntercepted(element, submitter);
             }
         };
         FrameRedirector.prototype.shouldRedirect = function (element, submitter) {
@@ -2042,11 +2637,10 @@ Copyright © 2020 Basecamp, LLC
                 if (_this.shouldHandlePopState()) {
                     var turbo = (event.state || {}).turbo;
                     if (turbo) {
-                        var location_1 = Location.currentLocation;
-                        _this.location = location_1;
+                        _this.location = new URL(window.location.href);
                         var restorationIdentifier = turbo.restorationIdentifier;
                         _this.restorationIdentifier = restorationIdentifier;
-                        _this.delegate.historyPoppedToLocationWithRestorationIdentifier(location_1, restorationIdentifier);
+                        _this.delegate.historyPoppedToLocationWithRestorationIdentifier(_this.location, restorationIdentifier);
                     }
                 }
             };
@@ -2065,18 +2659,14 @@ Copyright © 2020 Basecamp, LLC
         }
         History.prototype.start = function () {
             if (!this.started) {
-                this.previousScrollRestoration = history.scrollRestoration;
-                history.scrollRestoration = "manual";
                 addEventListener("popstate", this.onPopState, false);
                 addEventListener("load", this.onPageLoad, false);
                 this.started = true;
-                this.replace(Location.currentLocation);
+                this.replace(new URL(window.location.href));
             }
         };
         History.prototype.stop = function () {
-            var _a;
             if (this.started) {
-                history.scrollRestoration = (_a = this.previousScrollRestoration) !== null && _a !== void 0 ? _a : "auto";
                 removeEventListener("popstate", this.onPopState, false);
                 removeEventListener("load", this.onPageLoad, false);
                 this.started = false;
@@ -2091,7 +2681,7 @@ Copyright © 2020 Basecamp, LLC
         History.prototype.update = function (method, location, restorationIdentifier) {
             if (restorationIdentifier === void 0) { restorationIdentifier = uuid(); }
             var state = { turbo: { restorationIdentifier: restorationIdentifier } };
-            method.call(history, state, "", location.absoluteURL);
+            method.call(history, state, "", location.href);
             this.location = location;
             this.restorationIdentifier = restorationIdentifier;
         };
@@ -2102,6 +2692,19 @@ Copyright © 2020 Basecamp, LLC
             var restorationIdentifier = this.restorationIdentifier;
             var restorationData = this.restorationData[restorationIdentifier];
             this.restorationData[restorationIdentifier] = __assign(__assign({}, restorationData), additionalData);
+        };
+        History.prototype.assumeControlOfScrollRestoration = function () {
+            var _a;
+            if (!this.previousScrollRestoration) {
+                this.previousScrollRestoration = (_a = history.scrollRestoration) !== null && _a !== void 0 ? _a : "auto";
+                history.scrollRestoration = "manual";
+            }
+        };
+        History.prototype.relinquishControlOfScrollRestoration = function () {
+            if (this.previousScrollRestoration) {
+                history.scrollRestoration = this.previousScrollRestoration;
+                delete this.previousScrollRestoration;
+            }
         };
         History.prototype.shouldHandlePopState = function () {
             return this.pageIsLoaded();
@@ -2161,7 +2764,7 @@ Copyright © 2020 Basecamp, LLC
             }
         };
         LinkClickObserver.prototype.getLocationForLink = function (link) {
-            return new Location(link.getAttribute("href") || "");
+            return expandURL(link.getAttribute("href") || "");
         };
         return LinkClickObserver;
     }());
@@ -2176,16 +2779,21 @@ Copyright © 2020 Basecamp, LLC
                 this.delegate.visitProposedToLocation(location, options);
             }
         };
-        Navigator.prototype.startVisit = function (location, restorationIdentifier, options) {
+        Navigator.prototype.startVisit = function (locatable, restorationIdentifier, options) {
             if (options === void 0) { options = {}; }
             this.stop();
-            this.currentVisit = new Visit(this, Location.wrap(location), restorationIdentifier, __assign({ referrer: this.location }, options));
+            this.currentVisit = new Visit(this, expandURL(locatable), restorationIdentifier, __assign({ referrer: this.location }, options));
             this.currentVisit.start();
         };
         Navigator.prototype.submitForm = function (form, submitter) {
             this.stop();
             this.formSubmission = new FormSubmission(this, form, submitter, true);
-            this.formSubmission.start();
+            if (this.formSubmission.fetchRequest.isIdempotent) {
+                this.proposeVisit(this.formSubmission.fetchRequest.url);
+            }
+            else {
+                this.formSubmission.start();
+            }
         };
         Navigator.prototype.stop = function () {
             if (this.formSubmission) {
@@ -2226,19 +2834,16 @@ Copyright © 2020 Basecamp, LLC
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
-                            console.log("Form submission succeeded", formSubmission);
                             if (!(formSubmission == this.formSubmission)) return [3, 2];
                             return [4, fetchResponse.responseHTML];
                         case 1:
                             responseHTML = _a.sent();
                             if (responseHTML) {
                                 if (formSubmission.method != FetchMethod.get) {
-                                    console.log("Clearing snapshot cache after successful form submission");
                                     this.view.clearSnapshotCache();
                                 }
                                 statusCode = fetchResponse.statusCode;
                                 visitOptions = { response: { statusCode: statusCode, responseHTML: responseHTML } };
-                                console.log("Visiting", fetchResponse.location, visitOptions);
                                 this.proposeVisit(fetchResponse.location, visitOptions);
                             }
                             _a.label = 2;
@@ -2248,10 +2853,26 @@ Copyright © 2020 Basecamp, LLC
             });
         };
         Navigator.prototype.formSubmissionFailedWithResponse = function (formSubmission, fetchResponse) {
-            console.error("Form submission failed", formSubmission, fetchResponse);
+            return __awaiter(this, void 0, void 0, function () {
+                var responseHTML, snapshot;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4, fetchResponse.responseHTML];
+                        case 1:
+                            responseHTML = _a.sent();
+                            if (!responseHTML) return [3, 3];
+                            snapshot = PageSnapshot.fromHTMLString(responseHTML);
+                            return [4, this.view.renderPage(snapshot)];
+                        case 2:
+                            _a.sent();
+                            this.view.clearSnapshotCache();
+                            _a.label = 3;
+                        case 3: return [2];
+                    }
+                });
+            });
         };
         Navigator.prototype.formSubmissionErrored = function (formSubmission, error) {
-            console.error("Form submission failed", formSubmission, error);
         };
         Navigator.prototype.formSubmissionFinished = function (formSubmission) {
         };
@@ -2284,7 +2905,6 @@ Copyright © 2020 Basecamp, LLC
         PageStage[PageStage["loading"] = 1] = "loading";
         PageStage[PageStage["interactive"] = 2] = "interactive";
         PageStage[PageStage["complete"] = 3] = "complete";
-        PageStage[PageStage["invalidated"] = 4] = "invalidated";
     })(PageStage || (PageStage = {}));
     var PageObserver = (function () {
         function PageObserver(delegate) {
@@ -2300,6 +2920,9 @@ Copyright © 2020 Basecamp, LLC
                     _this.pageIsComplete();
                 }
             };
+            this.pageWillUnload = function () {
+                _this.delegate.pageWillUnload();
+            };
             this.delegate = delegate;
         }
         PageObserver.prototype.start = function () {
@@ -2308,19 +2931,15 @@ Copyright © 2020 Basecamp, LLC
                     this.stage = PageStage.loading;
                 }
                 document.addEventListener("readystatechange", this.interpretReadyState, false);
+                addEventListener("pagehide", this.pageWillUnload, false);
                 this.started = true;
             }
         };
         PageObserver.prototype.stop = function () {
             if (this.started) {
                 document.removeEventListener("readystatechange", this.interpretReadyState, false);
+                removeEventListener("pagehide", this.pageWillUnload, false);
                 this.started = false;
-            }
-        };
-        PageObserver.prototype.invalidate = function () {
-            if (this.stage != PageStage.invalidated) {
-                this.stage = PageStage.invalidated;
-                this.delegate.pageInvalidated();
             }
         };
         PageObserver.prototype.pageIsInteractive = function () {
@@ -2374,78 +2993,11 @@ Copyright © 2020 Basecamp, LLC
         return ScrollObserver;
     }());
 
-    var StreamMessage = (function () {
-        function StreamMessage(html) {
-            this.templateElement = document.createElement("template");
-            this.templateElement.innerHTML = html;
-        }
-        StreamMessage.wrap = function (message) {
-            if (typeof message == "string") {
-                return new this(message);
-            }
-            else {
-                return message;
-            }
-        };
-        Object.defineProperty(StreamMessage.prototype, "fragment", {
-            get: function () {
-                var e_1, _a;
-                var fragment = document.createDocumentFragment();
-                try {
-                    for (var _b = __values(this.foreignElements), _c = _b.next(); !_c.done; _c = _b.next()) {
-                        var element = _c.value;
-                        fragment.appendChild(document.importNode(element, true));
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-                return fragment;
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(StreamMessage.prototype, "foreignElements", {
-            get: function () {
-                return this.templateChildren.reduce(function (streamElements, child) {
-                    if (child.tagName.toLowerCase() == "turbo-stream") {
-                        return __spread(streamElements, [child]);
-                    }
-                    else {
-                        return streamElements;
-                    }
-                }, []);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        Object.defineProperty(StreamMessage.prototype, "templateChildren", {
-            get: function () {
-                return Array.from(this.templateElement.content.children);
-            },
-            enumerable: false,
-            configurable: true
-        });
-        return StreamMessage;
-    }());
-
     var StreamObserver = (function () {
         function StreamObserver(delegate) {
             var _this = this;
             this.sources = new Set;
             this.started = false;
-            this.prepareFetchRequest = (function (event) {
-                var _a;
-                var fetchOptions = (_a = event.detail) === null || _a === void 0 ? void 0 : _a.fetchOptions;
-                if (fetchOptions) {
-                    var headers = fetchOptions.headers;
-                    headers.Accept = ["text/html; turbo-stream", headers.Accept].join(", ");
-                }
-            });
             this.inspectFetchResponse = (function (event) {
                 var response = fetchResponseFromEvent(event);
                 if (response && fetchResponseIsStream(response)) {
@@ -2463,14 +3015,12 @@ Copyright © 2020 Basecamp, LLC
         StreamObserver.prototype.start = function () {
             if (!this.started) {
                 this.started = true;
-                addEventListener("turbo:before-fetch-request", this.prepareFetchRequest, true);
                 addEventListener("turbo:before-fetch-response", this.inspectFetchResponse, false);
             }
         };
         StreamObserver.prototype.stop = function () {
             if (this.started) {
                 this.started = false;
-                removeEventListener("turbo:before-fetch-request", this.prepareFetchRequest, true);
                 removeEventListener("turbo:before-fetch-response", this.inspectFetchResponse, false);
             }
         };
@@ -2520,89 +3070,36 @@ Copyright © 2020 Basecamp, LLC
     function fetchResponseIsStream(response) {
         var _a;
         var contentType = (_a = response.contentType) !== null && _a !== void 0 ? _a : "";
-        return /text\/html;.*\bturbo-stream\b/.test(contentType);
+        return contentType.startsWith(StreamMessage.contentType);
     }
 
     function isAction(action) {
         return action == "advance" || action == "replace" || action == "restore";
     }
 
-    var Renderer = (function () {
-        function Renderer() {
-        }
-        Renderer.prototype.renderView = function (callback) {
-            this.delegate.viewWillRender(this.newBody);
-            callback();
-            this.delegate.viewRendered(this.newBody);
-        };
-        Renderer.prototype.invalidateView = function () {
-            this.delegate.viewInvalidated();
-        };
-        Renderer.prototype.createScriptElement = function (element) {
-            if (element.getAttribute("data-turbo-eval") == "false") {
-                return element;
-            }
-            else {
-                var createdScriptElement = document.createElement("script");
-                createdScriptElement.textContent = element.textContent;
-                createdScriptElement.async = false;
-                copyElementAttributes(createdScriptElement, element);
-                return createdScriptElement;
-            }
-        };
-        return Renderer;
-    }());
-    function copyElementAttributes(destinationElement, sourceElement) {
-        var e_1, _a;
-        try {
-            for (var _b = __values(__spread(sourceElement.attributes)), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var _d = _c.value, name_1 = _d.name, value = _d.value;
-                destinationElement.setAttribute(name_1, value);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-    }
-
     var ErrorRenderer = (function (_super) {
         __extends(ErrorRenderer, _super);
-        function ErrorRenderer(delegate, html) {
-            var _this = _super.call(this) || this;
-            _this.delegate = delegate;
-            _this.htmlElement = (function () {
-                var htmlElement = document.createElement("html");
-                htmlElement.innerHTML = html;
-                return htmlElement;
-            })();
-            _this.newHead = _this.htmlElement.querySelector("head") || document.createElement("head");
-            _this.newBody = _this.htmlElement.querySelector("body") || document.createElement("body");
-            return _this;
+        function ErrorRenderer() {
+            return _super !== null && _super.apply(this, arguments) || this;
         }
-        ErrorRenderer.render = function (delegate, callback, html) {
-            return new this(delegate, html).render(callback);
-        };
-        ErrorRenderer.prototype.render = function (callback) {
-            var _this = this;
-            this.renderView(function () {
-                _this.replaceHeadAndBody();
-                _this.activateBodyScriptElements();
-                callback();
+        ErrorRenderer.prototype.render = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    this.replaceHeadAndBody();
+                    this.activateScriptElements();
+                    return [2];
+                });
             });
         };
         ErrorRenderer.prototype.replaceHeadAndBody = function () {
             var documentElement = document.documentElement, head = document.head, body = document.body;
             documentElement.replaceChild(this.newHead, head);
-            documentElement.replaceChild(this.newBody, body);
+            documentElement.replaceChild(this.newElement, body);
         };
-        ErrorRenderer.prototype.activateBodyScriptElements = function () {
+        ErrorRenderer.prototype.activateScriptElements = function () {
             var e_1, _a;
             try {
-                for (var _b = __values(this.getScriptElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                for (var _b = __values(this.scriptElements), _c = _b.next(); !_c.done; _c = _b.next()) {
                     var replaceableElement = _c.value;
                     var parentNode = replaceableElement.parentNode;
                     if (parentNode) {
@@ -2619,10 +3116,222 @@ Copyright © 2020 Basecamp, LLC
                 finally { if (e_1) throw e_1.error; }
             }
         };
-        ErrorRenderer.prototype.getScriptElements = function () {
-            return __spread(document.documentElement.querySelectorAll("script"));
-        };
+        Object.defineProperty(ErrorRenderer.prototype, "newHead", {
+            get: function () {
+                return this.newSnapshot.headSnapshot.element;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(ErrorRenderer.prototype, "scriptElements", {
+            get: function () {
+                return __spread(document.documentElement.querySelectorAll("script"));
+            },
+            enumerable: false,
+            configurable: true
+        });
         return ErrorRenderer;
+    }(Renderer));
+
+    var PageRenderer = (function (_super) {
+        __extends(PageRenderer, _super);
+        function PageRenderer() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        Object.defineProperty(PageRenderer.prototype, "shouldRender", {
+            get: function () {
+                return this.newSnapshot.isVisitable && this.trackedElementsAreIdentical;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        PageRenderer.prototype.prepareToRender = function () {
+            this.mergeHead();
+        };
+        PageRenderer.prototype.render = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    this.replaceBody();
+                    return [2];
+                });
+            });
+        };
+        PageRenderer.prototype.finishRendering = function () {
+            _super.prototype.finishRendering.call(this);
+            if (this.isPreview) {
+                this.focusFirstAutofocusableElement();
+            }
+        };
+        Object.defineProperty(PageRenderer.prototype, "currentHeadSnapshot", {
+            get: function () {
+                return this.currentSnapshot.headSnapshot;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "newHeadSnapshot", {
+            get: function () {
+                return this.newSnapshot.headSnapshot;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "newElement", {
+            get: function () {
+                return this.newSnapshot.element;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        PageRenderer.prototype.mergeHead = function () {
+            this.copyNewHeadStylesheetElements();
+            this.copyNewHeadScriptElements();
+            this.removeCurrentHeadProvisionalElements();
+            this.copyNewHeadProvisionalElements();
+        };
+        PageRenderer.prototype.replaceBody = function () {
+            var _this = this;
+            this.preservingPermanentElements(function () {
+                _this.activateNewBody();
+                _this.assignNewBody();
+            });
+        };
+        Object.defineProperty(PageRenderer.prototype, "trackedElementsAreIdentical", {
+            get: function () {
+                return this.currentHeadSnapshot.trackedElementSignature == this.newHeadSnapshot.trackedElementSignature;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        PageRenderer.prototype.copyNewHeadStylesheetElements = function () {
+            var e_1, _a;
+            try {
+                for (var _b = __values(this.newHeadStylesheetElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var element = _c.value;
+                    document.head.appendChild(element);
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        };
+        PageRenderer.prototype.copyNewHeadScriptElements = function () {
+            var e_2, _a;
+            try {
+                for (var _b = __values(this.newHeadScriptElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var element = _c.value;
+                    document.head.appendChild(this.createScriptElement(element));
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        };
+        PageRenderer.prototype.removeCurrentHeadProvisionalElements = function () {
+            var e_3, _a;
+            try {
+                for (var _b = __values(this.currentHeadProvisionalElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var element = _c.value;
+                    document.head.removeChild(element);
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+        };
+        PageRenderer.prototype.copyNewHeadProvisionalElements = function () {
+            var e_4, _a;
+            try {
+                for (var _b = __values(this.newHeadProvisionalElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var element = _c.value;
+                    document.head.appendChild(element);
+                }
+            }
+            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_4) throw e_4.error; }
+            }
+        };
+        PageRenderer.prototype.activateNewBody = function () {
+            document.adoptNode(this.newElement);
+            this.activateNewBodyScriptElements();
+        };
+        PageRenderer.prototype.activateNewBodyScriptElements = function () {
+            var e_5, _a;
+            try {
+                for (var _b = __values(this.newBodyScriptElements), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var inertScriptElement = _c.value;
+                    var activatedScriptElement = this.createScriptElement(inertScriptElement);
+                    replaceElementWithElement(inertScriptElement, activatedScriptElement);
+                }
+            }
+            catch (e_5_1) { e_5 = { error: e_5_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_5) throw e_5.error; }
+            }
+        };
+        PageRenderer.prototype.assignNewBody = function () {
+            if (document.body && this.newElement instanceof HTMLBodyElement) {
+                replaceElementWithElement(document.body, this.newElement);
+            }
+            else {
+                document.documentElement.appendChild(this.newElement);
+            }
+        };
+        Object.defineProperty(PageRenderer.prototype, "newHeadStylesheetElements", {
+            get: function () {
+                return this.newHeadSnapshot.getStylesheetElementsNotInSnapshot(this.currentHeadSnapshot);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "newHeadScriptElements", {
+            get: function () {
+                return this.newHeadSnapshot.getScriptElementsNotInSnapshot(this.currentHeadSnapshot);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "currentHeadProvisionalElements", {
+            get: function () {
+                return this.currentHeadSnapshot.provisionalElements;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "newHeadProvisionalElements", {
+            get: function () {
+                return this.newHeadSnapshot.provisionalElements;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageRenderer.prototype, "newBodyScriptElements", {
+            get: function () {
+                return __spread(this.newElement.querySelectorAll("script"));
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return PageRenderer;
     }(Renderer));
 
     var SnapshotCache = (function () {
@@ -2632,7 +3341,7 @@ Copyright © 2020 Basecamp, LLC
             this.size = size;
         }
         SnapshotCache.prototype.has = function (location) {
-            return location.toCacheKey() in this.snapshots;
+            return toCacheKey(location) in this.snapshots;
         };
         SnapshotCache.prototype.get = function (location) {
             if (this.has(location)) {
@@ -2650,13 +3359,13 @@ Copyright © 2020 Basecamp, LLC
             this.snapshots = {};
         };
         SnapshotCache.prototype.read = function (location) {
-            return this.snapshots[location.toCacheKey()];
+            return this.snapshots[toCacheKey(location)];
         };
         SnapshotCache.prototype.write = function (location, snapshot) {
-            this.snapshots[location.toCacheKey()] = snapshot;
+            this.snapshots[toCacheKey(location)] = snapshot;
         };
         SnapshotCache.prototype.touch = function (location) {
-            var key = location.toCacheKey();
+            var key = toCacheKey(location);
             var index = this.keys.indexOf(key);
             if (index > -1)
                 this.keys.splice(index, 1);
@@ -2682,315 +3391,70 @@ Copyright © 2020 Basecamp, LLC
         return SnapshotCache;
     }());
 
-    var SnapshotRenderer = (function (_super) {
-        __extends(SnapshotRenderer, _super);
-        function SnapshotRenderer(delegate, currentSnapshot, newSnapshot, isPreview) {
-            var _this = _super.call(this) || this;
-            _this.delegate = delegate;
-            _this.currentSnapshot = currentSnapshot;
-            _this.currentHeadDetails = currentSnapshot.headDetails;
-            _this.newSnapshot = newSnapshot;
-            _this.newHeadDetails = newSnapshot.headDetails;
-            _this.newBody = newSnapshot.bodyElement;
-            _this.isPreview = isPreview;
+    var PageView = (function (_super) {
+        __extends(PageView, _super);
+        function PageView() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.snapshotCache = new SnapshotCache(10);
+            _this.lastRenderedLocation = new URL(location.href);
             return _this;
         }
-        SnapshotRenderer.render = function (delegate, callback, currentSnapshot, newSnapshot, isPreview) {
-            return new this(delegate, currentSnapshot, newSnapshot, isPreview).render(callback);
+        PageView.prototype.renderPage = function (snapshot, isPreview) {
+            if (isPreview === void 0) { isPreview = false; }
+            var renderer = new PageRenderer(this.snapshot, snapshot, isPreview);
+            return this.render(renderer);
         };
-        SnapshotRenderer.prototype.render = function (callback) {
-            var _this = this;
-            if (this.shouldRender()) {
-                this.mergeHead();
-                this.renderView(function () {
-                    _this.replaceBody();
-                    if (!_this.isPreview) {
-                        _this.focusFirstAutofocusableElement();
-                    }
-                    callback();
-                });
-            }
-            else {
-                this.invalidateView();
-            }
+        PageView.prototype.renderError = function (snapshot) {
+            var renderer = new ErrorRenderer(this.snapshot, snapshot, false);
+            this.render(renderer);
         };
-        SnapshotRenderer.prototype.mergeHead = function () {
-            this.copyNewHeadStylesheetElements();
-            this.copyNewHeadScriptElements();
-            this.removeCurrentHeadProvisionalElements();
-            this.copyNewHeadProvisionalElements();
-        };
-        SnapshotRenderer.prototype.replaceBody = function () {
-            var placeholders = this.relocateCurrentBodyPermanentElements();
-            this.activateNewBody();
-            this.assignNewBody();
-            this.replacePlaceholderElementsWithClonedPermanentElements(placeholders);
-        };
-        SnapshotRenderer.prototype.shouldRender = function () {
-            return this.newSnapshot.isVisitable() && this.trackedElementsAreIdentical();
-        };
-        SnapshotRenderer.prototype.trackedElementsAreIdentical = function () {
-            return this.currentHeadDetails.getTrackedElementSignature() == this.newHeadDetails.getTrackedElementSignature();
-        };
-        SnapshotRenderer.prototype.copyNewHeadStylesheetElements = function () {
-            var e_1, _a;
-            try {
-                for (var _b = __values(this.getNewHeadStylesheetElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var element = _c.value;
-                    document.head.appendChild(element);
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-        };
-        SnapshotRenderer.prototype.copyNewHeadScriptElements = function () {
-            var e_2, _a;
-            try {
-                for (var _b = __values(this.getNewHeadScriptElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var element = _c.value;
-                    document.head.appendChild(this.createScriptElement(element));
-                }
-            }
-            catch (e_2_1) { e_2 = { error: e_2_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_2) throw e_2.error; }
-            }
-        };
-        SnapshotRenderer.prototype.removeCurrentHeadProvisionalElements = function () {
-            var e_3, _a;
-            try {
-                for (var _b = __values(this.getCurrentHeadProvisionalElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var element = _c.value;
-                    document.head.removeChild(element);
-                }
-            }
-            catch (e_3_1) { e_3 = { error: e_3_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_3) throw e_3.error; }
-            }
-        };
-        SnapshotRenderer.prototype.copyNewHeadProvisionalElements = function () {
-            var e_4, _a;
-            try {
-                for (var _b = __values(this.getNewHeadProvisionalElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var element = _c.value;
-                    document.head.appendChild(element);
-                }
-            }
-            catch (e_4_1) { e_4 = { error: e_4_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_4) throw e_4.error; }
-            }
-        };
-        SnapshotRenderer.prototype.relocateCurrentBodyPermanentElements = function () {
-            var _this = this;
-            return this.getCurrentBodyPermanentElements().reduce(function (placeholders, permanentElement) {
-                var newElement = _this.newSnapshot.getPermanentElementById(permanentElement.id);
-                if (newElement) {
-                    var placeholder = createPlaceholderForPermanentElement(permanentElement);
-                    replaceElementWithElement(permanentElement, placeholder.element);
-                    replaceElementWithElement(newElement, permanentElement);
-                    return __spread(placeholders, [placeholder]);
-                }
-                else {
-                    return placeholders;
-                }
-            }, []);
-        };
-        SnapshotRenderer.prototype.replacePlaceholderElementsWithClonedPermanentElements = function (placeholders) {
-            var e_5, _a;
-            try {
-                for (var placeholders_1 = __values(placeholders), placeholders_1_1 = placeholders_1.next(); !placeholders_1_1.done; placeholders_1_1 = placeholders_1.next()) {
-                    var _b = placeholders_1_1.value, element = _b.element, permanentElement = _b.permanentElement;
-                    var clonedElement = permanentElement.cloneNode(true);
-                    replaceElementWithElement(element, clonedElement);
-                }
-            }
-            catch (e_5_1) { e_5 = { error: e_5_1 }; }
-            finally {
-                try {
-                    if (placeholders_1_1 && !placeholders_1_1.done && (_a = placeholders_1.return)) _a.call(placeholders_1);
-                }
-                finally { if (e_5) throw e_5.error; }
-            }
-        };
-        SnapshotRenderer.prototype.activateNewBody = function () {
-            document.adoptNode(this.newBody);
-            this.activateNewBodyScriptElements();
-        };
-        SnapshotRenderer.prototype.activateNewBodyScriptElements = function () {
-            var e_6, _a;
-            try {
-                for (var _b = __values(this.getNewBodyScriptElements()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var inertScriptElement = _c.value;
-                    var activatedScriptElement = this.createScriptElement(inertScriptElement);
-                    replaceElementWithElement(inertScriptElement, activatedScriptElement);
-                }
-            }
-            catch (e_6_1) { e_6 = { error: e_6_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_6) throw e_6.error; }
-            }
-        };
-        SnapshotRenderer.prototype.assignNewBody = function () {
-            if (document.body) {
-                replaceElementWithElement(document.body, this.newBody);
-            }
-            else {
-                document.documentElement.appendChild(this.newBody);
-            }
-        };
-        SnapshotRenderer.prototype.focusFirstAutofocusableElement = function () {
-            var element = this.newSnapshot.findFirstAutofocusableElement();
-            if (elementIsFocusable(element)) {
-                element.focus();
-            }
-        };
-        SnapshotRenderer.prototype.getNewHeadStylesheetElements = function () {
-            return this.newHeadDetails.getStylesheetElementsNotInDetails(this.currentHeadDetails);
-        };
-        SnapshotRenderer.prototype.getNewHeadScriptElements = function () {
-            return this.newHeadDetails.getScriptElementsNotInDetails(this.currentHeadDetails);
-        };
-        SnapshotRenderer.prototype.getCurrentHeadProvisionalElements = function () {
-            return this.currentHeadDetails.getProvisionalElements();
-        };
-        SnapshotRenderer.prototype.getNewHeadProvisionalElements = function () {
-            return this.newHeadDetails.getProvisionalElements();
-        };
-        SnapshotRenderer.prototype.getCurrentBodyPermanentElements = function () {
-            return this.currentSnapshot.getPermanentElementsPresentInSnapshot(this.newSnapshot);
-        };
-        SnapshotRenderer.prototype.getNewBodyScriptElements = function () {
-            return __spread(this.newBody.querySelectorAll("script"));
-        };
-        return SnapshotRenderer;
-    }(Renderer));
-    function createPlaceholderForPermanentElement(permanentElement) {
-        var element = document.createElement("meta");
-        element.setAttribute("name", "turbo-permanent-placeholder");
-        element.setAttribute("content", permanentElement.id);
-        return { element: element, permanentElement: permanentElement };
-    }
-    function replaceElementWithElement(fromElement, toElement) {
-        var parentElement = fromElement.parentElement;
-        if (parentElement) {
-            return parentElement.replaceChild(toElement, fromElement);
-        }
-    }
-    function elementIsFocusable(element) {
-        return element && typeof element.focus == "function";
-    }
-
-    var View = (function () {
-        function View(delegate) {
-            this.htmlElement = document.documentElement;
-            this.snapshotCache = new SnapshotCache(10);
-            this.delegate = delegate;
-        }
-        View.prototype.getRootLocation = function () {
-            return this.getSnapshot().getRootLocation();
-        };
-        View.prototype.getElementForAnchor = function (anchor) {
-            return this.getSnapshot().getElementForAnchor(anchor);
-        };
-        View.prototype.getSnapshot = function () {
-            return Snapshot.fromHTMLElement(this.htmlElement);
-        };
-        View.prototype.clearSnapshotCache = function () {
+        PageView.prototype.clearSnapshotCache = function () {
             this.snapshotCache.clear();
         };
-        View.prototype.shouldCacheSnapshot = function () {
-            return this.getSnapshot().isCacheable();
-        };
-        View.prototype.cacheSnapshot = function () {
+        PageView.prototype.cacheSnapshot = function () {
             return __awaiter(this, void 0, void 0, function () {
-                var snapshot, location_1;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var _a, snapshot, location_1;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
-                            if (!this.shouldCacheSnapshot()) return [3, 2];
+                            if (!this.shouldCacheSnapshot) return [3, 2];
                             this.delegate.viewWillCacheSnapshot();
-                            snapshot = this.getSnapshot();
-                            location_1 = this.lastRenderedLocation || Location.currentLocation;
-                            return [4, nextMicrotask()];
+                            _a = this, snapshot = _a.snapshot, location_1 = _a.lastRenderedLocation;
+                            return [4, nextEventLoopTick()];
                         case 1:
-                            _a.sent();
+                            _b.sent();
                             this.snapshotCache.put(location_1, snapshot.clone());
-                            _a.label = 2;
+                            _b.label = 2;
                         case 2: return [2];
                     }
                 });
             });
         };
-        View.prototype.getCachedSnapshotForLocation = function (location) {
+        PageView.prototype.getCachedSnapshotForLocation = function (location) {
             return this.snapshotCache.get(location);
         };
-        View.prototype.render = function (_a, callback) {
-            var snapshot = _a.snapshot, error = _a.error, isPreview = _a.isPreview;
-            this.markAsPreview(isPreview);
-            if (snapshot) {
-                this.renderSnapshot(snapshot, isPreview, callback);
-            }
-            else {
-                this.renderError(error, callback);
-            }
-        };
-        View.prototype.scrollToAnchor = function (anchor) {
-            var element = this.getElementForAnchor(anchor);
-            if (element) {
-                this.scrollToElement(element);
-            }
-            else {
-                this.scrollToPosition({ x: 0, y: 0 });
-            }
-        };
-        View.prototype.scrollToElement = function (element) {
-            element.scrollIntoView();
-        };
-        View.prototype.scrollToPosition = function (_a) {
-            var x = _a.x, y = _a.y;
-            window.scrollTo(x, y);
-        };
-        View.prototype.markAsPreview = function (isPreview) {
-            if (isPreview) {
-                this.htmlElement.setAttribute("data-turbo-preview", "");
-            }
-            else {
-                this.htmlElement.removeAttribute("data-turbo-preview");
-            }
-        };
-        View.prototype.renderSnapshot = function (snapshot, isPreview, callback) {
-            SnapshotRenderer.render(this.delegate, callback, this.getSnapshot(), snapshot, isPreview || false);
-        };
-        View.prototype.renderError = function (error, callback) {
-            ErrorRenderer.render(this.delegate, callback, error || "");
-        };
-        return View;
-    }());
+        Object.defineProperty(PageView.prototype, "snapshot", {
+            get: function () {
+                return PageSnapshot.fromElement(this.element);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(PageView.prototype, "shouldCacheSnapshot", {
+            get: function () {
+                return this.snapshot.isCacheable;
+            },
+            enumerable: false,
+            configurable: true
+        });
+        return PageView;
+    }(View));
 
     var Session = (function () {
         function Session() {
             this.navigator = new Navigator(this);
             this.history = new History(this);
-            this.view = new View(this);
+            this.view = new PageView(this, document.documentElement);
             this.adapter = new BrowserAdapter(this);
             this.pageObserver = new PageObserver(this);
             this.linkClickObserver = new LinkClickObserver(this);
@@ -3035,7 +3499,7 @@ Copyright © 2020 Basecamp, LLC
         };
         Session.prototype.visit = function (location, options) {
             if (options === void 0) { options = {}; }
-            this.navigator.proposeVisit(Location.wrap(location), options);
+            this.navigator.proposeVisit(expandURL(location), options);
         };
         Session.prototype.connectStreamSource = function (source) {
             this.streamObserver.connectStreamSource(source);
@@ -3078,28 +3542,30 @@ Copyright © 2020 Basecamp, LLC
             this.history.updateRestorationData({ scrollPosition: position });
         };
         Session.prototype.willFollowLinkToLocation = function (link, location) {
-            return this.linkIsVisitable(link)
+            return this.elementIsNavigable(link)
                 && this.locationIsVisitable(location)
                 && this.applicationAllowsFollowingLinkToLocation(link, location);
         };
         Session.prototype.followedLinkToLocation = function (link, location) {
             var action = this.getActionForLink(link);
-            this.visit(location, { action: action });
+            this.visit(location.href, { action: action });
         };
         Session.prototype.allowsVisitingLocation = function (location) {
             return this.applicationAllowsVisitingLocation(location);
         };
         Session.prototype.visitProposedToLocation = function (location, options) {
+            extendURLWithDeprecatedProperties(location);
             this.adapter.visitProposedToLocation(location, options);
         };
         Session.prototype.visitStarted = function (visit) {
+            extendURLWithDeprecatedProperties(visit.location);
             this.notifyApplicationAfterVisitingLocation(visit.location);
         };
         Session.prototype.visitCompleted = function (visit) {
             this.notifyApplicationAfterPageLoad(visit.getTimingMetrics());
         };
         Session.prototype.willSubmitForm = function (form, submitter) {
-            return true;
+            return this.elementIsNavigable(form) && this.elementIsNavigable(submitter);
         };
         Session.prototype.formSubmitted = function (form, submitter) {
             this.navigator.submitForm(form, submitter);
@@ -3109,25 +3575,27 @@ Copyright © 2020 Basecamp, LLC
             this.notifyApplicationAfterPageLoad();
         };
         Session.prototype.pageLoaded = function () {
+            this.history.assumeControlOfScrollRestoration();
         };
-        Session.prototype.pageInvalidated = function () {
-            this.adapter.pageInvalidated();
+        Session.prototype.pageWillUnload = function () {
+            this.history.relinquishControlOfScrollRestoration();
         };
         Session.prototype.receivedMessageFromStream = function (message) {
             this.renderStreamMessage(message);
         };
-        Session.prototype.viewWillRender = function (newBody) {
-            this.notifyApplicationBeforeRender(newBody);
+        Session.prototype.viewWillCacheSnapshot = function () {
+            this.notifyApplicationBeforeCachingSnapshot();
         };
-        Session.prototype.viewRendered = function () {
+        Session.prototype.viewWillRenderSnapshot = function (_a, isPreview) {
+            var element = _a.element;
+            this.notifyApplicationBeforeRender(element);
+        };
+        Session.prototype.viewRenderedSnapshot = function (snapshot, isPreview) {
             this.view.lastRenderedLocation = this.history.location;
             this.notifyApplicationAfterRender();
         };
         Session.prototype.viewInvalidated = function () {
-            this.pageObserver.invalidate();
-        };
-        Session.prototype.viewWillCacheSnapshot = function () {
-            this.notifyApplicationBeforeCachingSnapshot();
+            this.adapter.pageInvalidated();
         };
         Session.prototype.applicationAllowsFollowingLinkToLocation = function (link, location) {
             var event = this.notifyApplicationAfterClickingLinkToLocation(link, location);
@@ -3138,13 +3606,13 @@ Copyright © 2020 Basecamp, LLC
             return !event.defaultPrevented;
         };
         Session.prototype.notifyApplicationAfterClickingLinkToLocation = function (link, location) {
-            return dispatch("turbo:click", { target: link, detail: { url: location.absoluteURL }, cancelable: true });
+            return dispatch("turbo:click", { target: link, detail: { url: location.href }, cancelable: true });
         };
         Session.prototype.notifyApplicationBeforeVisitingLocation = function (location) {
-            return dispatch("turbo:before-visit", { detail: { url: location.absoluteURL }, cancelable: true });
+            return dispatch("turbo:before-visit", { detail: { url: location.href }, cancelable: true });
         };
         Session.prototype.notifyApplicationAfterVisitingLocation = function (location) {
-            return dispatch("turbo:visit", { detail: { url: location.absoluteURL } });
+            return dispatch("turbo:visit", { detail: { url: location.href } });
         };
         Session.prototype.notifyApplicationBeforeCachingSnapshot = function () {
             return dispatch("turbo:before-cache");
@@ -3157,14 +3625,14 @@ Copyright © 2020 Basecamp, LLC
         };
         Session.prototype.notifyApplicationAfterPageLoad = function (timing) {
             if (timing === void 0) { timing = {}; }
-            return dispatch("turbo:load", { detail: { url: this.location.absoluteURL, timing: timing } });
+            return dispatch("turbo:load", { detail: { url: this.location.href, timing: timing } });
         };
         Session.prototype.getActionForLink = function (link) {
             var action = link.getAttribute("data-turbo-action");
             return isAction(action) ? action : "advance";
         };
-        Session.prototype.linkIsVisitable = function (link) {
-            var container = link.closest("[data-turbo]");
+        Session.prototype.elementIsNavigable = function (element) {
+            var container = element === null || element === void 0 ? void 0 : element.closest("[data-turbo]");
             if (container) {
                 return container.getAttribute("data-turbo") != "false";
             }
@@ -3173,10 +3641,27 @@ Copyright © 2020 Basecamp, LLC
             }
         };
         Session.prototype.locationIsVisitable = function (location) {
-            return location.isPrefixedBy(this.view.getRootLocation()) && location.isHTML();
+            return isPrefixedBy(location, this.snapshot.rootLocation) && isHTML(location);
         };
+        Object.defineProperty(Session.prototype, "snapshot", {
+            get: function () {
+                return this.view.snapshot;
+            },
+            enumerable: false,
+            configurable: true
+        });
         return Session;
     }());
+    function extendURLWithDeprecatedProperties(url) {
+        Object.defineProperties(url, deprecatedLocationPropertyDescriptors);
+    }
+    var deprecatedLocationPropertyDescriptors = {
+        absoluteURL: {
+            get: function () {
+                return this.toString();
+            }
+        }
+    };
 
     var session = new Session;
     var navigator = session.navigator;
