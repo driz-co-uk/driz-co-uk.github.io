@@ -42,6 +42,10 @@ b, strong {
     font-weight: 600;
 }
 
+abbr[title] {
+    text-decoration: none;
+}
+
 a {
     color: #CCCCCC;
     font-weight: 600;
@@ -50,6 +54,9 @@ a {
     &:hover {
         color: #00AAFF;
     }
+}
+.blue {
+    color: #00AAFF;
 }
 
 .link {
@@ -187,8 +194,8 @@ p {
 }
 
 .title {
-    @include fluid-font-size(320px, 1200px, 40px, 64px);
-    @include fluid-line-height(320px, 1200px, 48px, 72px);
+    @include fluid-font-size(320px, 1200px, 40px, 56px);
+    @include fluid-line-height(320px, 1200px, 48px, 64px);
     margin-bottom: 32px;
     font-weight: 800;
     color: #ffffff;
