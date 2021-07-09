@@ -110,7 +110,7 @@ p {
         padding-right: calc(env(safe-area-inset-right) + 20px);
     }
     @media (min-width: 768px) {
-        max-width: 680px; // extra 40 to allow for padding
+        max-width: 704px; // extra 64 to allow for padding
         padding: 32px 32px;
     }
     @media (max-width: 991px) {
@@ -125,7 +125,7 @@ p {
             "intro photo"
             "footer footer";
         grid-column-gap: 32px;
-        max-width: 1200px;
+        max-width: 1320px;
         align-items: center;
         .contact {
             grid-area: contact;
