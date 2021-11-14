@@ -1,7 +1,19 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "mixins";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://rsms.me/inter/inter.css');
+
+html {
+    font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+    html {
+        font-family: 'Inter var', sans-serif;
+    }
+}
 
 * {
     margin: 0;
@@ -12,14 +24,14 @@
 }
 
 ::selection {
-    color: #000000; 
+    color: #000000;
     background: #00AAFF;
 }
 
 body {
     background-color: #000000;
     color: #CCCCCC;
-    font-family: 'Poppins', sans-serif;
+    //font-family: 'Poppins', sans-serif;
     font-size: 16px;
     line-height: 24px;
     overflow-x: hidden;
@@ -29,7 +41,8 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -38,7 +51,8 @@ img {
     max-width: 100%;
 }
 
-b, strong {
+b,
+strong {
     font-weight: 600;
 }
 
@@ -48,13 +62,15 @@ abbr[title] {
 
 a {
     color: #CCCCCC;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
     transition: all .2s ease-in-out;
+
     &:hover {
         color: #00AAFF;
     }
 }
+
 .blue {
     color: #00AAFF;
 }
@@ -64,6 +80,7 @@ a {
     color: #CCCCCC;
     position: relative;
     white-space: nowrap;
+
     &:after {
         content: '';
         position: absolute;
@@ -75,8 +92,10 @@ a {
         background-color: #00AAFF;
         transition: all .2s ease-in-out;
     }
+
     &:hover {
         color: #000000;
+
         &:after {
             height: 24px;
         }
@@ -97,6 +116,7 @@ p {
 .container {
     margin: auto;
     min-height: 100%;
+
     @media (max-width: 767px) {
         max-width: 640px;
         padding: 32px 16px;
@@ -109,13 +129,16 @@ p {
         padding-right: calc(constant(safe-area-inset-right) + 20px);
         padding-right: calc(env(safe-area-inset-right) + 20px);
     }
+
     @media (min-width: 768px) {
         max-width: 704px; // extra 64 to allow for padding
         padding: 32px 32px;
     }
+
     @media (max-width: 991px) {
         text-align: center;
     }
+
     @media (min-width: 992px) {
         display: grid;
         grid-template-columns: 2fr 1fr;
@@ -127,21 +150,26 @@ p {
         grid-column-gap: 32px;
         max-width: 1320px;
         align-items: center;
+
         .contact {
             grid-area: contact;
             align-self: end;
             margin-bottom: 32px;
         }
+
         .logo {
             grid-area: logo;
             align-self: end;
         }
+
         .intro {
             grid-area: intro;
         }
+
         .photo {
             grid-area: photo;
         }
+
         .footer {
             grid-area: footer;
             align-self: start;
@@ -152,12 +180,15 @@ p {
 .logo {
     @media (max-width: 991px) {
         margin-bottom: 32px;
+
         img {
             height: 48px;
         }
     }
+
     @media (min-width: 992px) {
         margin-bottom: 32px;
+
         img {
             height: 64px;
         }
@@ -167,24 +198,30 @@ p {
 .contact {
     list-style: none;
     margin: 0;
+
     .contact__item {
         margin-bottom: 4px;
+
         &:last-child {
             margin-bottom: 0;
         }
+
         @media (min-width: 992px) {
             display: flex;
             justify-content: flex-end;
         }
+
         .contact__link {
             @media (max-width: 991px) {
                 .contact__icon {
                     display: none;
                 }
             }
+
             @media (min-width: 992px) {
                 display: flex;
                 align-items: center;
+
                 .contact__icon {
                     margin-left: 4px;
                 }
@@ -194,10 +231,10 @@ p {
 }
 
 .title {
-    @include fluid-font-size(320px, 1200px, 40px, 56px);
-    @include fluid-line-height(320px, 1200px, 48px, 64px);
+    @include fluid-font-size(320px, 1200px, 40px, 64px);
+    @include fluid-line-height(320px, 1200px, 48px, 72px);
     margin-bottom: 32px;
-    font-weight: 800;
+    font-weight: 900;
     color: #ffffff;
 }
 
@@ -253,6 +290,7 @@ p {
         border-radius: 50%;
         filter: grayscale(1);
     }
+
     @media (max-width: 991px) {
         margin: 32px auto;
         max-width: 66.6666666666%;
@@ -261,44 +299,56 @@ p {
 
 .footer {
     display: flex;
+
     @media (max-width: 991px) {
         margin-top: 32px;
         flex-flow: column nowrap;
     }
+
     @media (min-width: 992px) {
         margin-top: 32px;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
     }
+
     .social {
         list-style: none;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+
         @media (max-width: 991px) {
             margin-top: 32px;
+
             &:first-child {
                 margin-top: 0;
             }
+
             justify-content: center;
         }
+
         @media (min-width: 992px) {
             &:first-child {
                 margin-right: 32px;
             }
         }
+
         .social__item {
             margin-right: 8px;
+
             &:last-child {
                 margin-right: 0;
             }
+
             .social__link {
                 font-weight: normal;
+
                 .social__icon {
                     @media (max-width: 991px) {
                         font-size: 24px;
                     }
+
                     @media (min-width: 992px) {
                         font-size: 32px;
                     }
@@ -306,13 +356,16 @@ p {
             }
         }
     }
+
     .copyright {
         font-size: 10px;
         line-height: 18px;
         color: #666666;
+
         @media (max-width: 991px) {
             margin-top: 32px;
         }
+
         @media (min-width: 992px) {
             text-align: right;
         }
