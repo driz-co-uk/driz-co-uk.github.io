@@ -234,6 +234,7 @@ p {
 .title {
     @include fluid-font-size(320px, 1200px, 40px, 64px);
     @include fluid-line-height(320px, 1200px, 48px, 72px);
+    letter-spacing: -1px;
     margin-bottom: 32px;
     font-weight: 900;
     color: #ffffff;
@@ -288,8 +289,7 @@ p {
     img {
         border: #ffffff 8px solid;
         box-shadow: rgba(0, 0, 0, .125) 0 0 16px;
-        border-radius: 50%;
-        filter: grayscale(1);
+        border-radius: 50% 6.25% 6.25% 50%;
     }
 
     @media (max-width: 991px) {
