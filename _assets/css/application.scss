@@ -232,8 +232,8 @@ p {
 }
 
 .title {
-    @include fluid-font-size(320px, 1320px, 48px, 64px);
-    @include fluid-line-height(320px, 1320px, 56px, 72px);
+    @include fluid-font-size(320px, 1320px, 40px, 64px);
+    @include fluid-line-height(320px, 1320px, 48px, 72px);
     letter-spacing: -1px;
     margin-bottom: 32px;
     font-weight: 900;
