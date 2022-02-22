@@ -66,7 +66,7 @@ layout: default
                 </a>
             </li>
         </ul>
-        <p class="copyright">&copy; 1987-{{ "now" | date: "%Y" }} <b>Cameron Drysdale</b>. <br>Build: {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
+        <p class="copyright">&copy; 1987-<span class="now">{{ "now" | date: "%Y" }}</span> <b>Cameron Drysdale</b>. <br>Build: {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
     </div>
     
 </div>
