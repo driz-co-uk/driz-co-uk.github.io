@@ -8,7 +8,7 @@ gem 'uglifier'
 
 # used when running on Heroku or AWS
 gem 'rack-jekyll', '0.5.0'
-gem 'rake', '12.3.1'
+gem 'rake', '12.3.3'
 gem 'puma', '3.12.0'
 
 gem 'font-awesome-sass', '~> 5.8.1'
