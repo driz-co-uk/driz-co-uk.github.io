@@ -81,6 +81,10 @@ assets:
   source_maps: true # false on JEKYLL_ENV=production
   destination: "/assets"
   compression: true
+  compressors:
+    uglifier:
+      comments: false
+      harmony: true
   gzip: false
   defaults:
     js: { integrity: true } # true on JEKYLL_ENV=production
