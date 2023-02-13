@@ -236,8 +236,8 @@ p {
 }
 
 .title {
-  @include fluid-font-size(320px, 1320px, 48px, 72px);
-  @include fluid-line-height(320px, 1320px, 56px, 80px);
+  @include fluid-font-size(320px, 1320px, 40px, 72px);
+  @include fluid-line-height(320px, 1320px, 48px, 80px);
   letter-spacing: -0.5px;
   margin-bottom: 32px;
   font-weight: 900;
@@ -265,8 +265,8 @@ p {
 }
 
 .hello {
-  @include fluid-font-size(320px, 1320px, 24px, 32px);
-  @include fluid-line-height(320px, 1320px, 32px, 40px);
+  @include fluid-font-size(320px, 1320px, 24px, 40px);
+  @include fluid-line-height(320px, 1320px, 32px, 48px);
   margin-bottom: 16px;
 }
 
