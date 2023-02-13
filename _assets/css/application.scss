@@ -403,7 +403,9 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #00aaff, #55c6ff);
-  display: inline-block;
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
 }
 
 .gradient-2 {
@@ -411,7 +413,9 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #c026d3, #db2777);
-  display: inline-block;
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
 }
 
 .gradient-3 {
@@ -419,7 +423,9 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #fb923c, #fb7185);
-  display: inline-block;
+  @media (min-width: 768px) {
+    display: inline-block;
+  }
 }
 
 .animate-gradient-1 {
