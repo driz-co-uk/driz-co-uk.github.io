@@ -237,7 +237,7 @@ p {
 
 .title {
   @include fluid-font-size(320px, 1320px, 40px, 72px);
-  @include fluid-line-height(320px, 1320px, 48px, 80px);
+  @include fluid-line-height(320px, 1320px, 50px, 82px);
   letter-spacing: -0.5px;
   margin-bottom: 32px;
   font-weight: 900;
@@ -402,7 +402,8 @@ p {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  background-image: linear-gradient(to right, #00aaff, #80d5ff);
+  background-image: linear-gradient(to right, #00aaff, #55c6ff);
+  display: inline-block;
 }
 
 .gradient-2 {
@@ -410,6 +411,7 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #c026d3, #db2777);
+  display: inline-block;
 }
 
 .gradient-3 {
@@ -417,16 +419,17 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #fb923c, #fb7185);
+  display: inline-block;
 }
 
 .animate-gradient-1 {
-  animation: animate-gradient-1 8s infinite;
+  animation: animate-gradient-1 8000ms infinite;
 }
 .animate-gradient-2 {
-  animation: animate-gradient-2 8s infinite;
+  animation: animate-gradient-2 8000ms infinite;
 }
 .animate-gradient-3 {
-  animation: animate-gradient-3 8s infinite;
+  animation: animate-gradient-3 8000ms infinite;
 }
 
 @keyframes animate-gradient-1 {
