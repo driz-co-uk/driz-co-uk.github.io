@@ -26,7 +26,7 @@ html {
 
 ::selection {
   color: #000000;
-  background: #00aaff;
+  background: #3399ff;
 }
 
 body {
@@ -68,12 +68,12 @@ a {
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    color: #00aaff;
+    color: #3399ff;
   }
 }
 
 .blue {
-  color: #00aaff;
+  color: #3399ff;
 }
 
 .link {
@@ -90,7 +90,7 @@ a {
     right: 0;
     z-index: -1;
     height: 2px;
-    background-color: #00aaff;
+    background-color: #3399ff;
     transition: all 0.2s ease-in-out;
   }
 
@@ -238,7 +238,7 @@ p {
 .title {
   @include fluid-font-size(320px, 1320px, 40px, 72px);
   @include fluid-line-height(320px, 1320px, 50px, 82px);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.01em;
   margin-bottom: 32px;
   font-weight: 900;
   color: #ffffff;
@@ -265,9 +265,10 @@ p {
 }
 
 .hello {
-  @include fluid-font-size(320px, 1320px, 24px, 40px);
-  @include fluid-line-height(320px, 1320px, 32px, 48px);
+  @include fluid-font-size(320px, 1320px, 20px, 36px);
+  @include fluid-line-height(320px, 1320px, 28px, 44px);
   margin-bottom: 16px;
+  font-weight: 300;
 }
 
 .wave {
@@ -402,7 +403,7 @@ p {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  background-image: linear-gradient(to right, #00aaff, #55c6ff);
+  background-image: linear-gradient(to right, #3399ff, rgb(107, 217, 104));
   @media (min-width: 768px) {
     display: inline-block;
   }
@@ -412,7 +413,11 @@ p {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  background-image: linear-gradient(to right, #c026d3, #db2777);
+  background-image: linear-gradient(
+    to right,
+    rgb(107, 217, 104),
+    rgb(254, 204, 27)
+  );
   @media (min-width: 768px) {
     display: inline-block;
   }
@@ -422,7 +427,11 @@ p {
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  background-image: linear-gradient(to right, #fb923c, #fb7185);
+  background-image: linear-gradient(
+    to right,
+    rgb(254, 204, 27),
+    rgb(244, 66, 80)
+  );
   @media (min-width: 768px) {
     display: inline-block;
   }
