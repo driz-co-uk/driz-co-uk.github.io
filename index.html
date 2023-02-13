@@ -3,73 +3,127 @@ layout: default
 ---
 
 <div class="container">
+  <div class="logo">{% asset 'logo.svg' alt:'driz logo' %}</div>
 
-    <div class="logo">{% asset 'logo.svg' alt:'driz logo' %}</div>
+  <div class="intro">
+    <p class="hello">
+      <span class="greeting">Hello</span>, I'm <strong>Cameron</strong>.
+      <span class="wave">👋🏻</span>
+    </p>
+    <h1 class="title">
+      <span class="gradient-1 animate-gradient-1">Software engineer,</span>
+      <span class="gradient-2 animate-gradient-2"
+        ><abbr title="User Interface">UI</abbr>/<abbr title="User Experience"
+          >UX</abbr
+        >
+        designer,</span
+      >
+      <span class="gradient-3 animate-gradient-3">and photographer.</span>
+    </h1>
+    <p>
+      Web Team Lead at
+      <a href="https://www.thefloow.com" target="_blank">The Floow</a>, based in
+      <a
+        href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter"
+        target="_blank"
+        rel="external"
+        >Kelham Island</a
+      >, Sheffield, UK.
+    </p>
+    {% comment %}
+    <p>
+      Photographer at
+      <a href="https://drysdale.photography" target="_blank" rel="external"
+        >Drysdale Photography</a
+      >.
+    </p>
+    {% endcomment %}
+  </div>
 
-    <div class="intro">
-        <p class="hello"><span class="greeting">Hello</span>, I'm <strong>Cameron</strong>. <span class="wave">👋🏻</span></p>
-        <h1 class="title">Software engineer, <abbr title="User Interface">UI</abbr>/<abbr title="User Experience">UX</abbr> designer, photographer, and mountain biker<span class="blue">.</span></h1>
-        <p>Web Team Lead at <a href="https://www.thefloow.com" target="_blank">The Floow</a>, based in
-            <a href="https://en.wikipedia.org/wiki/Kelham_Island_Quarter" target="_blank" rel="external">Kelham
-                Island</a>, Sheffield, UK.</p>
-        {% comment %}<p>Photographer at <a href="https://drysdale.photography" target="_blank" rel="external">Drysdale Photography</a>.</p>{% endcomment %}
-    </div>
+  <div class="photo">{% asset 'cameron.jpg' alt:'Photo of Cameron' %}</div>
 
-    <div class="photo">
-        {% asset 'cameron.jpg' alt:'Photo of Cameron' %}
-    </div>
+  <ul class="contact">
+    <li class="contact__item">
+      <a class="contact__link" href="tel:+447702580565" target="_blank">
+        <span class="contact__text">07702 580 565</span>
+        <i class="contact__icon far fa-mobile fa-fw"></i>
+      </a>
+    </li>
+    <li class="contact__item">
+      <a class="contact__link" href="mailto:cameron@driz.co.uk" target="_blank">
+        <span class="contact__text">cameron@driz.co.uk</span>
+        <i class="contact__icon far fa-envelope-open fa-fw"></i>
+      </a>
+    </li>
+  </ul>
 
-    <ul class="contact">
-        <li class="contact__item">
-            <a class="contact__link" href="tel:+447702580565" target="_blank">
-                <span class="contact__text">07702 580 565</span>
-                <i class="contact__icon far fa-mobile fa-fw"></i>
-            </a>
-        </li>
-        <li class="contact__item">
-            <a class="contact__link" href="mailto:cameron@driz.co.uk" target="_blank">
-                <span class="contact__text">cameron@driz.co.uk</span>
-                <i class="contact__icon far fa-envelope-open fa-fw"></i>
-            </a>
-        </li>
+  <div class="footer">
+    <ul class="social">
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://twitter.com/driz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-twitter fa-fw"></i>
+        </a>
+      </li>
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://facebook.com/iamdriz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-facebook fa-fw"></i>
+        </a>
+      </li>
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://linkedin.com/in/iamdriz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-linkedin fa-fw"></i>
+        </a>
+      </li>
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://instagram.com/iamdriz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-instagram fa-fw"></i>
+        </a>
+      </li>
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://dribbble.com/driz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-dribbble fa-fw"></i>
+        </a>
+      </li>
+      <li class="social__item">
+        <a
+          class="social__link"
+          href="https://github.com/iamdriz"
+          target="_blank"
+          rel="external"
+        >
+          <i class="social__icon fab fa-github fa-fw"></i>
+        </a>
+      </li>
     </ul>
-
-    <div class="footer">
-        <ul class="social">
-            <li class="social__item">
-                <a class="social__link" href="https://twitter.com/driz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-twitter fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item">
-                <a class="social__link" href="https://facebook.com/iamdriz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-facebook fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item">
-                <a class="social__link" href="https://linkedin.com/in/iamdriz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-linkedin fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item">
-                <a class="social__link" href="https://instagram.com/iamdriz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-instagram fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item">
-                <a class="social__link" href="https://dribbble.com/driz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-dribbble fa-fw"></i>
-                </a>
-            </li>
-            <li class="social__item">
-                <a class="social__link" href="https://github.com/iamdriz" target="_blank" rel="external">
-                    <i class="social__icon fab fa-github fa-fw"></i>
-                </a>
-            </li>
-        </ul>
-        <p class="copyright">&copy; 1987-<span class="year">{{ "now" | date: "%Y" }}</span> <b>Cameron Drysdale</b>. <br>Build: {{ site.git.last_commit.commit_date | date: "%Y.%m.%d" }}.{{ site.git.total_commits }}</p>
-    </div>
-    
+    <p class="copyright">
+      &copy; 1987-<span class="year">{{ "now" | date: "%Y" }}</span>
+      <b>Cameron Drysdale</b>. <br />{{ site.git.last_commit.commit_date | date:
+      "%Y.%m.%d" }}.{{ site.git.total_commits }}
+    </p>
+  </div>
 </div>
-
-

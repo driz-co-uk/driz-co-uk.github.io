@@ -36,7 +36,7 @@ GEM
     extras (0.3.0)
       forwardable-extended (~> 2.5)
     fastimage (2.2.6)
-    ffi (1.11.1)
+    ffi (1.15.5)
     font-awesome-sass (5.8.1)
       sassc (>= 1.11)
     forwardable-extended (2.6.0)
@@ -132,7 +132,7 @@ DEPENDENCIES
   uglifier
 
 RUBY VERSION
-   ruby 2.6.0p0
+   ruby 2.6.9p207
 
 BUNDLED WITH
    2.2.22
