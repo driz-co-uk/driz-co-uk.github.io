@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="container">
-  <div class="logo">{% asset 'logo.svg' alt:'driz logo' %}</div>
+  <div class="logo">{% asset 'logo.svg' alt="driz logo" %}</div>
 
   <div class="intro">
     <p class="hello">
@@ -49,7 +49,9 @@ layout: default
     {% endcomment %}
   </div>
 
-  <div class="photo">{% asset 'cameron.jpg' alt:'Photo of Cameron' %}</div>
+  <div class="photo">
+    {% asset 'cameron.jpg' alt="Photo of Cameron" width="1024" height="1280" %}
+  </div>
 
   <ul class="contact">
     <li class="contact__item">
