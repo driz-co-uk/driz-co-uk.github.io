@@ -402,6 +402,9 @@ p {
       }
 
       .social__link {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         font-weight: normal;
 
         .social__icon {
@@ -412,6 +415,10 @@ p {
           @media (min-width: 992px) {
             font-size: 32px;
           }
+        }
+
+        &:hover {
+          transform: scale(1.2);
         }
       }
     }
@@ -437,9 +444,6 @@ p {
   -webkit-background-clip: text;
   background-clip: text;
   background-image: linear-gradient(to right, #3399ff, rgb(107, 217, 104));
-  @media (min-width: 768px) {
-    display: inline-block;
-  }
 }
 
 .gradient-2 {
@@ -451,9 +455,6 @@ p {
     rgb(107, 217, 104),
     rgb(254, 204, 27)
   );
-  @media (min-width: 768px) {
-    display: inline-block;
-  }
 }
 
 .gradient-3 {
@@ -465,9 +466,6 @@ p {
     rgb(254, 204, 27),
     rgb(244, 66, 80)
   );
-  @media (min-width: 768px) {
-    display: inline-block;
-  }
 }
 
 .animate-gradient-1 {
@@ -517,5 +515,16 @@ p {
   66.667%,
   83.333% {
     color: transparent;
+  }
+}
+
+@media (min-width: 768px) {
+  .desktop-block {
+    display: block;
+  }
+}
+@media (max-width: 767px) {
+  .mobile-block {
+    display: block;
   }
 }
