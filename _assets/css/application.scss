@@ -2,16 +2,13 @@
 //@import "font-awesome";
 @import "vendor/fontawesome";
 @import "mixins";
-//@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-@import url("https://rsms.me/inter/inter.css");
-
-html {
+:root {
   font-family: "Inter", sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
-  html {
+  :root {
     font-family: "Inter var", sans-serif;
   }
 }
@@ -32,9 +29,9 @@ html {
 body {
   background-color: #000000;
   color: #cccccc;
-  //font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 24px;
+  letter-spacing: -0.011em;
   overflow-x: hidden;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -65,6 +62,7 @@ a {
   color: #cccccc;
   font-weight: 700;
   text-decoration: none;
+  text-underline-offset: 4px;
   transition: all 0.2s ease-in-out;
 
   &:hover {
@@ -109,6 +107,10 @@ p {
   margin-bottom: 16px;
   &:last-child {
     margin-bottom: 0;
+  }
+  a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 }
 
@@ -238,7 +240,6 @@ p {
 .title {
   @include fluid-font-size(320px, 1320px, 40px, 72px);
   @include fluid-line-height(320px, 1320px, 50px, 82px);
-  letter-spacing: -0.01em;
   margin-bottom: 32px;
   font-weight: 900;
   color: #ffffff;
