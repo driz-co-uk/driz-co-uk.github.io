@@ -1,6 +1,7 @@
 //@import "font-awesome-sprockets";
 //@import "font-awesome";
 @import "vendor/fontawesome";
+@import "vendor/animate";
 @import "mixins";
 
 :root {
@@ -28,6 +29,10 @@
 
 body {
   background-color: #000000;
+  // background-image: asset_url("bg_grid.png");
+  // background-position: center bottom 12.5%;
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
   color: #c0c0c0;
   font-size: 16px;
   line-height: 24px;

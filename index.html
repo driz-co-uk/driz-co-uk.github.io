@@ -3,14 +3,16 @@ layout: default
 ---
 
 <div class="container">
-  <div class="logo">{% asset 'logo.svg' alt="driz logo" %}</div>
+  <div class="logo animate__animated animate__fadeIn">
+    {% asset 'logo.svg' alt="driz logo" %}
+  </div>
 
   <div class="intro">
-    <p class="hello">
+    <p class="hello animate__animated animate__fadeIn">
       <span class="greeting">Hello</span>, I'm <strong>Cameron</strong>
       <span class="wave">👋🏻</span>
     </p>
-    <h1 class="title">
+    <h1 class="title animate__animated animate__fadeIn">
       <span class="desktop-block gradient-1 animate-gradient-1"
         >Software engineer,</span
       >
@@ -24,7 +26,7 @@ layout: default
         >and photographer.</span
       >
     </h1>
-    <p>
+    <p class="animate__animated animate__fadeIn">
       <span class="mobile-block"
         >Web Team Lead at
         <a href="https://www.thefloow.com" target="_blank" rel="external"
@@ -42,7 +44,7 @@ layout: default
       >
     </p>
     {% comment %}
-    <p>
+    <p class="animate__animated animate__fadeIn">
       <span class="mobile-block"
         >Freelance photographer at
         <a href="https://drysdale.photography" target="_blank" rel="external"
@@ -59,11 +61,11 @@ layout: default
     {% endcomment %}
   </div>
 
-  <div class="photo">
+  <div class="photo animate__animated animate__fadeIn">
     {% asset 'cameron.jpg' alt="Photo of Cameron" width="1024" height="1280" %}
   </div>
 
-  <ul class="contact">
+  <ul class="contact animate__animated animate__fadeIn">
     <li class="contact__item">
       <a class="contact__link" href="tel:+447702580565" target="_blank">
         <span class="contact__text">+44 (0)7702 580 565</span>
@@ -79,7 +81,7 @@ layout: default
   </ul>
 
   <div class="footer">
-    <ul class="social">
+    <ul class="social animate__animated animate__fadeIn">
       <li class="social__item">
         <a
           class="social__link"
@@ -141,7 +143,7 @@ layout: default
         </a>
       </li>
     </ul>
-    <p class="copyright">
+    <p class="copyright animate__animated animate__fadeIn">
       &copy; 1987-<span class="year">{{ "now" | date: "%Y" }}</span>
       <b>Cameron Drysdale</b>.<br />{{ site.git.last_commit.commit_date | date:
       "%Y.%m.%d" }}.{{ site.git.total_commits }}
