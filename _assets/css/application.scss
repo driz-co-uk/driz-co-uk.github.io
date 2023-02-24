@@ -216,6 +216,10 @@ p {
   .contact__item {
     margin-bottom: 4px;
 
+    @media (max-width: 991px) {
+      margin-bottom: 8px;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
