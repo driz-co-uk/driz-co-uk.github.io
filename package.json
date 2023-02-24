@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "dependencies": {
+    "imagemin": "^8.0.1",
+    "imagemin-webp": "^8.0.0"
+  }
+}

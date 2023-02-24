@@ -62,7 +62,11 @@ layout: default
   </div>
 
   <div class="photo animate__animated animate__fadeIn">
-    {% asset 'cameron.jpg' alt="Photo of Cameron" width="1024" height="1280" %}
+    <picture>
+      <source type="image/webp" srcset="{% asset 'cameron.webp' @path %}" />
+      {% asset 'cameron.jpg' alt="Photo of Cameron taken in 2022" width="1024"
+      height="1280" %}
+    </picture>
   </div>
 
   <ul class="contact animate__animated animate__fadeIn">
