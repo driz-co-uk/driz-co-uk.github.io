@@ -16,7 +16,7 @@ await imagemin(["assets/img/*.{jpg,png}"], {
   ],
 });
 
-await imagemin(["_assets/img/*.{jpg,png}"], {
+await imagemin(["assets/img/*.{jpg,png}"], {
   destination: "_assets/img",
   plugins: [
     imageminWebp({
